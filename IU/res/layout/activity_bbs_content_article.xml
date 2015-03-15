@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 显示article内容的布局 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/activity_bbscontent_article_iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="?background" />
+
+    <FrameLayout
+        android:id="@+id/activity_bbscontent_article_fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000" >
+
+            <external.PullToRefresh.PullToRefreshMyScrollView
+                xmlns:ptr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/activity_bbscontent_article_sv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:scrollbars="none"
+                ptr:ptrAnimationStyle="flip"
+                ptr:ptrMode="both" >
+
+                <LinearLayout
+                    android:id="@+id/activity_bbscontent_article_ll_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp" >
+                </LinearLayout>
+            </external.PullToRefresh.PullToRefreshMyScrollView>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_bbscontent_article_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_bbslist_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="selfFinish"
+                android:scaleType="fitXY"
+                android:src="?back" />
+
+            <com.aiyou.view.ScrollTextView
+                android:id="@+id/activity_bbscontent_article_stv_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="?font_white" />
+
+            <ImageView
+                android:id="@+id/activity_bbscontent_article_iv_popmenu"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="showPopmenu"
+                android:scaleType="fitXY"
+                android:src="?popmenu" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <include layout="@layout/reply" />
+
+    <include layout="@layout/page_drawer" />
+
+    <FrameLayout
+        android:id="@+id/activity_bbscontent_article_fr_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone" >
+
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_bbscontent_article_ll_ive"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/background_face"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx
+            android:id="@+id/activity_bbscontent_article_ive"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_bbscontent_article_fl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="top"
+            android:background="?background_bbslist_title"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onShare"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="?share" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:textColor="?font_white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onCopy"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="?copy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy"
+                    android:textColor="?font_white" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/activity_bbscontent_article_iv_help"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88ffffff"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:scaleType="centerInside"
+        android:src="@drawable/face_help"
+        android:visibility="gone" />
+
+</merge>

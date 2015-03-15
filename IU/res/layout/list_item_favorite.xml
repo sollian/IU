@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#009c"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingRight="2dp" >
+
+    <com.aiyou.view.ScrollTextView
+        android:id="@+id/stv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="?font_white"
+        android:textSize="16sp" />
+
+    <com.aiyou.view.DarkImageView
+        android:id="@+id/div"
+        android:layout_width="25dp"
+        android:layout_height="40dp"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/collect" />
+
+    <external.OtherView.Win8ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#09c"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <external.ArcMenu.ArcLayout
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        custom:childSize="54dp"
+        custom:fromDegrees="270.0"
+        custom:toDegrees="360.0" />
+
+    <FrameLayout
+        android:id="@+id/control_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:id="@+id/control_hint"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:contentDescription="@null"
+            android:duplicateParentState="true"
+            android:src="@drawable/main_main" />
+    </FrameLayout>
+
+</merge>

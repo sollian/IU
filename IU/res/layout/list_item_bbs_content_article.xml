@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_bbcontent_article_ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#00000000" />
+
+    <LinearLayout
+        android:id="@+id/list_item_bbcontent_article_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_list_day"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal" >
+
+            <external.OtherView.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+                android:id="@+id/list_item_bbcontent_article_civ_face"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/iu_default_green"
+                app:border_width="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_item_bbcontent_article_tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/author"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/list_item_bbcontent_article_tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/date"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <external.OtherView.SizeAdjustingTextView
+                android:id="@+id/list_item_bbscontent_article_tv_layor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:gravity="center_vertical|right"
+                android:singleLine="true"
+                android:textColor="#ff6600"
+                android:textSize="25sp" />
+        </LinearLayout>
+<!-- 
+        <WebView
+            android:id="@+id/list_item_bbcontent_article_wv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+ -->
+ 		<LinearLayout 
+ 		    android:id="@+id/list_item_bbcontent_article_ll_content"
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:gravity="center_horizontal"
+ 		    android:orientation="vertical"
+ 		    >
+ 		    
+ 		</LinearLayout>
+        <external.ArcMenu.RayMenu
+            xmlns:arc="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/list_item_bbcontent_article_rm"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:rotationY="180"
+            arc:childSize="25dp" />
+    </LinearLayout>
+
+</LinearLayout>

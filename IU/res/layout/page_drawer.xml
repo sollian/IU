@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SlidingDrawer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pagedrawer_sd"
+    android:layout_width="140dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:content="@+id/pagedrawer_ll_content"
+    android:handle="@+id/pagedrawer_iv_handle"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@id/pagedrawer_iv_handle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?background_directory"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="?back" />
+
+    <LinearLayout
+        android:id="@id/pagedrawer_ll_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/pagedrawer_ll_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="50dp"
+            android:background="?background_page_drawer"
+            android:orientation="vertical"
+            android:paddingBottom="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/pagedrawer_iv_zoomout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:onClick="onZoomClick"
+                    android:scaleType="centerInside"
+                    android:src="?zoom_out" />
+
+                <ImageView
+                    android:id="@+id/pagedrawer_iv_zoomin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@null"
+                    android:gravity="center"
+                    android:onClick="onZoomClick"
+                    android:scaleType="centerInside"
+                    android:src="?zoom_in" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/pagedrawer_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="#00000000"
+                android:fastScrollEnabled="true"
+                android:listSelector="#0000" />
+        </LinearLayout>
+    </LinearLayout>
+
+</SlidingDrawer>

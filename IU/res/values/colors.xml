@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- list_selector -->
+    <color name="transparent">#0000</color>
+    <color name="transblue">#809c</color>
+    <!-- 论坛简约模式背景 -->
+    <color name="bbs_background_day">#0099cc</color>
+    <color name="bbs_background_night">#222222</color>
+    
+    <color name="news_background_day">#ffeeaa</color>
+    <color name="news_background_night">#222222</color>
+    <!-- TextView -->
+    <color name="font_white_day">#ffffff</color>
+    <color name="font_black_day">#000000</color>
+    <color name="font_night">#888888</color>
+    <color name="font_blue_day">#0000ff</color>
+    <color name="font_blue_night">#00aaaa</color>
+    <!-- write_article_et -->
+    <color name="et_day">#ffffff</color>
+    <color name="et_night">#222222</color>
+    <!-- 论坛帖子标记 -->
+    <color name="marker_m">#ff6600</color>
+    <color name="marker_g">#00aaff</color>
+    <color name="marker_b">#888800</color>
+    <color name="mail_notread">#ff6600</color>
+    <color name="refer_notread">#ff6600</color>
+    <color name="vote_notvoted">#008800</color>
+    
+    <color name="night_author">#00aaaa</color>
+    <!-- list item资源 -->
+    <color name="title">#000000</color>
+    <color name="author">#0000aa</color>
+    <color name="date">#888888</color>
+    <color name="vote_count">#00aa00</color>
+    <color name="reply">#00b4ae</color>
+    
+</resources>

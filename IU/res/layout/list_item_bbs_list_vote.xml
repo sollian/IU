@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- votelist专用布局 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_bbslist_vote_fl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/list_item_bbslist_vote_ll"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/background_list_day"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="5dp" >
+
+        <TextView
+            android:id="@+id/list_item_bbslist_vote_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:textColor="@color/title"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/list_item_bbslist_vote_tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:textColor="#ff0000" />
+                
+                <TextView
+                    android:id="@+id/list_item_bbslist_vote_tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/author" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/list_item_bbslist_vote_tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:gravity="center_vertical|right"
+                android:singleLine="true"
+                android:textColor="#008800"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <external.OtherView.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+        android:id="@+id/list_item_bbslist_vote_civ_face"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/iu_default_green"
+        app:border_width="2dp" />
+
+</FrameLayout>

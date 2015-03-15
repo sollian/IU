@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/directory_chooser_view_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="?font_black"
+        android:textSize="15sp"
+        />
+
+    <Button
+        android:id="@+id/directory_chooser_view_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:textColor="#008888"
+        android:textSize="20sp"
+        android:text="上一层" 
+        />
+
+    <ListView
+        android:id="@+id/directory_chooser_view_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        />
+
+</LinearLayout>

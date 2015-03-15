@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 用户信息 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:id="@+id/rootview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <include layout="@layout/user_info_layout" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:layout_gravity="right"
+        android:onClick="onSendMail"
+        android:scaleType="fitXY"
+        android:src="?send" />
+
+</FrameLayout>

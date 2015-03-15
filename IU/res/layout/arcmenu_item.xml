@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/arcmenu_item_iv"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/arcmenu_item_tv"
+        android:layout_gravity="bottom"
+        android:visibility="invisible" 
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

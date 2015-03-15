@@ -1,0 +1,102 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_dialog_fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5ae" >
+
+    <LinearLayout
+        android:id="@+id/custom_dialog_ll"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/background_rect_day"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/custom_dialog_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:text="@string/warning"
+            android:textColor="@color/font_black_day"
+            android:textSize="@dimen/set_tv_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="5dp"
+            android:background="#888" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/custom_dialog_tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textColor="@color/font_black_day"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/custom_dialog_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_et_day"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="text"
+                android:textColor="@color/font_black_day"
+                android:textSize="15sp"
+                android:visibility="gone" >
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="5dp"
+            android:background="#888" />
+
+        <LinearLayout
+            android:id="@+id/custom_dialog_ll_bt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/ok_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button_selector"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_size"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button_selector"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_size"
+                android:visibility="gone" />
+
+            <external.OtherView.Win8ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#09C"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

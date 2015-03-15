@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_photoshow_fl"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="#fff"
+    android:padding="4dp">
+
+    <external.SmartImageView.SmartImageView
+        android:id="@+id/list_item_photoshow_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/foldable_image_text_shadow"
+        android:layout_gravity="bottom" />
+
+    <TextView
+        android:id="@+id/list_item_photoshow_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="8dp"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+</FrameLayout>

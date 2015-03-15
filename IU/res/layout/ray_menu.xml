@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <external.ArcMenu.RayLayout
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        custom:childSize="25dp"
+        custom:leftHolderWidth="25dp" />
+
+    <FrameLayout
+        android:id="@+id/control_layout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="0dp" >
+
+        <com.aiyou.view.DarkImageView
+            android:id="@+id/control_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:duplicateParentState="true"
+            android:src="@drawable/main_main" />
+    </FrameLayout>
+
+</merge>

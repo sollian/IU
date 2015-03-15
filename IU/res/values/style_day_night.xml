@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 日间风格 -->
+	<style name="ThemeDay" parent="@android:style/Theme.NoTitleBar">
+	    <!-- 图片 -->
+        <item name="back">@drawable/back_day</item>
+        <item name="front">@drawable/front_day</item>
+        <item name="background_et">@drawable/background_et_day</item>
+        <item name="delete">@drawable/delete_day</item>
+        <item name="directory">@drawable/directory_day</item>
+        <item name="directory_divider">@drawable/directory_divider_day</item>
+        <item name="forward">@drawable/forward_day</item>
+        <item name="popmenu">@drawable/popmenu_day</item>
+        <item name="rotate">@drawable/rotate_day</item>
+        <item name="search">@drawable/search_day</item>
+        <item name="send">@drawable/send_day</item>
+        <item name="copy">@drawable/copy_day</item>
+        <item name="share">@drawable/share_day</item>
+        <item name="background">@drawable/background_day</item>
+        <item name="zoom_in">@drawable/zoom_in_day</item>
+        <item name="zoom_out">@drawable/zoom_out_day</item>
+        <!-- xml资源 -->
+        <item name="background_bbslist_title">@drawable/background_bbslist_title_day</item>
+        <item name="background_list">@drawable/background_list_day</item>
+        <item name="background_menu_button">@drawable/background_menu_button_day</item>
+        <item name="background_page_drawer">@drawable/background_page_drawer_day</item>
+        <item name="background_set">@drawable/background_set_day</item>
+        <item name="background_directory">@drawable/background_directory_day</item>
+        <item name="background_et_forward">@drawable/background_et_forward_day</item>
+        
+        <item name="background_news_title_left_pressed">@drawable/background_news_title_left_pressed_day</item>
+        <item name="background_news_title_left_unpressed">@drawable/background_news_title_left_unpressed_day</item>
+        <item name="background_news_title_middle_pressed">@drawable/background_news_title_middle_pressed_day</item>
+        <item name="background_news_title_middle_unpressed">@drawable/background_news_title_middle_unpressed_day</item>
+        <item name="background_news_title_right_pressed">@drawable/background_news_title_right_pressed_day</item>
+        <item name="background_news_title_right_unpressed">@drawable/background_news_title_right_unpressed_day</item>
+        
+        <!-- color资源 -->
+        <item name="font_white">@color/font_white_day</item>
+        <item name="font_black">@color/font_black_day</item>
+        <item name="font_blue">@color/font_blue_day</item>
+        <item name="write_article_et">@color/et_day</item>
+        <item name="background_write">#bbbbff</item>
+        <item name="background_newslist_title">#aae46600</item>
+        <item name="background_newslist">@color/news_background_day</item>
+        <item name="background_large_image">#cccccc</item>
+        <item name="directory_choose_view_bg">#eeffffff</item>
+        
+	</style>
+
+	<!-- 夜间模式 -->
+	<style name="ThemeNight" parent="@android:style/Theme.NoTitleBar">		
+		<!-- 图片 -->
+		<item name="back">@drawable/back_night</item>
+		<item name="front">@drawable/front_night</item>
+        <item name="background_et">@drawable/background_et_night</item>
+        <item name="delete">@drawable/delete_night</item>
+        <item name="directory">@drawable/directory_night</item>
+        <item name="directory_divider">@drawable/directory_divider_night</item>
+        <item name="forward">@drawable/forward_night</item>
+        <item name="popmenu">@drawable/popmenu_night</item>
+        <item name="rotate">@drawable/rotate_night</item>
+        <item name="search">@drawable/search_night</item>
+        <item name="send">@drawable/send_night</item>
+        <item name="share">@drawable/share_night</item>
+        <item name="copy">@drawable/copy_night</item>
+        <item name="background">@drawable/background_night</item>
+        <item name="zoom_in">@drawable/zoom_in_night</item>
+        <item name="zoom_out">@drawable/zoom_out_night</item>
+        <!-- xml资源 -->
+        <item name="background_bbslist_title">@drawable/background_bbslist_title_night</item>
+        <item name="background_list">@drawable/background_list_night</item>
+        <item name="background_menu_button">@drawable/background_menu_button_night</item>
+        <item name="background_page_drawer">@drawable/background_page_drawer_night</item>
+        <item name="background_set">@drawable/background_set_night</item>
+        <item name="background_directory">@drawable/background_directory_night</item>
+        <item name="background_et_forward">@drawable/background_et_forward_night</item>
+        
+        <item name="background_news_title_left_pressed">@drawable/background_news_title_left_pressed_night</item>
+        <item name="background_news_title_left_unpressed">@drawable/background_news_title_left_unpressed_night</item>
+        <item name="background_news_title_middle_pressed">@drawable/background_news_title_middle_pressed_night</item>
+        <item name="background_news_title_middle_unpressed">@drawable/background_news_title_middle_unpressed_night</item>
+        <item name="background_news_title_right_pressed">@drawable/background_news_title_right_pressed_night</item>
+        <item name="background_news_title_right_unpressed">@drawable/background_news_title_right_unpressed_night</item>
+        
+        <!-- color资源 -->
+        <item name="font_white">@color/font_night</item>
+        <item name="font_black">@color/font_night</item>
+        <item name="font_blue">@color/font_blue_night</item>
+        <item name="write_article_et">@color/et_night</item>
+        <item name="background_write">#111111</item>
+        <item name="background_newslist_title">#aa222222</item>
+        <item name="background_newslist">@color/news_background_night</item>
+        
+        <item name="background_large_image">#222222</item>
+        <item name="directory_choose_view_bg">#ee222222</item>
+	</style>
+</resources>

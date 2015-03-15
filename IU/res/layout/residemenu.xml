@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="matrix" />
+
+    <ImageView
+        android:id="@+id/iv_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shadow"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <ScrollView
+        android:id="@+id/sv_left_menu"
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:paddingLeft="0dp"
+        android:scrollbars="none"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/layout_left_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+    <!--
+    <ScrollView
+            android:id="@+id/sv_right_menu"
+            android:scrollbars="none"
+            android:paddingRight="5dp"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:visibility="gone">
+        <LinearLayout
+                android:id="@+id/layout_right_menu"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+        </LinearLayout>
+    </ScrollView>
+    -->
+        <LinearLayout
+            android:id="@+id/right_menu"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="top|right"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingRight="5dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#09c"
+                android:gravity="center"
+                android:text="收藏版面"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:scrollbars="none"
+                android:listSelector="@drawable/list_selector"
+                 />
+        </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reply_ll_reply"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="left|top"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:gravity="bottom"
+    android:orientation="vertical" 
+    android:visibility="gone"
+    >
+
+   	<LinearLayout
+        android:id="@+id/reply_ll_face"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:background="?write_article_et"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+
+        <com.aiyou.view.ControlScrollViewPager
+            android:id="@+id/reply_vp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:descendantFocusability="afterDescendants"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/reply_iv_cursor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:scaleType="matrix"
+                android:src="@drawable/face_cursor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/reply_tv_classic"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/classic"
+                    android:textColor="?font_blue"
+                    android:textSize="15.0sp" />
+
+                <TextView
+                    android:id="@+id/reply_tv_onion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/onion"
+                    android:textColor="?font_blue"
+                    android:textSize="15.0sp" />
+
+                <TextView
+                    android:id="@+id/reply_tv_tuzki"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/tuzki"
+                    android:textColor="?font_blue"
+                    android:textSize="15.0sp" />
+
+                <TextView
+                    android:id="@+id/reply_tv_yoci"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/yoci"
+                    android:textColor="?font_blue"
+                    android:textSize="15.0sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?write_article_et"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/reply_iv_face"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/send_face" />
+
+        <EditText
+            android:id="@+id/reply_et_reply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:gravity="center_vertical"
+            android:imeOptions="flagNoExtractUi"
+            android:hint="@string/fast_reply"
+            android:background="?write_article_et"
+            android:textColor="?font_black"
+            android:textSize="15sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/reply_iv_reply"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/send_blue" />
+    </LinearLayout>
+
+</LinearLayout>

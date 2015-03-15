@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IUWidget">
+        <attr name="tagTextColor" format="color" />
+        <attr name="tagBackground" format="reference|color"/>
+        <attr name="tagText" format="string"/>
+        <attr name="titleTextColor" format="color" />
+        <attr name="titleBackground" format="reference|color"/>
+        <attr name="contentTextColor" format="color" />
+        <attr name="contentBackground" format="reference|color"/>
+    </declare-styleable>
+</resources>

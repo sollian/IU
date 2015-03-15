@@ -1,0 +1,183 @@
+<!-- 呈现信息门户、北邮要闻内容的布局 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?background_newslist"
+        android:orientation="vertical" >
+
+        <external.OtherView.BounceScrollView
+            android:id="@+id/activity_newscontent_sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|left"
+            android:layout_margin="5dp"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#00000000" />
+
+                <LinearLayout
+                    android:id="@+id/activity_newscontent_ll_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?write_article_et"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp" >
+
+                    <TextView
+                        android:id="@+id/activity_newscontent_tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:gravity="center"
+                        android:textColor="#000"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/activity_newscontent_tv_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#88008800"
+                        android:gravity="center"
+                        android:textColor="#000"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+        </external.OtherView.BounceScrollView>
+
+        <LinearLayout
+            android:id="@+id/content_ll_custom_head"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_newslist_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="selfFinish"
+                android:scaleType="fitXY"
+                android:src="?back" />
+
+            <com.aiyou.view.ScrollTextView
+                android:id="@+id/activity_newscontent_stv_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="?font_white" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="showPopMenu"
+                android:scaleType="fitXY"
+                android:src="?popmenu" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_newscontent_fl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|left"
+        android:visibility="gone"
+        android:clickable="true" 
+        android:onClick="onClick"
+        android:layout_marginTop="50dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="top"
+            android:background="?background_newslist_title"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onShare"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="?share" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:textColor="?font_white" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onCopy"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="?copy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy"
+                    android:textColor="?font_white" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/fl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone" >
+        
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="#09c" />
+    </FrameLayout>
+
+</merge>

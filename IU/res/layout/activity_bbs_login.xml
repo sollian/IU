@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 用户登录页面 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+    xmlns:float="http://schemas.android.com/apk/res-auto" >
+
+    <LinearLayout
+        android:id="@+id/activity_bbslogin_ll_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <external.OtherView.CircleImageView
+            android:id="@+id/activity_bbslogin_civ_face"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:onClick="onClick"
+            android:src="@drawable/iu_default_green"
+            app:border_width="2dp" />
+
+        <external.shimmer.ShimmerTextView
+            android:id="@+id/activity_bbslogin_shtv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/nothing"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/activity_bbslogin_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nothing"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rect_day"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/set_account"
+                android:textColor="#000000"
+                android:textSize="@dimen/set_tv_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="#00000000"
+                android:divider="@drawable/divider_white_h_night"
+                android:dividerPadding="0dp"
+                android:orientation="vertical"
+                android:showDividers="beginning" >
+
+                <external.OtherView.FloatLabeledEditText
+                    android:id="@+id/activity_bbslogin_flet_user_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fletImeOptions="flagNoExtractUi|actionNext"
+                    app:fletInputType="text"
+                    app:fletSingleLine="true"
+                    app:fletTextColor="#000000"
+                    float:fletFloatingHint="用户名" />
+
+                <external.OtherView.FloatLabeledEditText
+                    android:id="@+id/activity_bbslogin_flet_user_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fletImeOptions="flagNoExtractUi|actionDone"
+                    app:fletInputType="textPassword"
+                    app:fletSingleLine="true"
+                    app:fletTextColor="#000000"
+                    float:fletFloatingHint="密码" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/login_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_selector"
+                    android:onClick="onClick"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_size"/>
+
+                <external.OtherView.Win8ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#09C"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/activity_bbslogin_iv_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:onClick="selfFinish"
+        android:scaleType="fitXY"
+        android:src="@drawable/back_day" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dp"
+        android:background="#0000"
+        android:onClick="onRegister"
+        android:text="@string/register"
+        android:textColor="#00f"
+        android:textStyle="italic" />
+
+</merge>

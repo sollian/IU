@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ThemeMode">
+        <!-- 图片 -->
+        <attr name="back" format="reference|color" />
+        <attr name="front" format="reference|color" />
+        <attr name="background_et" format="reference|color" />
+        <attr name="delete" format="reference|color" />
+        <attr name="directory" format="reference|color" />
+        <attr name="directory_divider" format="reference|color" />
+        <attr name="forward" format="reference|color" />
+        <attr name="popmenu" format="reference|color" />
+        <attr name="rotate" format="reference|color" />
+        <attr name="search" format="reference|color" />
+        <attr name="send" format="reference|color" />
+        <attr name="share" format="reference|color" />
+        <attr name="copy" format="reference|color" />
+        <attr name="background" format="reference|color" />
+        <attr name="zoom_in" format="reference|color" />
+        <attr name="zoom_out" format="reference|color" />
+        <!-- xml资源 -->
+        <attr name="background_bbslist_title" format="reference|color" />
+        <attr name="background_list" format="reference|color" />
+        <attr name="background_menu_button" format="reference|color" />
+        <attr name="background_page_drawer" format="reference|color" />
+        <attr name="background_set" format="reference|color" />
+        <attr name="background_directory" format="reference|color" />
+        
+        <attr name="background_et_forward" format="reference|color" />
+        
+        <attr name="background_news_title_left_pressed" format="reference|color" />
+        <attr name="background_news_title_left_unpressed" format="reference|color" />
+        <attr name="background_news_title_middle_pressed" format="reference|color" />
+        <attr name="background_news_title_middle_unpressed" format="reference|color" />
+        <attr name="background_news_title_right_pressed" format="reference|color" />
+        <attr name="background_news_title_right_unpressed" format="reference|color" />
+        <!-- color资源 -->
+        <attr name="font_white" format="reference|color" />
+        <attr name="font_black" format="reference|color" />
+        <attr name="font_blue" format="reference|color" />
+        <attr name="write_article_et" format="reference|color" />
+        <attr name="background_write" format="reference|color" />
+        
+        <attr name="background_newslist_title" format="reference|color" />
+        <attr name="background_newslist" format="reference|color" />
+        
+        <attr name="background_large_image" format="reference|color" />
+        
+        <attr name="directory_choose_view_bg" format="reference|color" />
+    </declare-styleable>
+</resources>

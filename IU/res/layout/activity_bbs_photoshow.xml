@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?background_large_image" 
+        >
+
+        <external.PullToRefresh.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/activity_bbs_photoshow_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#00000000"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="afterDescendants"
+            android:divider="#00000000"
+            android:dividerHeight="5dp"
+            android:fastScrollEnabled="true"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/activity_bbs_photoshow_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/activity_bbs_photoshow_ll_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal" >
+
+            <external.OtherView.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+                android:id="@+id/activity_bbs_photoshow_civ_face"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="onClick"
+                android:src="@drawable/iu_default_green"
+                app:border_width="2dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="100"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/activity_bbs_photoshow_tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="?font_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/activity_bbs_photoshow_tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="?font_black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/activity_bbs_photoshow_iv_go_source"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@null"
+                android:onClick="onClick"
+                android:padding="10dp"
+                android:src="@drawable/go_source" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/activity_bbs_photoshow_ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <!-- 加载项 -->
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <external.foldablelist.lib.UnfoldableView
+        android:id="@+id/activity_bbs_photoshow_uv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/activity_bbs_photoshow_fr_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="gone" />
+    </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/activity_bbs_photoshow_iv_help"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/photo_help"
+        android:onClick="onClick"
+        android:scaleType="centerInside"
+        android:background="#88ffffff"
+        android:visibility="gone"
+        />
+
+</merge>

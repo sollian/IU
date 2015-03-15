@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/background_widget_topten_tv"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical|left"
+            android:text="@string/topten"
+            android:textColor="#fff" />
+
+        <ImageView
+            android:id="@+id/widget_bt"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/refresh" />
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/widget_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="afterDescendants"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:fastScrollEnabled="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:smoothScrollbar="true" />
+
+</LinearLayout>

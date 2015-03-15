@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BBSListActivity布局 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_gravity="left|top">
+
+    <FrameLayout
+        android:id="@+id/activity_bbslist_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#11ffffff"
+        android:orientation="vertical" >
+
+        <external.PullToRefresh.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/activity_bbslist_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#00000000"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="afterDescendants"
+            android:divider="#00000000"
+            android:dividerHeight="5dp"
+            android:fastScrollEnabled="true"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both" />
+
+        <LinearLayout
+            android:id="@+id/activity_bbslist_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_bbslist_title"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <external.OtherView.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+                android:id="@+id/activity_bbs_list_civ_face"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:onClick="openLeftMenu"
+                android:src="@drawable/iu_default_green"
+                app:border_width="2dp" />
+
+            <com.aiyou.view.ScrollTextView
+                android:id="@+id/activity_bbslist_stv_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="?font_white" />
+
+            <LinearLayout
+                android:id="@+id/activity_bbslist_ll_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:background="?background_et"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/activity_bbslist_iv_search"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onSearchClick"
+                    android:scaleType="fitXY"
+                    android:src="?search" />
+
+                <EditText
+                    android:id="@+id/activity_bbslist_et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100"
+                    android:background="#00000000"
+                    android:hint="@string/input_keyword"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:inputType="text"
+                    android:textColor="?font_white" />
+
+                <ImageView
+                    android:id="@+id/activity_bbslist_iv_clearsearch"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onSearchClick"
+                    android:scaleType="fitXY"
+                    android:src="?delete" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="openPopmenu"
+                android:scaleType="fitXY"
+                android:src="?popmenu" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/activity_bbslist_iv_section"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dp"
+        android:background="?background_directory"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:scaleType="fitXY"
+        android:src="?directory"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/activity_bbslist_ll_mesh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_bbslist_fr_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_bbslist_fl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:onClick="onMenuClick"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/activity_bbslist_menu_ll_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:rotation="45"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.aiyou.view.DarkImageView
+                    android:id="@+id/activity_bbslist_menu_iv_collect"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="25dp"
+                    android:contentDescription="@null"
+                    android:onClick="onMenuClick"
+                    android:rotation="-45"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/main_collect" />
+
+                <com.aiyou.view.DarkImageView
+                    android:id="@+id/activity_bbslist_menu_iv_search_author"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@null"
+                    android:onClick="onMenuClick"
+                    android:rotation="-45"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/main_query_life" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal" >
+
+                <com.aiyou.view.DarkImageView
+                    android:id="@+id/activity_bbslist_menu_iv_search_title"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="25dp"
+                    android:contentDescription="@null"
+                    android:onClick="onMenuClick"
+                    android:rotation="-45"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/main_query_study" />
+
+                <com.aiyou.view.DarkImageView
+                    android:id="@+id/activity_bbslist_menu_iv_write_article"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@null"
+                    android:onClick="onMenuClick"
+                    android:rotation="-45"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/main_write" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_bbslist_menu_ll_refer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <com.aiyou.view.DarkImageView
+                android:id="@+id/activity_bbslist_menu_iv_delete_refer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="25dp"
+                android:contentDescription="@null"
+                android:onClick="onMenuClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/main_clear" />
+
+            <Button
+                android:id="@+id/activity_bbslist_menu_bt_read"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="?background_menu_button"
+                android:onClick="onMenuClick"
+                android:scaleType="fitXY"
+                android:text="@string/mark_read"
+                android:textColor="?font_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_bbslist_menu_ll_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <com.aiyou.view.DarkImageView
+                android:id="@+id/activity_bbslist_menu_iv_delete_mail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="25dp"
+                android:contentDescription="@null"
+                android:onClick="onMenuClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/main_clear" />
+
+            <com.aiyou.view.DarkImageView
+                android:id="@+id/activity_bbslist_menu_iv_write_mail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@null"
+                android:onClick="onMenuClick"
+                android:scaleType="fitXY"
+                android:src="@drawable/main_write" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/activity_bbslist_menu_fl_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/activity_bbslist_menu_bt_all"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal|top"
+                android:background="?background_menu_button"
+                android:onClick="onMenuClick"
+                android:scaleType="fitXY"
+                android:text="@string/all"
+                android:textColor="?font_black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:paddingTop="73dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/activity_bbslist_menu_bt_new"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="102dp"
+                    android:background="?background_menu_button"
+                    android:onClick="onMenuClick"
+                    android:scaleType="fitXY"
+                    android:text="@string/newest"
+                    android:textColor="?font_black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/activity_bbslist_menu_bt_hot"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="?background_menu_button"
+                    android:onClick="onMenuClick"
+                    android:scaleType="fitXY"
+                    android:text="@string/hot"
+                    android:textColor="?font_black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:paddingTop="192dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/activity_bbslist_menu_bt_me"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="25dp"
+                    android:background="?background_menu_button"
+                    android:onClick="onMenuClick"
+                    android:scaleType="fitXY"
+                    android:text="@string/me"
+                    android:textColor="?font_black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/activity_bbslist_menu_bt_join"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="?background_menu_button"
+                    android:onClick="onMenuClick"
+                    android:scaleType="fitXY"
+                    android:text="@string/join"
+                    android:textColor="?font_black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.aiyou.view.DarkImageView
+            android:id="@+id/activity_bbslist_menu_iv_delete_collect"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:onClick="onMenuClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_clear" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/activity_bbslist_iv_help"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88ffffff"
+        android:contentDescription="@null"
+        android:onClick="onClick"
+        android:scaleType="fitXY"
+        android:src="@drawable/page_help"
+        android:visibility="gone" />
+
+</merge>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 显示BBS邮件的布局 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/activity_bbsmail_iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="?background" />
+
+    <LinearLayout
+        android:id="@+id/activity_bbsmail_ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_bbslist_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="selfFinish"
+                android:scaleType="fitXY"
+                android:src="?back" />
+
+            <com.aiyou.view.ScrollTextView
+                android:id="@+id/activity_bbsmail_stv_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="?font_white" />
+
+            <ImageView
+                android:id="@+id/activity_bbsmail_iv_send"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:onClick="onReply"
+                android:scaleType="fitXY"
+                android:src="?send" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="?background_list"
+            android:divider="@drawable/divider_white_h_night"
+            android:dividerPadding="0dp"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal" >
+
+                <external.OtherView.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+                    android:id="@+id/activity_bbsmail_civ_face"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="onClick"
+                    android:src="@drawable/iu_default_green"
+                    app:border_width="2dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/activity_bbsmail_tv_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/author"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/activity_bbsmail_tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/date"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <external.OtherView.BounceScrollView
+                android:id="@+id/activity_bbsmail_sv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" >
+
+                <LinearLayout
+                    android:id="@+id/activity_bbsmail_ll_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </external.OtherView.BounceScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:gravity="center" >
+
+        <EditText
+            android:id="@+id/activity_bbsmail_et_forward"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?background_et_forward"
+            android:hint="@string/forward_to"
+            android:imeOptions="actionSend|flagNoExtractUi"
+            android:textColor="?font_white"
+            android:inputType="text"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/activity_bbsmail_iv_forward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?background_directory"
+            android:contentDescription="@null"
+            android:onClick="onForward"
+            android:scaleType="fitXY"
+            android:src="?forward" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+         >
+        
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+</merge>

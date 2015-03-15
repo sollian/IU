@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- colorpicker -->
+    <string name="press_color_to_apply">点击颜色生效</string>
+    <!-- aiyou -->
+    <string name="app_name">爱邮</string>
+    <string name="version">爱邮  v2.4</string>
+    <string name="xiaoxun">厚德博学，敬业乐群</string>
+    <string name="input_keyword">输入关键字</string>
+    <string name="input_userid">收件人ID</string>
+    <string name="nothing">————</string>
+    <string name="warning">提示</string>
+    <string name="mark_read">标为已读</string>
+    <string name="view_large_image">查看大图</string>
+    <string name="zero">0%</string>
+    <string name="forward_to">转寄：好友名称</string>
+    <string name="fast_reply">快捷回复</string>
+    <string name="news">校园新闻</string>
+    <string name="inform">校园通告</string>
+    <string name="headline">北邮要闻</string>
+    <string name="night_day">日间|夜间</string>
+    <string name="register">注册通道</string>
+    <string name="dynamic_bmp">动图</string>
+    <string name="share">分享网页</string>
+    <string name="copy">复制地址</string>
+    <string name="login">登录</string>
+    <string name="logout">注销</string>
+    <!-- 首页 -->
+    <string name="main_set">设置</string>
+    <string name="main_bbs">论坛</string>
+    <string name="main_news">新闻公告</string>
+    <string name="main_map">校园地图</string>
+    <string name="bless">每日祝福</string>
+    <string name="bless_iu">爱邮心声</string>
+    <!-- 地图 -->
+    <string name="drive">驾车路线</string>
+    <string name="transit">公交路线</string>
+    <string name="walk">步行路线</string>
+    <string name="clear_route">重置</string>
+    <!-- 发文 -->
+    <string name="subject">主题</string>
+    <string name="mail_to">收信人</string>
+    <string name="content">内容</string>
+    <!-- 论坛设置 -->
+    <string name="set_global">全局设置</string>
+    <string name="set_shake_share">摇一摇分享</string>
+    <string name="set_update_wifi">仅wifi下更新</string>
+    <string name="set_bbs">论坛设置</string>
+    <string name="set_account">论坛账号设置</string>
+    <string name="set_dynamic_face">每日祝福</string>
+    <string name="set_face">头像显示</string>
+    <string name="set_image">高清缩略图</string>
+    <string name="set_simple">简约模式</string>
+    <string name="set_other">其他</string>
+    <string name="set_clear_cache">清空缓存</string>
+    <string name="set_advice">意见或建议</string>
+    <string name="set_update">更新</string>
+    <string name="set_about">关于</string>
+    <string name="other_about">爱邮\n作者：sollian\n版本：2.4\n模块：\n\t\t\t\t\t北邮人论坛\n\t\t\t\t\t校园地图\n\t\t\t\t\t校园新闻\n\t\t\t\t\t校园公告\n\n感谢以下同学提供的背景图：\n1、dolley90514（西门）\n2、Jerryren（林荫小路）\n3、ymjk8425887（宏福夜景）\n\n邮箱：sollian@qq.com</string>
+    <string name="set_help">帮助</string>
+    <string name="version_shuoming">版本与功能介绍</string>
+    <!-- 个人信息 -->
+    <string name="basic_info">基本信息</string>
+    <string name="gender">性别</string>
+    <string name="astro">星座</string>
+    <string name="qq">QQ</string>
+    <string name="msn">MSN</string>
+    <string name="home_page">主页</string>
+    <string name="bbs_info">论坛属性</string>
+    <string name="level">论坛等级</string>
+    <string name="is_online">是否在线</string>
+    <string name="post_count">发文数</string>
+    <string name="score">积分</string>
+    <string name="life">生命力</string>
+    <string name="last_login_time">上次登录时间</string>
+    <string name="last_login_ip">上次登录IP</string>
+    <string name="first_login_time">用户注册时间</string>
+    <!-- 投票 -->
+    <string name="all">全部</string>
+    <string name="hot">热门</string>
+    <string name="newest">最新</string>
+    <string name="join">参与</string>
+    <string name="me">我的</string>
+    <!-- 表情 -->
+    <string name="yoci">悠嘻猴</string>
+    <string name="onion">洋葱头</string>
+    <string name="tuzki">兔斯基</string>
+    <string name="classic">经典</string>
+    <!-- 标题 -->
+    <string name="topten">十大热点</string>
+    <string name="reply_me">回复我的文章</string>
+    <string name="at_me">\@我的文章</string>
+    <string name="inbox">收件箱</string>
+    <string name="outbox">发件箱</string>
+    <string name="deleted">垃圾箱</string>
+    <string name="vote_all">全部投票</string>
+    <string name="vote_me">我的投票</string>
+    <string name="vote_join">参与的投票</string>
+    <string name="vote_hot">热门投票</string>
+    <string name="vote_newest">最新投票</string>
+    <string name="collect">收藏</string>
+    
+    <string-array name="spinner_entry">
+        <item >禁用</item>
+        <item >左侧</item>
+        <item >右侧</item>
+        <item >两侧</item>
+    </string-array>
+</resources>

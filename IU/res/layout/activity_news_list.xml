@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NewsListActivity布局 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/activity_newlist_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?background_newslist"
+        android:orientation="vertical" >
+
+        <external.PullToRefresh.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/activity_newslist_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|left"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#00000000"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="afterDescendants"
+            android:divider="#00000000"
+            android:dividerHeight="5dp"
+            android:fastScrollEnabled="true"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both" />
+
+        <LinearLayout
+            android:id="@+id/activity_newslist_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_newslist_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="selfFinish"
+                android:scaleType="fitXY"
+                android:src="?back" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:background="#00000000"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/activity_newslist_bt_inform"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?background_news_title_left_unpressed"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/inform"
+                    android:textColor="?font_white" />
+
+                <Button
+                    android:id="@+id/activity_newslist_bt_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-2dp"
+                    android:layout_marginRight="-2dp"
+                    android:background="?background_news_title_middle_unpressed"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/news"
+                    android:textColor="?font_white" />
+
+                <Button
+                    android:id="@+id/activity_newslist_bt_headline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?background_news_title_right_pressed"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/headline"
+                    android:textColor="?font_white" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/activity_newslist_iv_menu"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="onClick"
+                android:scaleType="fitXY"
+                android:src="?popmenu" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_newslist_fr_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_newslist_fl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/activity_newslist_menu_iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00000000"
+            android:contentDescription="@null"
+            android:onClick="onClick"
+            android:scaleType="fitXY"
+            android:src="?back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/activity_newslist_menu_bt_night"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="?background_menu_button"
+                android:onClick="onClick"
+                android:scaleType="fitXY"
+                android:text="@string/night_day"
+                android:textColor="?font_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

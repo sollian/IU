@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
+    android:id="@+id/activity_set_fl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <external.OtherView.BounceScrollView
+        android:id="@+id/activity_set_bsv_set"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="50dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_global"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rect_day"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp" >
+
+                <com.aiyou.view.SwitchPreferences
+                    android:id="@+id/simple_mode_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:prefTitle="@string/set_simple" />
+
+                <com.aiyou.view.SwitchPreferences
+                    android:id="@+id/shake_share_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:prefTitle="@string/set_shake_share" />
+                
+                <com.aiyou.view.SwitchPreferences
+                    android:id="@+id/update_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:prefTitle="@string/set_update_wifi" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:text="滑动结束页面"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/set_tv_size" />
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" 
+                        android:background="@drawable/background_spinner"
+                        android:entries="@array/spinner_entry"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_bbs"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rect_day"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp" >
+
+                <LinearLayout
+                    android:id="@+id/activity_set_ll_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"
+                        android:text="@string/set_account"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/set_tv_size" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:contentDescription="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/more" />
+                </LinearLayout>
+
+                <com.aiyou.view.SwitchPreferences
+                    android:id="@+id/face_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:prefTitle="@string/set_face" />
+
+                <com.aiyou.view.SwitchPreferences
+                    android:id="@+id/large_image_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:prefTitle="@string/set_image" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_other"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rect_day"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:id="@+id/activity_set_tv_clear_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/set_clear_cache"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/set_tv_size" />
+
+                <TextView
+                    android:id="@+id/activity_set_tv_advice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/set_advice"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/set_tv_size" />
+
+                <TextView
+                    android:id="@+id/activity_set_tv_set_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/set_about"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/set_tv_size" />
+
+                <TextView
+                    android:id="@+id/activity_set_tv_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="@string/version_shuoming"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/set_tv_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </external.OtherView.BounceScrollView>
+
+    <ImageView
+        android:id="@+id/activity_set_iv_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:onClick="selfFinish"
+        android:scaleType="fitXY"
+        android:src="@drawable/back_day" />
+
+    <FrameLayout
+        android:id="@+id/activity_set_fl_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="onClick"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/activity_set_tv_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/background_rect_day"
+            android:minWidth="200dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/other_about"
+            android:textColor="#000"
+            android:textSize="17sp" />
+    </FrameLayout>
+
+</FrameLayout>

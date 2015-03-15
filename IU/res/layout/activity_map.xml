@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MapActivity布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#880088"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:contentDescription="@null"
+            android:onClick="selfFinish"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_day" />
+
+        <Spinner
+            android:id="@+id/activity_map_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_spinner"
+            android:paddingRight="15dp"
+            android:popupBackground="#dd00dd"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/activity_map_tv_clear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="100"
+            android:background="#00000000"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="clearOverlay"
+            android:text="@string/clear_route"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:contentDescription="@null"
+            android:onClick="panoramaView"
+            android:scaleType="center"
+            android:src="@drawable/panorama" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+
+        <LinearLayout
+            android:id="@+id/activity_map_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_map_tv"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:showDividers="middle"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/activity_map_tv_drive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="SearchButtonProcess"
+                android:text="@string/drive"
+                android:textColor="#ffffff" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/activity_map_tv_transit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="SearchButtonProcess"
+                android:text="@string/transit"
+                android:textColor="#ffffff" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/activity_map_tv_walk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="SearchButtonProcess"
+                android:text="@string/walk"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_map_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/activity_map_ll"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_map_tv"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="#ffffff" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:layout_marginBottom="10dip" >
+
+            <TextView
+                android:id="@+id/activity_map_tv_pre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/pre_"
+                android:clickable="true"
+                android:onClick="nodeClick" />
+
+            <TextView
+                android:id="@+id/activity_map_tv_next"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/next_"
+                android:clickable="true"
+                android:onClick="nodeClick" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

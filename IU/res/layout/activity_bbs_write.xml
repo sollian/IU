@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 发表文章、回信、写邮件的布局 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/activity_bbswrite_iv_drag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="150"
+        android:background="#00000000"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?background_write"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?background_bbslist_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:contentDescription="@null"
+                android:onClick="selfFinish"
+                android:scaleType="fitXY"
+                android:src="?back" />
+
+            <com.aiyou.view.ScrollTextView
+                android:id="@+id/activity_bbswrite_stv_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="?font_white" />
+
+            <ImageView
+                android:id="@+id/activity_bbswrite_iv_send"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:onClick="onSend"
+                android:scaleType="fitXY"
+                android:src="?send" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/activity_bbswrite_et_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="?write_article_et"
+            android:hint="@string/subject"
+            android:imeOptions="flagNoExtractUi|actionNext"
+            android:inputType="text"
+            android:textColor="?font_black"
+            android:textSize="18sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/activity_bbswrite_et_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="?write_article_et"
+            android:hint="@string/mail_to"
+            android:imeOptions="flagNoExtractUi|actionNext"
+            android:inputType="text"
+            android:textColor="?font_black"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="?write_article_et"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_face"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_face" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_photo"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_photo" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_camera"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_camera" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_attachment"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_attachment" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_bbswrite_ll_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font_bold"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onFontClick"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font_bold" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font_italic"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onFontClick"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font_italic" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font_underline"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onFontClick"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font_underline" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font_size"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onFontClick"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font_size" />
+
+                <ImageView
+                    android:id="@+id/activity_bbswrite_iv_font_color"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:contentDescription="@null"
+                    android:onClick="onFontClick"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/send_font_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_bbswrite_ll_font_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_1"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="1"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_2"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="2"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_3"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="3"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_4"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="4"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_5"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="5"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_6"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="6"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_7"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="7"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_8"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="8"
+                    android:textColor="?font_black" />
+
+                <Button
+                    android:id="@+id/activity_bbswrite_tv_font_size_9"
+                    android:layout_width="500dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:onClick="onFontSizeClick"
+                    android:text="9"
+                    android:textColor="?font_black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_bbswrite_ll_face"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <com.aiyou.view.ControlScrollViewPager
+                    android:id="@+id/activity_bbswrite_vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:descendantFocusability="afterDescendants"
+                    android:flipInterval="30"
+                    android:persistentDrawingCache="animation" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:id="@+id/activity_bbswrite_iv_cursor"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:scaleType="matrix"
+                        android:src="@drawable/face_cursor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/activity_bbswrite_tv_classic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center"
+                            android:text="@string/classic"
+                            android:textColor="?font_blue"
+                            android:textSize="15.0sp" />
+
+                        <TextView
+                            android:id="@+id/activity_bbswrite_tv_onion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center"
+                            android:text="@string/onion"
+                            android:textColor="?font_blue"
+                            android:textSize="15.0sp" />
+
+                        <TextView
+                            android:id="@+id/activity_bbswrite_tv_tuzki"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center"
+                            android:text="@string/tuzki"
+                            android:textColor="?font_blue"
+                            android:textSize="15.0sp" />
+
+                        <TextView
+                            android:id="@+id/activity_bbswrite_tv_yoci"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center"
+                            android:text="@string/yoci"
+                            android:textColor="?font_blue"
+                            android:textSize="15.0sp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/activity_bbswrite_ll_attach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/activity_bbswrite_et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?write_article_et"
+            android:gravity="top|left"
+            android:hint="@string/content"
+            android:imeOptions="flagNoExtractUi"
+            android:textColor="?font_black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone" >
+
+        <external.OtherView.Win8ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_gravity="center"
+            android:background="#09c"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_bbswrite_ll_ive"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/background_face"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx
+            android:id="@+id/activity_bbswrite_ive"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/activity_bbswrite_iv_help"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/face_help"
+        android:onClick="onClick"
+        android:scaleType="centerInside"
+        android:background="#88ffffff"
+        android:visibility="gone"
+        />
+    <com.aiyou.bbs.FileSelect.DirectoryChooserView 
+        android:id="@+id/activity_bbswrite_dsv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"
+        android:background="?directory_choose_view_bg"
+        />
+
+</merge>
