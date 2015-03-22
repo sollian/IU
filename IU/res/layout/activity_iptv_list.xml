@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?background_iptvlist_title" 
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:onClick="selfFinish"
+            android:scaleType="fitXY"
+            android:src="?back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="频道列表"
+            android:textColor="?font_white" 
+            />
+    </FrameLayout>
+
+    <external.PullToRefresh.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ptrlv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_marginTop="50dp"
+        android:background="?iptv_ptrlv"
+        android:cacheColorHint="#00000000"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:divider="#00000000"
+        android:dividerHeight="5dp"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="both" />
+
+</merge>

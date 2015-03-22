@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- list_selector -->
-    <color name="transparent">#0000</color>
     <color name="transblue">#809c</color>
     <!-- 论坛简约模式背景 -->
     <color name="bbs_background_day">#0099cc</color>
@@ -33,5 +32,9 @@
     <color name="date">#888888</color>
     <color name="vote_count">#00aa00</color>
     <color name="reply">#00b4ae</color>
+	
+	<color name="transparent">#00000000</color>
+    <color name="mediacontroller_bg_pressed">#ff53c1bd</color>
+    <color name="mediacontroller_bg">#99000000</color>
     
 </resources>

@@ -26,6 +26,8 @@
         <attr name="background_set" format="reference|color" />
         <attr name="background_directory" format="reference|color" />
         
+        <attr name="background_iptvlist_title" format="reference|color" />
+        
         <attr name="background_et_forward" format="reference|color" />
         
         <attr name="background_news_title_left_pressed" format="reference|color" />
@@ -47,5 +49,7 @@
         <attr name="background_large_image" format="reference|color" />
         
         <attr name="directory_choose_view_bg" format="reference|color" />
+        
+        <attr name="iptv_ptrlv" format="reference|color" />
     </declare-styleable>
 </resources>

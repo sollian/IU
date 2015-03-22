@@ -47,8 +47,8 @@ public class FileManager {
     // 文件名后缀
     private static final String FILESUFFIX = ".gif";
     // 图片格式
-    public static final CompressFormat BMP_FORMAT = CompressFormat.JPEG;
-    public static final String BMP_SUFFIX = ".jpg";
+    public static final CompressFormat BMP_FORMAT = CompressFormat.PNG;
+    public static final String BMP_SUFFIX = ".png";
     public static final int BMP_QUALITY = 80;
 
     // 缓存空间大小，单位MB

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.aiyou.bbs.utils.BBSManager;
+import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.JsonHelper;
 import com.aiyou.utils.http.HttpManager;
 
@@ -69,6 +70,7 @@ public class Search {
     public static String getSearch(Context context, String board, String str, boolean isTitle,
             int page) {
         String url = null;
+        str = AiYouManager.getTxtWithoutNTSRElement(str, "");
         if (isTitle) {
             url = API_SEARCH + "?appkey="
                     + BBSManager.APPKEY + "&board=" + board + "&title1=" + str

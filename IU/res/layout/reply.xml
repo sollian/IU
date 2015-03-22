@@ -103,6 +103,7 @@
             android:id="@+id/reply_iv_face"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:padding="10dp"
             android:contentDescription="@null"
             android:scaleType="fitXY"
             android:src="@drawable/send_face" />

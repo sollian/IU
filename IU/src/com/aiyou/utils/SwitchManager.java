@@ -13,10 +13,11 @@ public class SwitchManager {
     private SharedPreferences mSharedPref;
     private static final String SPNAME = "switch";
 
-    private static final String KEY_SHOW_WELCOME = "show_welcome_2_4";
+    private static final String KEY_SHOW_WELCOME = "show_welcome_2_5";
     private static final String KEY_SIMPLE_MODE = "simple_mode_enabled";
     private static final String KEY_SHAKE_SHARE = "shake_share";
     private static final String KEY_FACE_HELP = "face_help";
+    private static final String KEY_IPTV_HELP = "iptv_help";
     private static final String KEY_PAGE_HELP = "page_help_2_3";
     private static final String KEY_PHOTOSHOW_HELP = "photoshow_help";
     private static final String KEY_NIGHT_MODE = "is_night_mode";
@@ -118,6 +119,24 @@ public class SwitchManager {
     public void disableShowFaceHelp() {
         SharedPreferences.Editor editor = mSharedPref.edit();
         editor.putBoolean(KEY_FACE_HELP, false);
+        editor.commit();
+    }
+    
+    /**
+     * 是否显示iptv_help
+     * 
+     * @return
+     */
+    public boolean needShowIptvHelp() {
+        return mSharedPref.getBoolean(KEY_IPTV_HELP, true);
+    }
+
+    /**
+     * 设置不显示iptv_help
+     */
+    public void disableShowIptvHelp() {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putBoolean(KEY_IPTV_HELP, false);
         editor.commit();
     }
 

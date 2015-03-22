@@ -87,6 +87,35 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/iptv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#aa0fd451"
+            android:gravity="center_horizontal"
+            android:onClick="onLabelClick"
+            android:orientation="vertical"
+            android:rotationY="270" >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/main_iptv" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/main_iptv"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/bbs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

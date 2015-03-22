@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.aiyou.bbs.bean.Favorite;
 import com.aiyou.bbs.bean.Section;
 import com.aiyou.bbs.utils.BBSManager;
+import com.aiyou.iptv.utils.IptvManager;
 import com.aiyou.map.data.MapHelper;
 import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.JsonHelper;
@@ -78,8 +79,11 @@ public class AiYouApplication extends Application {
         // 获取帖子尾巴
         MobclickAgent.updateOnlineConfig(this);
         BBSManager.getInstance(this).setAppTail(MobclickAgent.getConfigParams(this, "app_tail"));
+        //获取iptv频道列表
+        IptvManager.getChanelList();
+        
         MapHelper.initMapDatas(this);
-
+        
         initSections();
         initFavorite();
     }

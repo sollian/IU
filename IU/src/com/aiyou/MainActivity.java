@@ -13,6 +13,8 @@ import com.aiyou.bbs.bean.Favorite;
 import com.aiyou.bbs.bean.Section;
 import com.aiyou.bbs.bean.Refer.ReferType;
 import com.aiyou.bbs.utils.BBSManager;
+import com.aiyou.iptv.IptvListActivity;
+import com.aiyou.iptv.utils.IptvManager;
 import com.aiyou.map.MapActivity;
 import com.aiyou.map.data.MapHelper;
 import com.aiyou.news.NewsListActivity;
@@ -173,22 +175,32 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onLabelClick(View view) {
-        if (!checkSectionData() || Favorite.mFavorite == null) {
-            initFavorite();
-            Toast.makeText(getBaseContext(), "正在初始化论坛数据", Toast.LENGTH_SHORT).show();
-            return;
-        }
         int nId = view.getId();
         double dPercent = 0;
         Intent intent = null;
         if (nId == R.id.news) {
             // 新闻公告
             intent = new Intent(this, NewsListActivity.class);
-            dPercent = 0.125;
+            dPercent = 0.1;
+        } else if (nId == R.id.iptv) {
+            // iptv
+            if (IptvManager.mChanelList == null || IptvManager.mChanelList.isEmpty()) {
+                // 获取iptv频道列表
+                IptvManager.getChanelList();
+                Toast.makeText(getBaseContext(), "正在初始化iptv数据", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            intent = new Intent(this, IptvListActivity.class);
+            dPercent = 0.3;
         } else if (nId == R.id.bbs) {
             // 论坛
+            if (!checkSectionData() || Favorite.mFavorite == null) {
+                initFavorite();
+                Toast.makeText(getBaseContext(), "正在初始化论坛数据", Toast.LENGTH_SHORT).show();
+                return;
+            }
             intent = new Intent(this, BBSListActivity.class);
-            dPercent = 0.375;
+            dPercent = 0.5;
         } else if (nId == R.id.map) {
             // 地图
             if (MapHelper.getMapDatas() == null) {
@@ -198,7 +210,7 @@ public class MainActivity extends BaseActivity {
             }
 
             intent = new Intent(this, MapActivity.class);
-            dPercent = 0.625;
+            dPercent = 0.7;
         } else if (nId == R.id.set) {
             // 设置
             intent = null;
@@ -240,9 +252,9 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-    
+
     private void initFavorite() {
-        if(Favorite.mFavorite != null) {
+        if (Favorite.mFavorite != null) {
             return;
         }
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -251,11 +263,11 @@ public class MainActivity extends BaseActivity {
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                    String strJson = Favorite.getFavorite(AiYouApplication.getInstance(), 0);
-                    if(!TextUtils.isEmpty(strJson) && JsonHelper.checkError(strJson) == null) {
-                        Favorite.mFavorite = new Favorite(strJson);
-                    }
+                String strJson = Favorite.getFavorite(AiYouApplication.getInstance(), 0);
+                if (!TextUtils.isEmpty(strJson) && JsonHelper.checkError(strJson) == null) {
+                    Favorite.mFavorite = new Favorite(strJson);
                 }
+            }
         });
     }
 
@@ -320,9 +332,10 @@ public class MainActivity extends BaseActivity {
 
     private void getUMParams() {
         // 友盟在线参数
-//        MobclickAgent.updateOnlineConfig(this);
+        // MobclickAgent.updateOnlineConfig(this);
         mIUTitle = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "main_iu_title");
-        mIUContent = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "main_iu_content");
+        mIUContent = MobclickAgent.getConfigParams(AiYouApplication.getInstance(),
+                "main_iu_content");
         mIUUrl = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "main_iu_url");
     }
 
@@ -537,17 +550,18 @@ public class MainActivity extends BaseActivity {
         final int delay = 500;
         final int interval = 200;
         final int duration = 1000;
-        final LinearLayout[] ll = new LinearLayout[4];
+        final LinearLayout[] ll = new LinearLayout[5];
         ll[0] = (LinearLayout) findViewById(R.id.news);
-        ll[1] = (LinearLayout) findViewById(R.id.bbs);
-        ll[2] = (LinearLayout) findViewById(R.id.map);
-        ll[3] = (LinearLayout) findViewById(R.id.set);
+        ll[1] = (LinearLayout) findViewById(R.id.iptv);
+        ll[2] = (LinearLayout) findViewById(R.id.bbs);
+        ll[3] = (LinearLayout) findViewById(R.id.map);
+        ll[4] = (LinearLayout) findViewById(R.id.set);
         int tempwidth = ll[0].getWidth();
         if (tempwidth <= 0) {
             tempwidth = 200;
         }
         final int width = tempwidth;
-        final ValueAnimator va[] = new ValueAnimator[4];
+        final ValueAnimator va[] = new ValueAnimator[5];
         for (int i = 0; i < va.length; i++) {
             va[i] = ValueAnimator.ofFloat(0, 1f);
             va[i].setDuration(duration);

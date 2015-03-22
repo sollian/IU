@@ -36,7 +36,7 @@ import android.widget.Toast;
 public class BBSManager {
     public static final String REFER_RECEIVER_ACTION = "android.intent.action.MY_RECEIVER";
 
-    public static final String APPKEY = "";//申请的论坛appkey
+    public static final String APPKEY = "";
     public static final String API_HEAD = "http://api.byr.cn";
     public static final String BBS_URL = "http://bbs.byr.cn";
     public static final String FORMAT = ".json";

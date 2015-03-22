@@ -4,8 +4,8 @@
     <!-- colorpicker -->
     <string name="press_color_to_apply">点击颜色生效</string>
     <!-- aiyou -->
-    <string name="app_name">爱邮</string>
-    <string name="version">爱邮  v2.4</string>
+    <string name="app_name">爱邮（iptv版）</string>
+    <string name="version">爱邮  v2.5</string>
     <string name="xiaoxun">厚德博学，敬业乐群</string>
     <string name="input_keyword">输入关键字</string>
     <string name="input_userid">收件人ID</string>
@@ -29,8 +29,9 @@
     <!-- 首页 -->
     <string name="main_set">设置</string>
     <string name="main_bbs">论坛</string>
-    <string name="main_news">新闻公告</string>
-    <string name="main_map">校园地图</string>
+    <string name="main_iptv">IPTV</string>
+    <string name="main_news">新闻</string>
+    <string name="main_map">地图</string>
     <string name="bless">每日祝福</string>
     <string name="bless_iu">爱邮心声</string>
     <!-- 地图 -->
@@ -57,7 +58,7 @@
     <string name="set_advice">意见或建议</string>
     <string name="set_update">更新</string>
     <string name="set_about">关于</string>
-    <string name="other_about">爱邮\n作者：sollian\n版本：2.4\n模块：\n\t\t\t\t\t北邮人论坛\n\t\t\t\t\t校园地图\n\t\t\t\t\t校园新闻\n\t\t\t\t\t校园公告\n\n感谢以下同学提供的背景图：\n1、dolley90514（西门）\n2、Jerryren（林荫小路）\n3、ymjk8425887（宏福夜景）\n\n邮箱：sollian@qq.com</string>
+    <string name="other_about">爱邮\n作者：sollian\n版本：2.5\n模块：\n\t\t\t\t\t北邮人论坛\n\t\t\t\t\tIPTV（由lczgywzyy提供）\n\t\t\t\t\t校园地图\n\t\t\t\t\t校园新闻\n\t\t\t\t\t校园公告\n\n感谢以下同学提供的背景图：\n1、dolley90514（西门）\n2、Jerryren（林荫小路）\n3、ymjk8425887（宏福夜景）\n\n邮箱：sollian@qq.com</string>
     <string name="set_help">帮助</string>
     <string name="version_shuoming">版本与功能介绍</string>
     <!-- 个人信息 -->

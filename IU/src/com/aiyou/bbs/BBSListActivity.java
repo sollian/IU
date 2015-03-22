@@ -642,7 +642,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
             case BOARD:
                 mArticleMenu.setVisibility(View.VISIBLE);
                 // guest禁用发帖
-                if (BBSManager.GUEST.equals(mUser.id)) {
+                if (mUser != null && BBSManager.GUEST.equals(mUser.id)) {
                     mWriteArticleIV.setVisibility(View.INVISIBLE);
                 }
                 break;
@@ -1983,7 +1983,11 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     private void refreshFavorite() {
         mFavoriteList.clear();
-        mFavoriteList.addAll(Favorite.mFavorite.boards);
+        if (Favorite.mFavorite != null
+                && Favorite.mFavorite.boards != null
+                && !Favorite.mFavorite.boards.isEmpty()) {
+            mFavoriteList.addAll(Favorite.mFavorite.boards);
+        }
         mFavoriteAdapter.notifyDataSetChanged();
     }
 

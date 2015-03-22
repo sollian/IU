@@ -36,6 +36,8 @@
         <item name="background_news_title_right_unpressed">@drawable/background_news_title_right_unpressed_day</item>
         
         <!-- color资源 -->
+        <item name="background_iptvlist_title">#0fd451</item>
+        <item name="iptv_ptrlv">#eeeeee</item>
         <item name="font_white">@color/font_white_day</item>
         <item name="font_black">@color/font_black_day</item>
         <item name="font_blue">@color/font_blue_day</item>
@@ -84,6 +86,8 @@
         <item name="background_news_title_right_unpressed">@drawable/background_news_title_right_unpressed_night</item>
         
         <!-- color资源 -->
+        <item name="background_iptvlist_title">#222222</item>
+        <item name="iptv_ptrlv">#1f1f1f</item>
         <item name="font_white">@color/font_night</item>
         <item name="font_black">@color/font_night</item>
         <item name="font_blue">@color/font_blue_night</item>

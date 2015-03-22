@@ -47,7 +47,7 @@ public class ActivityFunc {
         // 如果这个activity已经启动了，就不产生新的activity，而只是把这个activity实例加到栈顶来就可以了。
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (needAnim && !SwitchManager.getInstance(activity).isSimpleModeEnabled()) {
-            ActivitySplitAnimationUtil.startActivity(activity, intent, 0.875);
+            ActivitySplitAnimationUtil.startActivity(activity, intent, 0.9);
         } else {
             activity.startActivity(intent);
             activity.overridePendingTransition(android.R.anim.fade_in, 0);

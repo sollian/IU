@@ -270,7 +270,9 @@ public class BBSContentActivity extends BaseActivity implements
     /**
      * 排版显示内容的方法
      */
-    @SuppressLint("NewApi")
+    @SuppressLint({
+            "NewApi", "InflateParams"
+    })
     private void showContent() {
         if (null == mThreads || null == mThreads.articles) {
             return;
@@ -449,8 +451,9 @@ public class BBSContentActivity extends BaseActivity implements
                 rmItems[3] = R.drawable.main_forward;
             }
             int length = rmItems.length;
+            DarkImageView item;
             for (int i = 0; i < length; i++) {
-                DarkImageView item = new DarkImageView(BBSContentActivity.this);
+                item = new DarkImageView(BBSContentActivity.this);
                 item.setTag(article);
                 item.setId(rmItems.length * 10 + i);
                 if (Build.VERSION.SDK_INT >= 11) {
@@ -593,7 +596,7 @@ public class BBSContentActivity extends BaseActivity implements
         wv.setTag(article);
         if (!BBSManager.GUEST.equals(mBBSMgr.getUserId())) {
             wv.setOnTouchListener(new OnTouchListener() {
-                @Override
+                @SuppressLint("ClickableViewAccessibility") @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     Article article = (Article) v.getTag();
                     mReplyET.setHint("回复" + article.user.id);
@@ -615,7 +618,9 @@ public class BBSContentActivity extends BaseActivity implements
         ll.addView(wv);
     }
 
-    @SuppressLint("NewApi")
+    @SuppressLint({
+            "NewApi", "InflateParams"
+    })
     private void init() {
         mIUMgr = AiYouManager.getInstance(getBaseContext());
         mBBSMgr = BBSManager.getInstance(getBaseContext());
@@ -1491,7 +1496,7 @@ public class BBSContentActivity extends BaseActivity implements
         return true;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @SuppressLint("ClickableViewAccessibility") @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {

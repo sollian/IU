@@ -103,7 +103,13 @@ public class HttpManager {
         }
         byte[] result = null;
 
-        HttpGet hg = new HttpGet(netUrl);
+        HttpGet hg = null;
+        try {
+            hg = new HttpGet(netUrl);
+        } catch (IllegalArgumentException e) {
+            Logcat.e(TAG, "getHttpByte IllegalArgumentException:" + e.getMessage());
+            return null;
+        }
         hg.setHeader("Referer", BBSManager.BBS_URL);
 
         CustomHttp http = new CustomHttp(context, hg);
@@ -136,7 +142,13 @@ public class HttpManager {
         }
         String result = null;
 
-        HttpPost hp = new HttpPost(netUrl);
+        HttpPost hp = null;
+        try {
+            hp = new HttpPost(netUrl);
+        } catch (IllegalArgumentException e) {
+            Logcat.e(TAG, "postHttp IllegalArgumentException:" + e.getMessage());
+            return null;
+        }
         hp.setHeader("Referer", BBSManager.BBS_URL);
 
         CustomHttp http = new CustomHttp(context, hp);

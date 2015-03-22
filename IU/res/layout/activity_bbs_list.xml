@@ -75,10 +75,11 @@
                     android:id="@+id/activity_bbslist_iv_search"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:padding="5dp"
                     android:background="#00000000"
                     android:contentDescription="@null"
                     android:onClick="onSearchClick"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerInside"
                     android:src="?search" />
 
                 <EditText
@@ -96,10 +97,11 @@
                     android:id="@+id/activity_bbslist_iv_clearsearch"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:padding="5dp"
                     android:background="#00000000"
                     android:contentDescription="@null"
                     android:onClick="onSearchClick"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerInside"
                     android:src="?delete" />
             </LinearLayout>
 

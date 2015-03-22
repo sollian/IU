@@ -1,10 +1,13 @@
 
 package com.aiyou;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebSettings.PluginState;
 
 /**
  * 版本更新与功能介绍
@@ -25,8 +28,15 @@ public class HelpActivity extends BaseActivity {
         init();
     }
 
+    @SuppressLint("SetJavaScriptEnabled") @SuppressWarnings("deprecation")
     private void init() {
         mWebView = (WebView) findViewById(R.id.wv);
+        WebSettings setting = mWebView.getSettings();
+        setting.setJavaScriptEnabled(true);
+        setting.setAllowFileAccess(true);
+        setting.setAppCacheEnabled(true);
+        setting.setLoadsImagesAutomatically(true);
+        setting.setPluginState(PluginState.ON);
 
         mWebView.loadUrl("file:///android_asset/instruction.html");
     }
