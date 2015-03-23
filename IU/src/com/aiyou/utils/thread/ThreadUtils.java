@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ThreadUtils {
     private static ExecutorService mThreadPool;
+    private static int mMaxPoolSize = 20;
 
     public static void execute(Runnable runnable) {
         if (runnable == null) {
@@ -29,8 +30,15 @@ public class ThreadUtils {
 
     private static void init() {
         if (mThreadPool == null) {
-            mThreadPool = new ThreadPoolExecutor(0, 10, 60L, TimeUnit.SECONDS,
+            mThreadPool = new ThreadPoolExecutor(0, mMaxPoolSize, 60L, TimeUnit.SECONDS,
                     new LinkedBlockingQueue<Runnable>());
+        }
+    }
+
+    public static void setMaxPoolSize(int size) {
+        if (size > 0) {
+            mMaxPoolSize = size;
+            shutDown();
         }
     }
 

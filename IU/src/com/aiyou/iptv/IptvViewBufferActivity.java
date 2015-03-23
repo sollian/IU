@@ -166,10 +166,21 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
             mProgressBar.setVisibility(View.GONE);
         }
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!mVideoView.isPlaying()) {
+            mVideoView.start();;
+        }
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
+        if (mVideoView.isPlaying()) {
+            mVideoView.pause();
+        }
     }
 
     @Override

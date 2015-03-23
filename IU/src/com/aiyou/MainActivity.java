@@ -120,6 +120,11 @@ public class MainActivity extends BaseActivity {
         init();
 
         showSplash();
+        
+        /**
+         * 友盟推送
+         */
+        mPushAgent.enable();
     }
 
     @SuppressWarnings("deprecation")

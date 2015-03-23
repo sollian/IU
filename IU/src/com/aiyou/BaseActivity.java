@@ -24,6 +24,7 @@ import com.aiyou.utils.FileCache.FileManager;
 import com.aiyou.utils.http.HttpManager;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import external.SwipeBackLayout.SwipeBackLayout;
 import external.SwipeBackLayout.app.SwipeBackActivity;
@@ -52,6 +53,11 @@ public class BaseActivity extends SwipeBackActivity implements
 
     private boolean mFlagRelease = true;
 
+    /**
+     * 友盟推送
+     */
+    PushAgent mPushAgent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,11 @@ public class BaseActivity extends SwipeBackActivity implements
         // 实例化对象
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        /**
+         * 如果不调用此方法，将会导致按照"几天不活跃"条件来推送失效。
+         */
+        mPushAgent = AiYouApplication.getInstance().mPushAgent;
+        mPushAgent.onAppStart();
     }
 
     @Override
@@ -78,7 +89,7 @@ public class BaseActivity extends SwipeBackActivity implements
                     SensorManager.SENSOR_DELAY_GAME);
         }
     }
-    
+
     public void initSwipeOut() {
         int edge = SwitchManager.getInstance(getBaseContext()).getSwipeOut();
         if (edge == SwitchManager.SWIPE_CLOSE) {

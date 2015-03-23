@@ -37,7 +37,6 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.Surface;
 import android.view.SurfaceHolder;
-
 import io.vov.vitamio.utils.FileUtils;
 import io.vov.vitamio.utils.Log;
 
@@ -1216,7 +1215,8 @@ public class MediaPlayer {
     return mAudioTrackBufferSize;
   }
 
-  private void audioTrackSetVolume(float leftVolume, float rightVolume) {
+  @SuppressWarnings("deprecation")
+private void audioTrackSetVolume(float leftVolume, float rightVolume) {
     if (mAudioTrack != null)
       mAudioTrack.setStereoVolume(leftVolume, rightVolume);
   }

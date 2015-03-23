@@ -27,6 +27,7 @@ import com.baidu.lbsapi.BMapManager;
 import com.baidu.lbsapi.MKGeneralListener;
 import com.baidu.mapapi.SDKInitializer;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -36,8 +37,14 @@ public class AiYouApplication extends Application {
     private static String TAG = AiYouApplication.class.getSimpleName();
 
     private static AiYouApplication mInstance;
-
+    /**
+     * 百度地图
+     */
     public BMapManager mBMapManager;
+    /**
+     * 友盟推送
+     */
+    public PushAgent mPushAgent;
 
     public static AiYouApplication getInstance() {
         return mInstance;
@@ -71,12 +78,21 @@ public class AiYouApplication extends Application {
         } catch (Exception e) {
             Logcat.e(TAG, "百度地图初始化错误");
         }
-
-        // 友盟自动更新
+        
+        /**
+         * 友盟推送
+         */
+        mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.setDebugMode(false);
+        /**
+         *  友盟自动更新
+         */
         // 非wifi环境更新开启，要放在updata()之前调用
         UmengUpdateAgent.setUpdateOnlyWifi(SwitchManager.getInstance(this).getUpdateOnlyWifi());
         UmengUpdateAgent.update(this);
-        // 获取帖子尾巴
+        /**
+         * 友盟在线参数—— 获取帖子尾巴
+         */
         MobclickAgent.updateOnlineConfig(this);
         BBSManager.getInstance(this).setAppTail(MobclickAgent.getConfigParams(this, "app_tail"));
         //获取iptv频道列表
