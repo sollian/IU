@@ -24,6 +24,7 @@ import com.aiyou.utils.FileCache.FileManager;
 import com.aiyou.utils.http.HttpManager;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
 
 import external.SwipeBackLayout.SwipeBackLayout;
@@ -57,6 +58,10 @@ public class BaseActivity extends SwipeBackActivity implements
      * 友盟推送
      */
     PushAgent mPushAgent;
+    /**
+     * 友盟用户反馈
+     */
+    static FeedbackAgent mFeedbackAgent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

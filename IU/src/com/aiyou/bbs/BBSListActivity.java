@@ -1146,7 +1146,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                 // 用户登录返回的结果
                 User userTmp = (User) data.getSerializableExtra(BBSLoginActivity.KEY_USER);
                 if (null != userTmp) {
-                    if (!userTmp.id.equals(mUser.id)) {
+                    if (mUser == null || !userTmp.id.equals(mUser.id)) {
                         // 设置为当前用户
                         mUser = userTmp;
                         // 左侧用户窗口
@@ -1374,6 +1374,9 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
      * @param user
      */
     private void updateUserWindow(User user) {
+        if (user == null) {
+            return;
+        }
         mReplyItem.setVisibility(View.GONE);
         mAiItem.setVisibility(View.GONE);
         mMailItem.setVisibility(View.GONE);

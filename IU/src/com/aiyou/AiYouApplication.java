@@ -27,6 +27,7 @@ import com.baidu.lbsapi.BMapManager;
 import com.baidu.lbsapi.MKGeneralListener;
 import com.baidu.mapapi.SDKInitializer;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.push.FeedbackPush;
 import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -84,6 +85,10 @@ public class AiYouApplication extends Application {
          */
         mPushAgent = PushAgent.getInstance(this);
         mPushAgent.setDebugMode(false);
+        /**
+         * 友盟用户反馈
+         */
+        FeedbackPush.getInstance(this).init(false);
         /**
          *  友盟自动更新
          */

@@ -209,9 +209,9 @@ public class HttpManager {
                     temp.add(http);
                 }
             }
-            if (!temp.isEmpty()) {
-                mConnSet.removeAll(temp);
-            }
+        }
+        if (!temp.isEmpty()) {
+            mConnSet.removeAll(temp);
         }
         mFlag.set(true);
         synchronized (mFlag) {
@@ -231,8 +231,8 @@ public class HttpManager {
             for (CustomHttp http : mConnSet) {
                 http.getHttp().abort();
             }
-            mConnSet.clear();
         }
+        mConnSet.clear();
         mFlag.set(true);
         synchronized (mFlag) {
             mFlag.notifyAll();

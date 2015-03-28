@@ -2,8 +2,6 @@
 package com.aiyou;
 
 import com.aiyou.bbs.BBSLoginActivity;
-import com.aiyou.bbs.BBSWriteActivity;
-import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.utils.ActivityFunc;
 import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.SwitchManager;
@@ -99,8 +97,8 @@ public class SetActivity extends BaseActivity implements
         mSimpleModePref.setOnPrefChangeListener(this);
         mShakeSharePref.setOnPrefChangeListener(this);
         mUpdatePref.setOnPrefChangeListener(this);
-        
-        mSpinner = (Spinner)findViewById(R.id.spinner);
+
+        mSpinner = (Spinner) findViewById(R.id.spinner);
         mSpinner.setSelection(mSwitchMgr.getSwipeOut());
         mSpinner.setOnItemSelectedListener(this);
         /**
@@ -120,7 +118,8 @@ public class SetActivity extends BaseActivity implements
             clearCache();
         } else if (R.id.activity_set_tv_advice == nId) {
             // 意见或建议
-            writeAdavice();
+//             writeAdavice();
+             mFeedbackAgent.startFeedbackActivity();
         } else if (R.id.activity_set_tv_set_about == nId) {
             // 关于
             showAbout(true);
@@ -137,16 +136,18 @@ public class SetActivity extends BaseActivity implements
     /**
      * 提意见或建议
      */
-    private void writeAdavice() {
-        if (BBSManager.GUEST.equals(BBSManager.getInstance(getBaseContext()).getUserId())) {
-            Toast.makeText(getBaseContext(), "请先登录", Toast.LENGTH_SHORT)
-                    .show();
-            return;
-        }
-        Intent intent = new Intent(SetActivity.this, BBSWriteActivity.class);
-        intent.putExtra(BBSWriteActivity.MAIL_TO, AiYouManager.AUTHOR);
-        ActivityFunc.startActivity(this, intent);
-    }
+    // private void writeAdavice() {
+    // if
+    // (BBSManager.GUEST.equals(BBSManager.getInstance(getBaseContext()).getUserId()))
+    // {
+    // Toast.makeText(getBaseContext(), "请先登录", Toast.LENGTH_SHORT)
+    // .show();
+    // return;
+    // }
+    // Intent intent = new Intent(SetActivity.this, BBSWriteActivity.class);
+    // intent.putExtra(BBSWriteActivity.MAIL_TO, AiYouManager.AUTHOR);
+    // ActivityFunc.startActivity(this, intent);
+    // }
 
     /**
      * 打开|关闭 关于窗口
@@ -244,8 +245,8 @@ public class SetActivity extends BaseActivity implements
             } else {
                 mSwitchMgr.enableShakeShare(false);
             }
-        } else if(R.id.update_pref == nId) {
-            //仅wifi下更新
+        } else if (R.id.update_pref == nId) {
+            // 仅wifi下更新
             if (isChecked) {
                 mSwitchMgr.setUpdateOnlyWifi(true);
             } else {

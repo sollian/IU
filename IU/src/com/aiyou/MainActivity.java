@@ -29,6 +29,7 @@ import com.aiyou.utils.logcat.Logcat;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.aiyou.view.IUWidget;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
 
 import external.OtherView.ActivitySplitAnimationUtil;
 import android.animation.Animator;
@@ -120,7 +121,16 @@ public class MainActivity extends BaseActivity {
         init();
 
         showSplash();
-        
+
+        /**
+         * 友盟用户反馈
+         */
+        mFeedbackAgent = new FeedbackAgent(this);
+        mFeedbackAgent.setDebug(false);
+        // check if the app developer has replied to the feedback or not.
+        mFeedbackAgent.sync();
+        mFeedbackAgent.openAudioFeedback();
+        mFeedbackAgent.openFeedbackPush();
         /**
          * 友盟推送
          */
