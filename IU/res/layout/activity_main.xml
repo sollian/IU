@@ -202,6 +202,38 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal|bottom"
+        android:padding="5dp"
+        >
+        <Button 
+            android:id="@+id/bt_electricity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginRight="10dp"
+            android:text="电量查询"
+            android:textColor="#ffffff"
+            android:onClick="onQuery"
+            android:background="#88333333"
+            />
+        <Button 
+            android:id="@+id/bt_ecard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="一卡通查询"
+            android:textColor="#ffffff"
+            android:onClick="onQuery"
+            android:background="#88333333"
+            />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/iu_detail"

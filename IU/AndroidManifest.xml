@@ -198,6 +198,12 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- 生活查询 -->
+        <activity
+            android:name="com.aiyou.electricity.ElectricityActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <!-- 友盟自动更新 -->
         <service
             android:name="com.umeng.update.net.DownloadingService"

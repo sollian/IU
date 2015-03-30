@@ -13,6 +13,7 @@ import com.aiyou.bbs.bean.Favorite;
 import com.aiyou.bbs.bean.Section;
 import com.aiyou.bbs.bean.Refer.ReferType;
 import com.aiyou.bbs.utils.BBSManager;
+import com.aiyou.electricity.ElectricityActivity;
 import com.aiyou.iptv.IptvListActivity;
 import com.aiyou.iptv.utils.IptvManager;
 import com.aiyou.map.MapActivity;
@@ -241,6 +242,18 @@ public class MainActivity extends BaseActivity {
         } else {
             ActivitySplitAnimationUtil.startActivity(this, intent,
                     dPercent);
+        }
+    }
+    
+    public void onQuery(View v) {
+        int nId = v.getId();
+        Intent intent = null;
+        if(nId == R.id.bt_electricity) {
+            intent = new Intent(this, ElectricityActivity.class);
+        } else if(nId == R.id.bt_ecard) {
+        }
+        if(intent != null) {
+            ActivityFunc.startActivity(this, intent);
         }
     }
 

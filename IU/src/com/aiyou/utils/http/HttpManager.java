@@ -4,7 +4,6 @@ package com.aiyou.utils.http;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.net.ssl.SSLHandshakeException;
 
@@ -41,7 +40,6 @@ import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.utils.logcat.Logcat;
@@ -61,12 +59,9 @@ public class HttpManager {
     private HttpRequestRetryHandler mRequestRetryHandler = null;
     private ResponseHandler<byte[]> mResponseHandler;
 
-    private Set<CustomHttp> mConnSet = new HashSet<CustomHttp>();
-
-    private AtomicBoolean mFlag = new AtomicBoolean(true);
+    private ConcurrentHashSet<CustomHttp> mConnSet = new ConcurrentHashSet<CustomHttp>();
 
     private HttpManager(Context context) {
-        mFlag.set(true);
     }
 
     public static HttpManager getInstance(Context context) {
@@ -91,15 +86,6 @@ public class HttpManager {
     public byte[] getHttpByte(Context context, String netUrl) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
-        }
-        synchronized (mFlag) {
-            if (!mFlag.get()) {
-                try {
-                    mFlag.wait();
-                } catch (InterruptedException e) {
-                    Log.e(TAG, "getHttpByte InterruptedException:" + e.getMessage());
-                }
-            }
         }
         byte[] result = null;
 
@@ -132,13 +118,6 @@ public class HttpManager {
     public String postHttp(Context context, String netUrl, HttpEntity entity) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
-        }
-        if (!mFlag.get()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Log.e(TAG, "postHttp InterruptedException:" + e.getMessage());
-            }
         }
         String result = null;
 
@@ -199,7 +178,6 @@ public class HttpManager {
         if (mConnSet.isEmpty()) {
             return;
         }
-        mFlag.set(false);
         String tag = context.getClass().getSimpleName();
         Set<CustomHttp> temp = new HashSet<CustomHttp>();
         synchronized (mConnSet) {
@@ -213,17 +191,12 @@ public class HttpManager {
         if (!temp.isEmpty()) {
             mConnSet.removeAll(temp);
         }
-        mFlag.set(true);
-        synchronized (mFlag) {
-            mFlag.notifyAll();
-        }
     }
 
     /**
      * 中断所有网络连接
      */
     public synchronized void disconnectAll() {
-        mFlag.set(false);
         if (mConnSet.isEmpty()) {
             return;
         }
@@ -233,10 +206,6 @@ public class HttpManager {
             }
         }
         mConnSet.clear();
-        mFlag.set(true);
-        synchronized (mFlag) {
-            mFlag.notifyAll();
-        }
     }
 
     // /**

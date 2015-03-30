@@ -123,6 +123,9 @@ public class WebImageCache {
     }
 
     private Bitmap getBitmapFromMemory(String url) {
+        if (mMemoryCacheHashMap == null) {
+            return null;
+        }
         Bitmap bitmap = null;
         SoftReference<Bitmap> softRef = mMemoryCacheHashMap.get(getCacheKey(url));
         if (softRef != null) {
