@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import com.aiyou.utils.logcat.Logcat;
 
@@ -177,6 +178,33 @@ public class FileManager {
             return false;
         } finally {
             close(os);
+        }
+    }
+
+    public static void saveTxt(String data, String name) {
+        FileOutputStream outStream = null;
+        OutputStreamWriter writer = null;
+        String fileName = getDirectory("/") + name + ".txt";
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+            outStream = new FileOutputStream(file);
+            writer = new OutputStreamWriter(outStream, "gb2312");
+            writer.write(data);
+            writer.write("\n");
+            writer.flush();
+        } catch (Exception e) {
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                }
+            }
+            close(outStream);
         }
     }
 

@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-class UseEleInfo {
+class ConsumeInfo {
     /**
      * 抄表时间
      */
@@ -18,12 +18,12 @@ class UseEleInfo {
      */
     public String remain;
 
-    public static int parseHtml(List<UseEleInfo> list, Document doc) {
+    public static int parseHtml(List<ConsumeInfo> list, Document doc) {
         if(doc == null) {
             return 0;
         }
         if(list == null) {
-            list = new ArrayList<UseEleInfo>();
+            list = new ArrayList<ConsumeInfo>();
         }
         Elements table = doc.select("table#GridView1").select("tr");
         int size = table.size();
@@ -32,14 +32,14 @@ class UseEleInfo {
         }
         Element tr = null;
         Elements td2 = null;
-        UseEleInfo info = null;
+        ConsumeInfo info = null;
         for(int i = 1; i < size - 1; i++) {
             tr = table.get(i);
             td2 = tr.children();
             if(td2.size() != 3) {
                 continue;
             }
-            info = new UseEleInfo();
+            info = new ConsumeInfo();
             info.time = td2.get(1).text();
             info.remain = td2.get(2).text();
             list.add(info);

@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 class ListAdapter1 extends BaseAdapter {
-    private List<UseEleInfo> mList;
+    private List<ConsumeInfo> mList;
     private LayoutInflater mInflater;
 
-    public ListAdapter1(Context context, List<UseEleInfo> list) {
+    public ListAdapter1(Context context, List<ConsumeInfo> list) {
         mList = list;
         mInflater = LayoutInflater.from(context);
     }
@@ -29,7 +29,7 @@ class ListAdapter1 extends BaseAdapter {
     }
 
     @Override
-    public UseEleInfo getItem(int position) {
+    public ConsumeInfo getItem(int position) {
         return mList.get(position);
     }
 
@@ -51,12 +51,12 @@ class ListAdapter1 extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(position % 2 == 0) {
+        if(position % 2 == 1) {
             holder.ll.setBackgroundColor(0xffcccccc);
         } else {
             holder.ll.setBackgroundColor(0xffffffff);
         }
-        UseEleInfo info = mList.get(position);
+        ConsumeInfo info = mList.get(position);
         holder.tv_time.setText(info.time);
         holder.tv_remain.setText(info.remain);
         return convertView;

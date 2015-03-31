@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -55,7 +56,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
     private String mId;
 
     private PullToRefreshListView mPTRLV1, mPTRLV2;
-    private List<UseEleInfo> mList1 = new ArrayList<UseEleInfo>();
+    private List<ConsumeInfo> mList1 = new ArrayList<ConsumeInfo>();
     private List<BuyEleInfo> mList2 = new ArrayList<BuyEleInfo>();
     private ListAdapter1 mAdapter1;
     private ListAdapter2 mAdapter2;
@@ -81,7 +82,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
                     Toast.makeText(getBaseContext(), "查询失败", Toast.LENGTH_SHORT).show();
                 }
             } else if (msg.what == MSG_MESSAGE1) {
-                UseEleInfo.parseHtml(mList1, mDoc);
+                ConsumeInfo.parseHtml(mList1, mDoc);
                 mAdapter1.notifyDataSetChanged();
             } else if (msg.what == MSG_MESSAGE2) {
                 BuyEleInfo.parseHtml(mList2, mDoc);
@@ -144,7 +145,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
     }
 
     public void onQuery(View v) {
-        String id = mIdET.getText().toString();
+        String id = mIdET.getText().toString().trim();
         if (isValid(id)) {
             mId = id;
             query(id);
@@ -191,7 +192,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         mIpTV.setText(ip);
         mList1.clear();
         mList2.clear();
-        mTotalPage1 = UseEleInfo.parseHtml(mList1, doc);
+        mTotalPage1 = ConsumeInfo.parseHtml(mList1, doc);
         mAdapter1.notifyDataSetChanged();
         mTotalPage2 = BuyEleInfo.parseHtml(mList2, doc);
         mAdapter2.notifyDataSetChanged();
@@ -207,6 +208,20 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         } else if (nId == R.id.tv_tag2) {
             mViewPager.setCurrentItem(1);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 按下键盘上返回按钮
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            selfFinish(null);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void selfFinish(View view) {
+        scrollToFinishActivity();
     }
 
     @Override

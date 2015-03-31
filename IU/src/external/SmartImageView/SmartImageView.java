@@ -1,6 +1,8 @@
 
 package external.SmartImageView;
 
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
@@ -31,6 +33,10 @@ public class SmartImageView extends DarkImageView {
     // Helpers to set image by URL
     public void setImageUrl(String url) {
         setImage(new WebImage(url));
+    }
+
+    public void setImageUrl(String url, Map<String, String> header) {
+        setImage(new WebImage(url), null, null, null, header);
     }
 
     public void setImageUrl(String url,
@@ -87,6 +93,12 @@ public class SmartImageView extends DarkImageView {
     public void setImage(final SmartImage image,
             final Integer fallbackResource, final Integer loadingResource,
             final OnCompleteListener completeListener) {
+        setImage(image, fallbackResource, loadingResource, completeListener, null);
+    }
+
+    public void setImage(final SmartImage image,
+            final Integer fallbackResource, final Integer loadingResource,
+            final OnCompleteListener completeListener, final Map<String, String> header) {
         // Set a loading resource
         if (loadingResource != null) {
             setImageResource(loadingResource);
@@ -105,7 +117,7 @@ public class SmartImageView extends DarkImageView {
         }
 
         // Set up the new task
-        mCurTask = new SmartImageTask(getContext(), image);
+        mCurTask = new SmartImageTask(getContext(), image, header);
         mCurTask
                 .setOnCompleteHandler(new OnCompleteHandler() {
                     @Override

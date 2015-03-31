@@ -2,7 +2,9 @@
 package com.aiyou.utils.http;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -84,6 +86,12 @@ public class HttpManager {
     }
 
     public byte[] getHttpByte(Context context, String netUrl) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put("referer", BBSManager.BBS_URL);
+        return getHttpByte(context, netUrl, header);
+    }
+
+    public byte[] getHttpByte(Context context, String netUrl, Map<String, String> header) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
         }
@@ -96,11 +104,16 @@ public class HttpManager {
             Logcat.e(TAG, "getHttpByte IllegalArgumentException:" + e.getMessage());
             return null;
         }
-        hg.setHeader("Referer", BBSManager.BBS_URL);
+        if (header != null && !header.isEmpty()) {
+            Set<String> keySet = header.keySet();
+            for (String key : keySet) {
+                hg.setHeader(key, header.get(key));
+            }
+
+        }
 
         CustomHttp http = new CustomHttp(context, hg);
         mConnSet.add(http);
-
         try {
             result = getHttpClient(context).execute(hg, getResponseHandler());
         } catch (ClientProtocolException e) {
@@ -116,6 +129,13 @@ public class HttpManager {
     }
 
     public String postHttp(Context context, String netUrl, HttpEntity entity) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put("referer", BBSManager.BBS_URL);
+        return postHttp(context, netUrl, entity, header);
+    }
+
+    public String postHttp(Context context, String netUrl, HttpEntity entity,
+            Map<String, String> header) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
         }
@@ -128,7 +148,13 @@ public class HttpManager {
             Logcat.e(TAG, "postHttp IllegalArgumentException:" + e.getMessage());
             return null;
         }
-        hp.setHeader("Referer", BBSManager.BBS_URL);
+        if (header != null && !header.isEmpty()) {
+            Set<String> keySet = header.keySet();
+            for (String key : keySet) {
+                hp.setHeader(key, header.get(key));
+            }
+
+        }
 
         CustomHttp http = new CustomHttp(context, hp);
         mConnSet.add(http);

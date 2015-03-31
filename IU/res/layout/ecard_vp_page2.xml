@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/et_from"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal"
+            android:hint="日期"
+            android:inputType="date"
+            android:onClick="onDatePick"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="——"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/et_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal"
+            android:hint="日期"
+            android:inputType="date"
+            android:onClick="onDatePick"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_seek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:clickable="true"
+            android:background="@drawable/bt_bg"
+            android:layout_margin="5dp"
+            android:textColor="#ffffff"
+            android:text="查询" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#cccccc"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="操作时间"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="科目描述"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="交易金额"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="余额"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="工作站"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="终端名称"
+                    android:textColor="#000000" />
+            </LinearLayout>
+
+            <external.PullToRefresh.PullToRefreshListView
+                xmlns:ptr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ptrlv"
+                android:layout_width="750dp"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="#00000000"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:listSelector="#00000000"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"
+                ptr:ptrMode="disabled"
+                />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

@@ -1,5 +1,5 @@
 
-package com.aiyou.electricity;
+package com.aiyou.ecard;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-class ListAdapter2 extends BaseAdapter {
-    private List<BuyEleInfo> mList;
+class MyListAdapter extends BaseAdapter {
+    private List<ConsumeInfo> mList;
     private LayoutInflater mInflater;
 
-    public ListAdapter2(Context context, List<BuyEleInfo> list) {
+    public MyListAdapter(Context context, List<ConsumeInfo> list) {
         mList = list;
         mInflater = LayoutInflater.from(context);
     }
@@ -29,7 +29,7 @@ class ListAdapter2 extends BaseAdapter {
     }
 
     @Override
-    public BuyEleInfo getItem(int position) {
+    public ConsumeInfo getItem(int position) {
         return mList.get(position);
     }
 
@@ -43,12 +43,14 @@ class ListAdapter2 extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.electricity_vp_list_item2, null);
+            convertView = mInflater.inflate(R.layout.ecard_list_item, null);
             holder = new ViewHolder();
             holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
-            holder.tv_electricity = (TextView) convertView.findViewById(R.id.tv_electricity);
-            holder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
-            holder.tv_type = (TextView) convertView.findViewById(R.id.tv_type);
+            holder.tv_description = (TextView) convertView.findViewById(R.id.tv_description);
+            holder.tv_money_deal = (TextView) convertView.findViewById(R.id.tv_money_deal);
+            holder.tv_money_remain = (TextView) convertView.findViewById(R.id.tv_money_remain);
+            holder.tv_station = (TextView) convertView.findViewById(R.id.tv_station);
+            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
             convertView.setTag(holder);
         } else {
@@ -59,19 +61,23 @@ class ListAdapter2 extends BaseAdapter {
         } else {
             holder.ll.setBackgroundColor(0xffffffff);
         }
-        BuyEleInfo info = mList.get(position);
+        ConsumeInfo info = mList.get(position);
         holder.tv_time.setText(info.time);
-        holder.tv_electricity.setText(info.buy);
-        holder.tv_money.setText(info.money);
-        holder.tv_type.setText(info.type);
+        holder.tv_description.setText(info.description);
+        holder.tv_money_deal.setText(info.money_deal);
+        holder.tv_money_remain.setText(info.money_remain);
+        holder.tv_station.setText(info.station);
+        holder.tv_name.setText(info.name);
         return convertView;
     }
 
     class ViewHolder {
         public TextView tv_time;
-        public TextView tv_electricity;
-        public TextView tv_money;
-        public TextView tv_type;
+        public TextView tv_description;
+        public TextView tv_money_deal;
+        public TextView tv_money_remain;
+        public TextView tv_station;
+        public TextView tv_name;
         public LinearLayout ll;
     }
 }

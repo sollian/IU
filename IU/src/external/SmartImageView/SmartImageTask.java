@@ -1,6 +1,8 @@
 
 package external.SmartImageView;
 
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -13,6 +15,7 @@ public class SmartImageTask implements Runnable {
     private OnCompleteHandler onCompleteHandler;
     private SmartImage image;
     private Context context;
+    private Map<String, String> mHeader = null;
 
     public static class OnCompleteHandler extends Handler {
         @Override
@@ -26,14 +29,19 @@ public class SmartImageTask implements Runnable {
     }
 
     public SmartImageTask(Context context, SmartImage image) {
+        this(context, image, null);
+    }
+    
+    public SmartImageTask(Context context, SmartImage image, Map<String, String> header) {
         this.image = image;
         this.context = context;
+        this.mHeader = header;
     }
 
     @Override
     public void run() {
         if (image != null) {
-            complete(image.getBitmap(context));
+            complete(image.getBitmap(context, mHeader));
             context = null;
         }
     }

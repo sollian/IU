@@ -1,6 +1,8 @@
 
 package external.SmartImageView;
 
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -11,7 +13,7 @@ public class BitmapImage implements SmartImage {
         this.mBitmap = bitmap;
     }
 
-    public Bitmap getBitmap(Context context) {
+    public Bitmap getBitmap(Context context, Map<String, String> header) {
         return mBitmap;
     }
 

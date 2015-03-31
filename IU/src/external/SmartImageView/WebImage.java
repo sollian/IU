@@ -2,6 +2,8 @@
 package external.SmartImageView;
 
 
+import java.util.Map;
+
 import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.utils.http.HttpManager;
 import com.aiyou.utils.image.ImageFactory;
@@ -23,7 +25,7 @@ public class WebImage implements SmartImage {
         this.mUrl = url;
     }
 
-    public Bitmap getBitmap(Context context) {
+    public Bitmap getBitmap(Context context, Map<String, String> header) {
         mContext = context;
         // Don't leak context
         if (webImageCache == null) {
@@ -35,7 +37,7 @@ public class WebImage implements SmartImage {
         if (mUrl != null) {
             // bitmap = webImageCache.get(url);
             if (bitmap == null) {
-                bitmap = getBitmapFromUrl(mUrl);
+                bitmap = getBitmapFromUrl(mUrl, header);
                 if (bitmap != null) {
                     webImageCache.put(mUrl, bitmap);
                 }
@@ -45,14 +47,14 @@ public class WebImage implements SmartImage {
     }
 
     @SuppressLint("NewApi")
-    private Bitmap getBitmapFromUrl(String url) {
+    private Bitmap getBitmapFromUrl(String url, Map<String, String> header) {
         Bitmap bitmap = null;
         byte[] data = null;
         if (url.contains(BBSManager.API_HEAD)) {
             // 论坛图片
             url += BBSManager.FORMAT + "?appkey=" + BBSManager.APPKEY;
         }
-        data = HttpManager.getInstance(mContext).getHttpByte(mContext, url);
+        data = HttpManager.getInstance(mContext).getHttpByte(mContext, url, header);
         if (data != null) {
             try {
                 // 对图像的大小进行处理
