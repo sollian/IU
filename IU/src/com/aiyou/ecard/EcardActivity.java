@@ -1,4 +1,3 @@
-
 package com.aiyou.ecard;
 
 import java.io.IOException;
@@ -40,7 +39,6 @@ import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.NetWorkManager;
-import com.aiyou.utils.logcat.Logcat;
 import com.aiyou.utils.thread.ThreadUtils;
 
 import external.PullToRefresh.PullToRefreshListView;
@@ -51,8 +49,10 @@ public class EcardActivity extends BaseActivity implements
     private static final String URL_BASIC = "http://ecard.bupt.edu.cn/";
     private static final String URL_BASIC_USER = URL_BASIC + "User/";
     private static final String URL_LOGIN = URL_BASIC + "Login.aspx";
-    private static final String URL_BASIC_INFO = URL_BASIC_USER + "baseinfo.aspx";
-    private static final String URL_CONSUME_INFO = URL_BASIC_USER + "ConsumeInfo.aspx";
+    private static final String URL_BASIC_INFO = URL_BASIC_USER
+            + "baseinfo.aspx";
+    private static final String URL_CONSUME_INFO = URL_BASIC_USER
+            + "ConsumeInfo.aspx";
 
     private static final int MSG_ERROR = -1;
     private static final int MSG_BASIC_INFO = 1;
@@ -66,15 +66,15 @@ public class EcardActivity extends BaseActivity implements
 
     private EditText mIdET, mPasswordET;
     private ProgressDialog mProgressDlg;
-    
+
     private LinearLayout mContentLL;
 
     private ViewPager mViewPager;
     private TextView mTag1TV, mTag2TV;
 
     private SmartImageView mFaceSIV;
-    private TextView mIdTV, mNameTV, mSexTV, mNationTV,
-            mMoneyMainTV, mMoneyExtraTV, mMoneySpecTV, mRoleTV, mStatusTV, mDepartmentTV;
+    private TextView mIdTV, mNameTV, mSexTV, mNationTV, mMoneyMainTV,
+            mMoneyExtraTV, mMoneySpecTV, mRoleTV, mStatusTV, mDepartmentTV;
 
     private EditText mFromET, mToET;
     private TextView mQueryConsumeTV;
@@ -101,12 +101,14 @@ public class EcardActivity extends BaseActivity implements
                 parseConsumeInfo(mList, doc);
                 mAdapter.notifyDataSetChanged();
                 if (mList.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "暂无消费记录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "暂无消费记录",
+                            Toast.LENGTH_SHORT).show();
                 }
                 if (mPage < mTotalPage) {
                     queryConsumeInfo(++mPage);
                 } else {
-                    Toast.makeText(getBaseContext(), "共" + mList.size() + "条记录", Toast.LENGTH_SHORT)
+                    Toast.makeText(getBaseContext(),
+                            "共" + mList.size() + "条记录", Toast.LENGTH_SHORT)
                             .show();
                 }
             } else if (msg.what == MSG_ERROR) {
@@ -138,7 +140,6 @@ public class EcardActivity extends BaseActivity implements
         if (mCookies != null && !mCookies.isEmpty()) {
             Set<String> keySet = mCookies.keySet();
             for (String key : keySet) {
-                Logcat.e(key, mCookies.get(key));
                 cookie += key + "=" + mCookies.get(key) + ";";
             }
         }
@@ -169,15 +170,15 @@ public class EcardActivity extends BaseActivity implements
             public boolean onEditorAction(TextView v, int actionId,
                     KeyEvent event) {
                 switch (actionId) {
-                    case EditorInfo.IME_ACTION_DONE:
-                        onQuery(null);
-                        break;
+                case EditorInfo.IME_ACTION_DONE:
+                    onQuery(null);
+                    break;
                 }
                 return true;
             }
         });
-        
-        mContentLL = (LinearLayout)findViewById(R.id.ll_content);
+
+        mContentLL = (LinearLayout) findViewById(R.id.ll_content);
 
         mTag1TV = (TextView) findViewById(R.id.tv_tag1);
         mTag2TV = (TextView) findViewById(R.id.tv_tag2);
@@ -225,7 +226,8 @@ public class EcardActivity extends BaseActivity implements
 
         viewList.add(view1);
         viewList.add(view2);
-        mViewPager.setAdapter(new EcardPagerAdapter(getBaseContext(), viewList));
+        mViewPager
+                .setAdapter(new EcardPagerAdapter(getBaseContext(), viewList));
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(0);
     }
@@ -251,41 +253,46 @@ public class EcardActivity extends BaseActivity implements
     public void onDatePick(View v) {
         int nId = v.getId();
         if (nId == R.id.et_from) {
-            new DatePickerDialog(EcardActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    if (year * 10000L + monthOfYear * 100 + dayOfMonth >= mYear2 * 10000 + mMonth2
-                            * 100
-                            + mDay2) {
-                        Toast.makeText(EcardActivity.this, "开始日期要小于结束日期", Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-                    mYear1 = year;
-                    mMonth1 = monthOfYear;
-                    mDay1 = dayOfMonth;
-                    mFromET.setText(dateFormat(mYear1, mMonth1, mDay1));
-                    clearList();
-                }
-            }, mYear1, mMonth1, mDay1).show();
+            new DatePickerDialog(EcardActivity.this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                int monthOfYear, int dayOfMonth) {
+                            if (year * 10000L + monthOfYear * 100 + dayOfMonth >= mYear2
+                                    * 10000 + mMonth2 * 100 + mDay2) {
+                                Toast.makeText(EcardActivity.this,
+                                        "开始日期要小于结束日期", Toast.LENGTH_SHORT)
+                                        .show();
+                                return;
+                            }
+                            mYear1 = year;
+                            mMonth1 = monthOfYear;
+                            mDay1 = dayOfMonth;
+                            mFromET.setText(dateFormat(mYear1, mMonth1, mDay1));
+                            clearList();
+                        }
+                    }, mYear1, mMonth1, mDay1).show();
             ;
         } else if (nId == R.id.et_to) {
-            new DatePickerDialog(EcardActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    if (mYear1 * 10000L + mMonth1 * 100 + mDay1 >= year * 10000 + monthOfYear * 100
-                            + dayOfMonth) {
-                        Toast.makeText(EcardActivity.this, "开始日期要小于结束日期", Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-                    mYear2 = year;
-                    mMonth2 = monthOfYear;
-                    mDay2 = dayOfMonth;
-                    mToET.setText(dateFormat(mYear2, mMonth2, mDay2));
-                    clearList();
-                }
-            }, mYear2, mMonth2, mDay2).show();
+            new DatePickerDialog(EcardActivity.this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                int monthOfYear, int dayOfMonth) {
+                            if (mYear1 * 10000L + mMonth1 * 100 + mDay1 >= year
+                                    * 10000 + monthOfYear * 100 + dayOfMonth) {
+                                Toast.makeText(EcardActivity.this,
+                                        "开始日期要小于结束日期", Toast.LENGTH_SHORT)
+                                        .show();
+                                return;
+                            }
+                            mYear2 = year;
+                            mMonth2 = monthOfYear;
+                            mDay2 = dayOfMonth;
+                            mToET.setText(dateFormat(mYear2, mMonth2, mDay2));
+                            clearList();
+                        }
+                    }, mYear2, mMonth2, mDay2).show();
             ;
         }
     }
@@ -294,12 +301,14 @@ public class EcardActivity extends BaseActivity implements
         String id = mIdET.getText().toString().trim();
         String password = mPasswordET.getText().toString().trim();
         if (TextUtils.isEmpty(id) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getBaseContext(), "卡号和密码不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "卡号和密码不能为空", Toast.LENGTH_SHORT)
+                    .show();
             return;
         }
         clear();
         query(id, password);
-        AiYouManager.viewInputMethod(EcardActivity.this, false, getCurrentFocus());
+        AiYouManager.viewInputMethod(EcardActivity.this, false,
+                getCurrentFocus());
     }
 
     private void clear() {
@@ -393,8 +402,10 @@ public class EcardActivity extends BaseActivity implements
         String param2 = "btnLogin";
         String param3 = "";
         String param4 = doc.select("input#__VIEWSTATE").get(0).attr("value");
-        String param5 = doc.select("input#__VIEWSTATEGENERATOR").get(0).attr("value");
-        String param6 = doc.select("input#__EVENTVALIDATION").get(0).attr("value");
+        String param5 = doc.select("input#__VIEWSTATEGENERATOR").get(0)
+                .attr("value");
+        String param6 = doc.select("input#__EVENTVALIDATION").get(0)
+                .attr("value");
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("__LASTFOCUS", param1);
@@ -410,7 +421,8 @@ public class EcardActivity extends BaseActivity implements
          * 登录
          */
         try {
-            Connection conn = Jsoup.connect(URL_LOGIN).data(params).timeout(10000);
+            Connection conn = Jsoup.connect(URL_LOGIN).data(params)
+                    .timeout(10000);
             doc = conn.post();
             mCookies = conn.response().cookies();
         } catch (IOException e) {
@@ -429,7 +441,8 @@ public class EcardActivity extends BaseActivity implements
     private String queryBasicInfo() {
         Document doc = null;
         try {
-            doc = Jsoup.connect(URL_BASIC_INFO).timeout(10000).cookies(mCookies).get();
+            doc = Jsoup.connect(URL_BASIC_INFO).timeout(10000)
+                    .cookies(mCookies).get();
         } catch (IOException e) {
             doc = null;
         }
@@ -437,18 +450,29 @@ public class EcardActivity extends BaseActivity implements
             return "查询基本信息失败";
         }
         mBasicInfo = new BasicInfo();
-        mBasicInfo.face_url = URL_BASIC_USER + doc.select("img").get(0).attr("src");
-        mBasicInfo.id = doc.select("span#ContentPlaceHolder1_txtOutID").get(0).text();
-        mBasicInfo.name = doc.select("span#ContentPlaceHolder1_txtUserName").get(0).text();
-        mBasicInfo.sex = doc.select("span#ContentPlaceHolder1_txtSex").get(0).text();
-        mBasicInfo.nation = doc.select("span#ContentPlaceHolder1_txtNation").get(0).text();
-        mBasicInfo.money_main = doc.select("span#ContentPlaceHolder1_txtOddFare").get(0).text();
-        mBasicInfo.money_extra = doc.select("span#ContentPlaceHolder1_txtSubsidy").get(0).text();
-        mBasicInfo.money_spec = doc.select("span#ContentPlaceHolder1_txtSpecialOddfare").get(0)
+        mBasicInfo.face_url = URL_BASIC_USER
+                + doc.select("img").get(0).attr("src");
+        mBasicInfo.id = doc.select("span#ContentPlaceHolder1_txtOutID").get(0)
                 .text();
-        mBasicInfo.role = doc.select("span#ContentPlaceHolder1_txtCardSF").get(0).text();
-        mBasicInfo.status = doc.select("span#ContentPlaceHolder1_txtStatus").get(0).text();
-        mBasicInfo.department = doc.select("span#ContentPlaceHolder1_stxtCustDeptName").get(0)
+        mBasicInfo.name = doc.select("span#ContentPlaceHolder1_txtUserName")
+                .get(0).text();
+        mBasicInfo.sex = doc.select("span#ContentPlaceHolder1_txtSex").get(0)
+                .text();
+        mBasicInfo.nation = doc.select("span#ContentPlaceHolder1_txtNation")
+                .get(0).text();
+        mBasicInfo.money_main = doc
+                .select("span#ContentPlaceHolder1_txtOddFare").get(0).text();
+        mBasicInfo.money_extra = doc
+                .select("span#ContentPlaceHolder1_txtSubsidy").get(0).text();
+        mBasicInfo.money_spec = doc
+                .select("span#ContentPlaceHolder1_txtSpecialOddfare").get(0)
+                .text();
+        mBasicInfo.role = doc.select("span#ContentPlaceHolder1_txtCardSF")
+                .get(0).text();
+        mBasicInfo.status = doc.select("span#ContentPlaceHolder1_txtStatus")
+                .get(0).text();
+        mBasicInfo.department = doc
+                .select("span#ContentPlaceHolder1_stxtCustDeptName").get(0)
                 .text();
         return null;
     }
@@ -456,7 +480,8 @@ public class EcardActivity extends BaseActivity implements
     private String prepareConsumeInfo() {
         Document doc = null;
         try {
-            doc = Jsoup.connect(URL_CONSUME_INFO).timeout(10000).cookies(mCookies).get();
+            doc = Jsoup.connect(URL_CONSUME_INFO).timeout(10000)
+                    .cookies(mCookies).get();
         } catch (IOException e) {
             doc = null;
         }
@@ -474,7 +499,8 @@ public class EcardActivity extends BaseActivity implements
         // 为查询消费情况准备参数
         final Map<String, String> data = mConsumeParams;
         data.put("__EVENTARGUMENT", page + "");
-        data.put("ctl00$ContentPlaceHolder1$rbtnType", "0");// 0查询主钱包，1查询补助钱包
+        // 0查询主钱包，1查询补助钱包
+        data.put("ctl00$ContentPlaceHolder1$rbtnType", "0");
         data.put("ctl00$ContentPlaceHolder1$txtStartDate", from);
         data.put("ctl00$ContentPlaceHolder1$txtEndDate", to);
         if (page == 1) {
@@ -487,8 +513,8 @@ public class EcardActivity extends BaseActivity implements
             public void run() {
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(URL_CONSUME_INFO).data(data).timeout(10000)
-                            .cookies(mCookies).post();
+                    doc = Jsoup.connect(URL_CONSUME_INFO).data(data)
+                            .timeout(10000).cookies(mCookies).post();
                 } catch (IOException e) {
                     doc = null;
                 }
@@ -504,8 +530,14 @@ public class EcardActivity extends BaseActivity implements
                 getConsumeParams(doc);
                 // 获取总页数
                 if (mTotalPage == 1) {
-                    mTotalPage = doc.select("div#ContentPlaceHolder1_AspNetPager1").select("a")
-                            .size() - 3;
+                    String page = doc
+                            .select("div#ContentPlaceHolder1_AspNetPager1")
+                            .select("a").last().attr("href");
+                    String[] arr = page.split("'");
+                    if (arr.length >= 2) {
+                        page = arr[arr.length - 2];
+                        mTotalPage = Integer.parseInt(page);
+                    }
                     if (mTotalPage < 1) {
                         mTotalPage = 1;
                     }
@@ -521,7 +553,8 @@ public class EcardActivity extends BaseActivity implements
     }
 
     private void parseConsumeInfo(List<ConsumeInfo> list, Document doc) {
-        Elements tr = doc.select("table#ContentPlaceHolder1_gridView").select("tr");
+        Elements tr = doc.select("table#ContentPlaceHolder1_gridView").select(
+                "tr");
         tr.remove(0);
         ConsumeInfo info = null;
         Elements td = null;
@@ -549,8 +582,10 @@ public class EcardActivity extends BaseActivity implements
     private Map<String, String> getConsumeParams(final Document doc) {
         String param1 = "ctl00$ContentPlaceHolder1$AspNetPager1";
         String param2 = doc.select("input#__VIEWSTATE").get(0).attr("value");
-        String param3 = doc.select("input#__VIEWSTATEGENERATOR").get(0).attr("value");
-        String param4 = doc.select("input#__EVENTVALIDATION").get(0).attr("value");
+        String param3 = doc.select("input#__VIEWSTATEGENERATOR").get(0)
+                .attr("value");
+        String param4 = doc.select("input#__EVENTVALIDATION").get(0)
+                .attr("value");
 
         mConsumeParams.clear();
         mConsumeParams.put("__EVENTTARGET", param1);
@@ -561,7 +596,8 @@ public class EcardActivity extends BaseActivity implements
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset,
+            int positionOffsetPixels) {
     }
 
     @Override

@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:singleLine="true"
-            android:text="购电查询"
+            android:text="电量查询"
             android:textColor="#ffffff" />
     </FrameLayout>
 
