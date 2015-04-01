@@ -40,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="100"
+            android:imeOptions="flagNoExtractUi|actionDone"
             android:hint="楼号-房间号，如：11-101"
             android:inputType="text"
             android:singleLine="true" />

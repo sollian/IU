@@ -11,15 +11,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            >
 
             <external.SmartImageView.SmartImageView
                 android:id="@+id/siv"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
+                android:layout_margin="5dp"
                 android:contentDescription="@null"
-                android:src="@drawable/iu_default_green"
-                />
+                android:src="@drawable/iu_default_green" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,17 +32,17 @@
                     android:id="@+id/tv_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="学（工）号："
+                    android:gravity="bottom"
+                    android:text="学      号："
                     android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
+                    android:gravity="bottom"
                     android:text="姓      名："
                     android:textColor="#000000" />
 
@@ -49,8 +50,8 @@
                     android:id="@+id/tv_sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
+                    android:gravity="bottom"
                     android:text="性      别："
                     android:textColor="#000000" />
 
@@ -58,25 +59,33 @@
                     android:id="@+id/tv_nation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_weight="1"
+                    android:gravity="bottom"
                     android:text="民      族："
                     android:textColor="#000000" />
             </LinearLayout>
         </LinearLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#eeeeee"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal" >
+            android:divider="@drawable/divider_v_lightgray"
+            android:orientation="horizontal"
+            android:showDividers="middle" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" 
+                android:divider="@drawable/divider_h_lightgray"
                 android:gravity="right"
-                >
+                android:orientation="vertical"
+                android:showDividers="middle" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,12 +129,14 @@
                     android:text="部门："
                     android:textColor="#000000" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" 
+                android:divider="@drawable/divider_h_lightgray"
                 android:gravity="center_horizontal"
-                >
+                android:orientation="vertical"
+                android:showDividers="middle" >
 
                 <TextView
                     android:id="@+id/tv_money_main"

@@ -38,6 +38,7 @@
             android:id="@+id/et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="flagNoExtractUi|actionNext"
             android:hint="卡号"
             android:inputType="number" />
 
@@ -45,6 +46,7 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="flagNoExtractUi|actionDone"
             android:hint="密码"
             android:inputType="textPassword" />
 

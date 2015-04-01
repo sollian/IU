@@ -28,8 +28,7 @@
         android:layout_height="50dp"
         android:contentDescription="@null"
         android:onClick="selfFinish"
-        android:rotation="180"
         android:scaleType="fitXY"
-        android:src="@drawable/more" />
+        android:src="@drawable/back_night" />
 
 </merge>

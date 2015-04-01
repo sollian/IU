@@ -22,11 +22,13 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
@@ -109,6 +111,18 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
     @SuppressLint("InflateParams")
     private void init() {
         mIdET = (EditText) findViewById(R.id.et_id);
+        mIdET.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                    KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        onQuery(null);
+                        break;
+                }
+                return true;
+            }
+        });
         mProgressDlg = new ProgressDialog(this);
         mProgressDlg.setIndeterminate(true);
         mProgressDlg.setMessage("正在查询");

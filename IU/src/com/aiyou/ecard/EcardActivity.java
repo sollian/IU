@@ -28,14 +28,17 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
+import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.logcat.Logcat;
 import com.aiyou.utils.thread.ThreadUtils;
@@ -129,8 +132,8 @@ public class EcardActivity extends BaseActivity implements
     }
 
     private void showBasicInfo(BasicInfo info) {
-        mIdTV.setText("学（工）号：" + info.id);
-        mNameTV.setText("姓          名：" + info.name);
+        mIdTV.setText("学    号：" + info.id);
+        mNameTV.setText("姓    名：" + info.name);
         String cookie = "";
         if (mCookies != null && !mCookies.isEmpty()) {
             Set<String> keySet = mCookies.keySet();
@@ -142,8 +145,8 @@ public class EcardActivity extends BaseActivity implements
         Map<String, String> header = new HashMap<String, String>();
         header.put("Cookie", cookie);
         mFaceSIV.setImageUrl(info.face_url, header);
-        mSexTV.setText("性          别：" + info.sex);
-        mNationTV.setText("民          族：" + info.nation);
+        mSexTV.setText("性    别：" + info.sex);
+        mNationTV.setText("民    族：" + info.nation);
         mMoneyMainTV.setText(info.money_main);
         mMoneyExtraTV.setText(info.money_extra);
         mMoneySpecTV.setText(info.money_spec);
@@ -161,6 +164,18 @@ public class EcardActivity extends BaseActivity implements
 
         mIdET = (EditText) findViewById(R.id.et_id);
         mPasswordET = (EditText) findViewById(R.id.et_password);
+        mPasswordET.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                    KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        onQuery(null);
+                        break;
+                }
+                return true;
+            }
+        });
         
         mContentLL = (LinearLayout)findViewById(R.id.ll_content);
 
@@ -284,6 +299,7 @@ public class EcardActivity extends BaseActivity implements
         }
         clear();
         query(id, password);
+        AiYouManager.viewInputMethod(EcardActivity.this, false, getCurrentFocus());
     }
 
     private void clear() {
