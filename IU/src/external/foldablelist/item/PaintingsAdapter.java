@@ -1,4 +1,3 @@
-
 package external.foldablelist.item;
 
 import java.util.ArrayList;
@@ -54,30 +53,30 @@ public class PaintingsAdapter extends ItemsAdapter<Painting> implements
     @Override
     protected void bindView(Painting item, int pos, View convertView) {
         ViewHolder vh = (ViewHolder) convertView.getTag();
-        int nX = 127;
-        if (SwitchManager.getInstance(AiYouApplication.getInstance()).isNightModeEnabled()) {
-            nX = 0;
-            vh.tv_title.setTextColor(Color.GRAY);
-        }
-        int nR = (int) (Math.random() * 128 + nX);
-        int nG = (int) (Math.random() * 128 + nX);
-        int nB = (int) (Math.random() * 128 + nX);
-        int color = Color.rgb(nR, nG, nB);
-        vh.fl.setBackgroundColor(color);
+         int nX = 127;
+         if (SwitchManager.getInstance(AiYouApplication.getInstance())
+         .isNightModeEnabled()) {
+         nX = 0;
+         vh.tv_title.setTextColor(Color.GRAY);
+         }
+         int nR = (int) (Math.random() * 128 + nX);
+         int nG = (int) (Math.random() * 128 + nX);
+         int nB = (int) (Math.random() * 128 + nX);
+         int color = Color.rgb(nR, nG, nB);
+         vh.fl.setBackgroundColor(color);
 
         vh.siv.setTag(item);
         vh.siv.setImageUrl(item.getImageUrl(), R.drawable.iu_default_gray,
                 R.drawable.iu_default_green);
         vh.tv_title.setText(item.getTitle());
-        item.setColor(color);
+         item.setColor(color);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         if (listener != null) {
-            listener.onOpenDetails(view, (Painting) view.getTag());
+             listener.onOpenDetails(view, (Painting) view.getTag());
         }
-
     }
 
     private static class ViewHolder {

@@ -1,11 +1,10 @@
-
 package com.aiyou.map;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -23,7 +22,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
-
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.map.adapter.MySpinnerAdapter;
@@ -70,7 +68,6 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteLine;
 import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
-
 import external.OtherView.ActivitySplitAnimationUtil;
 
 public class MapActivity extends BaseActivity implements
@@ -150,8 +147,7 @@ public class MapActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         int delay = 0;
-        if (ActivitySplitAnimationUtil.canPlay()
-                && Build.VERSION.SDK_INT >= 14) {
+        if (ActivitySplitAnimationUtil.canPlay() && Build.VERSION.SDK_INT >= 14) {
             delay = 1000;
             // 中心打开动画
             ActivitySplitAnimationUtil.prepareAnimation(this);
@@ -172,7 +168,10 @@ public class MapActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         // 退出时销毁定位
-        mLocClient.stop();
+        if (mLocClient != null && mLocClient.isStarted()) {
+            mLocClient.stop();
+        }
+        mLocClient = null;
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         // MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
@@ -183,12 +182,14 @@ public class MapActivity extends BaseActivity implements
         mHandler = null;
 
         mBdGround.recycle();
+        mBdGround = null;
         if (!mBmpDescSet.isEmpty()) {
             for (BitmapDescriptor descriptor : mBmpDescSet) {
                 descriptor.recycle();
             }
         }
         mBmpDescSet.clear();
+        mBmpDescSet = null;
         ActivitySplitAnimationUtil.cancel();
 
         System.gc();
@@ -238,7 +239,8 @@ public class MapActivity extends BaseActivity implements
                 TextView text = new TextView(getBaseContext());
                 text.setTextColor(Color.BLACK);
                 text.setGravity(Gravity.CENTER);
-                text.setTextSize(AiYouManager.getInstance(getBaseContext()).sp2px(9));
+                text.setTextSize(AiYouManager.getInstance(getBaseContext())
+                        .sp2px(9));
                 text.setBackgroundResource(R.drawable.map_popup);
                 final LatLng ll = marker.getPosition();
                 Point p = mBaiduMap.getProjection().toScreenLocation(ll);
@@ -273,27 +275,27 @@ public class MapActivity extends BaseActivity implements
             public void onClick(View v) {
                 // 设置定位模式
                 switch (mCurrentMode) {
-                    case NORMAL:
-                        ((TextView) v).setText("跟随");
-                        mCurrentMode = LocationMode.FOLLOWING;
-                        mBaiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, null));
-                        break;
-                    case COMPASS:
-                        ((TextView) v).setText("普通");
-                        mCurrentMode = LocationMode.NORMAL;
-                        mBaiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, null));
-                        break;
-                    case FOLLOWING:
-                        ((TextView) v).setText("罗盘");
-                        mCurrentMode = LocationMode.COMPASS;
-                        mBaiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, null));
-                        break;
+                case NORMAL:
+                    ((TextView) v).setText("跟随");
+                    mCurrentMode = LocationMode.FOLLOWING;
+                    mBaiduMap
+                            .setMyLocationConfigeration(new MyLocationConfiguration(
+                                    mCurrentMode, true, null));
+                    break;
+                case COMPASS:
+                    ((TextView) v).setText("普通");
+                    mCurrentMode = LocationMode.NORMAL;
+                    mBaiduMap
+                            .setMyLocationConfigeration(new MyLocationConfiguration(
+                                    mCurrentMode, true, null));
+                    break;
+                case FOLLOWING:
+                    ((TextView) v).setText("罗盘");
+                    mCurrentMode = LocationMode.COMPASS;
+                    mBaiduMap
+                            .setMyLocationConfigeration(new MyLocationConfiguration(
+                                    mCurrentMode, true, null));
+                    break;
                 }
             }
         };
@@ -322,8 +324,7 @@ public class MapActivity extends BaseActivity implements
             mBmpDescSet.add(descriptor);
             marker = (Marker) (mBaiduMap.addOverlay(new MarkerOptions()
                     .position(new LatLng(data.getLat(), data.getLng()))
-                    .icon(descriptor)
-                    .zIndex(9)));
+                    .icon(descriptor).zIndex(9)));
             marker.setTitle(data.getName());
             bundle = new Bundle();
             bundle.putString("type", data.getType());
@@ -338,7 +339,8 @@ public class MapActivity extends BaseActivity implements
                 .include(southwest).build();
 
         OverlayOptions ooGround = new GroundOverlayOptions()
-                .positionFromBounds(bounds).image(mBdGround).transparency(0.3f).zIndex(1);
+                .positionFromBounds(bounds).image(mBdGround).transparency(0.3f)
+                .zIndex(1);
         mBaiduMap.addOverlay(ooGround);
 
         MapStatusUpdate u = MapStatusUpdateFactory
@@ -455,6 +457,7 @@ public class MapActivity extends BaseActivity implements
      * 
      * @param v
      */
+    @SuppressLint("InflateParams")
     public void nodeClick(View v) {
         if (mNodeIndex < -1 || mRoute == null || mRoute.getAllStep() == null
                 || mNodeIndex >= mRoute.getAllStep().size()) {
@@ -494,8 +497,8 @@ public class MapActivity extends BaseActivity implements
         // 移动节点至中心
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(nodeLocation));
         // show popup
-        View viewCache = getLayoutInflater()
-                .inflate(R.layout.custom_text_view, null);
+        View viewCache = getLayoutInflater().inflate(R.layout.custom_text_view,
+                null);
         TextView popupText = (TextView) viewCache.findViewById(R.id.textcache);
         popupText.setBackgroundResource(R.drawable.map_popup);
         popupText.setText(nodeTitle);

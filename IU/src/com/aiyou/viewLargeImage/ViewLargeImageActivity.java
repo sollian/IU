@@ -3,6 +3,7 @@ package com.aiyou.viewLargeImage;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.utils.NetWorkManager;
@@ -12,6 +13,7 @@ import com.aiyou.utils.image.ImageFactory;
 import com.aiyou.utils.share.ShareTask;
 import com.aiyou.utils.share.ShareTask.ShareListener;
 import com.aiyou.viewLargeImage.GetLargeImgTask.ProgressListener;
+
 import external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx;
 import external.OtherView.SinkingView;
 import external.OtherView.TouchImageView;

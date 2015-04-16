@@ -1,4 +1,3 @@
-
 package external.SmartImageView;
 
 import java.io.BufferedOutputStream;
@@ -36,7 +35,7 @@ public class WebImageCache {
         }
     }
 
-    Bitmap get(final String url) {
+    public Bitmap get(final String url) {
         Bitmap bitmap = null;
         // Check for image in memory
         bitmap = getBitmapFromMemory(url);
@@ -89,7 +88,8 @@ public class WebImageCache {
     }
 
     private void cacheBitmapToMemory(final String url, final Bitmap bitmap) {
-        mMemoryCacheHashMap.put(getCacheKey(url), new SoftReference<Bitmap>(bitmap));
+        mMemoryCacheHashMap.put(getCacheKey(url), new SoftReference<Bitmap>(
+                bitmap));
     }
 
     private void cacheBitmapToDisk(final String url, final Bitmap bitmap) {
@@ -108,12 +108,16 @@ public class WebImageCache {
                         }
                         ostream = new BufferedOutputStream(
                                 new FileOutputStream(file), 2 * 1024);
-                        bitmap.compress(FileManager.BMP_FORMAT, FileManager.BMP_QUALITY, ostream);
+                        bitmap.compress(FileManager.BMP_FORMAT,
+                                FileManager.BMP_QUALITY, ostream);
                         ostream.flush();
                     } catch (FileNotFoundException e) {
                         Logcat.e(TAG, "cacheBitmapToDisk FileNotFoundException");
                     } catch (IOException e) {
-                        Logcat.e(TAG, "cacheBitmapToDisk IOException:" + e.getMessage());
+                        Logcat.e(
+                                TAG,
+                                "cacheBitmapToDisk IOException:"
+                                        + e.getMessage());
                     } finally {
                         FileManager.close(ostream);
                     }
@@ -127,7 +131,12 @@ public class WebImageCache {
             return null;
         }
         Bitmap bitmap = null;
-        SoftReference<Bitmap> softRef = mMemoryCacheHashMap.get(getCacheKey(url));
+        SoftReference<Bitmap> softRef = null;
+        try {
+            softRef = mMemoryCacheHashMap.get(getCacheKey(url));
+        } catch (Exception e) {
+
+        }
         if (softRef != null) {
             bitmap = softRef.get();
         }

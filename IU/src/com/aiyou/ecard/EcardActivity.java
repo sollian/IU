@@ -530,13 +530,17 @@ public class EcardActivity extends BaseActivity implements
                 getConsumeParams(doc);
                 // 获取总页数
                 if (mTotalPage == 1) {
-                    String page = doc
-                            .select("div#ContentPlaceHolder1_AspNetPager1")
-                            .select("a").last().attr("href");
-                    String[] arr = page.split("'");
-                    if (arr.length >= 2) {
-                        page = arr[arr.length - 2];
-                        mTotalPage = Integer.parseInt(page);
+                    try {
+                        String page = doc
+                                .select("div#ContentPlaceHolder1_AspNetPager1")
+                                .select("a").last().attr("href");
+                        String[] arr = page.split("'");
+                        if (arr.length >= 2) {
+                            page = arr[arr.length - 2];
+                            mTotalPage = Integer.parseInt(page);
+                        }
+                    } catch (Exception e) {
+                        // 只有一页
                     }
                     if (mTotalPage < 1) {
                         mTotalPage = 1;
