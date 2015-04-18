@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.aiyou.R;
+import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.SwitchManager;
 
 import android.annotation.SuppressLint;
@@ -240,8 +241,8 @@ public class DirectoryChooserView extends LinearLayout {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
                         Bitmap bmp = BitmapFactory.decodeFile(path, options);
-                        int scalew = (int) (options.outWidth / 72.0);
-                        int scaleh = (int) (options.outHeight / 72.0);
+                        int scalew = (int) ((float)options.outWidth / AiYouManager.getInstance(getContext()).dip2px(40));
+                        int scaleh = (int) ((float)options.outHeight / AiYouManager.getInstance(getContext()).dip2px(40));
                         options.inSampleSize = Math.max(scalew, scaleh) + 1;
                         // 获取图像
                         options.inJustDecodeBounds = false;
@@ -256,8 +257,8 @@ public class DirectoryChooserView extends LinearLayout {
                     if (drawable == null) {
                         drawable = mContext.getResources().getDrawable(id);
                     }
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-                            drawable.getMinimumHeight());
+                    drawable.setBounds(0, 0, AiYouManager.getInstance(getContext()).dip2px(40),
+                            AiYouManager.getInstance(getContext()).dip2px(40));
                     if (mSwitchMgr.isNightModeEnabled()) {
                         drawable.setColorFilter(Color.GRAY, Mode.MULTIPLY);
                     }

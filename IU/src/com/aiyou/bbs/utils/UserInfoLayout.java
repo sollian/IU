@@ -3,7 +3,6 @@ package com.aiyou.bbs.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import com.aiyou.R;
 import com.aiyou.bbs.bean.User;
 import com.aiyou.utils.SwitchManager;
@@ -12,8 +11,8 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.view.ViewHelper;
-
 import external.OtherView.CircleImageView;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
@@ -158,6 +157,7 @@ public class UserInfoLayout extends ScrollView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (Build.VERSION.SDK_INT < 11) {
@@ -213,7 +213,7 @@ public class UserInfoLayout extends ScrollView {
         if (t > mRange2) {
             updateTopPadding(t);
             ViewHelper.setTranslationX(mFaceCIV, -mFaceWidth * (1 - mMinScale) / 2f);
-            ViewHelper.setTranslationY(mFaceCIV, mFaceHeight / 2 + mFaceHeight
+            ViewHelper.setTranslationY(mFaceCIV, mRange2 - mRange1 + mFaceHeight
                     * (1 - mMinScale) / 2);
             ViewHelper.setScaleX(mFaceCIV, mMinScale);
             ViewHelper.setScaleY(mFaceCIV, mMinScale);
@@ -252,8 +252,9 @@ public class UserInfoLayout extends ScrollView {
 
         ViewHelper.setTranslationX(mFaceCIV, ((mWidth - mFaceWidth) / 2) * percent - (1 - percent)
                 * mFaceWidth * (1 - mMinScale) / 2f);
-        ViewHelper.setTranslationY(mFaceCIV, mFaceHeight * (1 - percent) / 2 + mFaceHeight
-                * (1 - mMinScale) / 2);
+//        ViewHelper.setTranslationY(mFaceCIV, mFaceHeight * (1 - percent) / 2 + mFaceHeight
+//                * (1 - mMinScale) / 2);
+        ViewHelper.setTranslationY(mFaceCIV, t - mRange1 + mFaceHeight * (1 - mMinScale) / 2);
         mTopFLayout.setBackgroundColor(evaluate(1 - percent, mStartColor, mEndColor));
     }
 

@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="5dp"
+        android:layout_margin="0dp"
         android:contentDescription="@null"
         android:layout_gravity="right"
         android:onClick="onSendMail"

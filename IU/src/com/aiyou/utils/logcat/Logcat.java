@@ -7,7 +7,7 @@ import android.util.Log;
  * @author sollian
  */
 public class Logcat {
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public static void d(String tag, String error) {
         if (DEBUG) {

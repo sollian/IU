@@ -895,10 +895,10 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
                 ImageView iv = new ImageView(getBaseContext());
                 LayoutParams params = new LayoutParams(
-                        LayoutParams.WRAP_CONTENT, 72);
+                        LayoutParams.WRAP_CONTENT, AiYouManager.getInstance(getBaseContext()).dip2px(40));
                 iv.setLayoutParams(params);
                 iv.setAdjustViewBounds(true);
-                iv.setScaleType(ScaleType.CENTER_INSIDE);
+                iv.setScaleType(ScaleType.CENTER_CROP);
                 Bitmap bmp = ImageFactory.getFixedBmp(picturePath, BMP_WIDTH, BMP_HEIGHT, false);
                 if (bmp != null) {
                     iv.setImageBitmap(bmp);
@@ -909,7 +909,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                 tv.setLayoutParams(params);
                 tv.setBackgroundColor(Color.TRANSPARENT);
                 tv.setTextColor(Color.parseColor("#008800"));
-                tv.setTextSize(20);
+                tv.setTextSize(AiYouManager.getInstance(getBaseContext()).sp2px(10));
                 tv.setGravity(Gravity.CENTER);
                 tv.setText(mAttachList.size() + "");
                 mAttachLLayout.addView(tv);
@@ -944,6 +944,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
      * @author sollian
      */
     private class MyTouchListener implements OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @SuppressWarnings("deprecation")
         @Override
@@ -1191,6 +1192,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         return true;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onTouch(View v, MotionEvent event) {

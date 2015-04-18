@@ -21,6 +21,7 @@ import external.OtherView.Win8ProgressBar;
 import external.SmartImageView.SmartImageView;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -67,6 +68,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
     /**
      * 控件
      */
+    private FrameLayout mTitleFL;
     // 进度条
     private FrameLayout mProgressFLayout;
     private Win8ProgressBar mProgressBar;
@@ -121,11 +123,18 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             }
             mTitleTV.setText(savedInstanceState.getString(KEY_TITLE));
             mDegree = savedInstanceState.getInt(KEY_DEGREE);
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {    
+                mTitleFL.setVisibility(View.GONE);
+                ((FrameLayout.LayoutParams)mTIVFLayout.getLayoutParams()).topMargin = 0;
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    
+                mTitleFL.setVisibility(View.VISIBLE);
+            }   
         }
         showLargeImage();
     }
 
     private void init(boolean flag) {
+        mTitleFL = (FrameLayout)findViewById(R.id.fl_title);
         /**
          * 进度条
          */

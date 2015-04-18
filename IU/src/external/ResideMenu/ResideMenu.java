@@ -4,11 +4,7 @@ package external.ResideMenu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.*;
 import android.view.animation.AnimationUtils;
@@ -48,6 +44,7 @@ public class ResideMenu extends FrameLayout {
     /**
      * 自己加的
      */
+    @SuppressWarnings("unused")
     private Context context;
     private int nScreenWidth = 0;
     private int nScreenHeight = 0;
@@ -198,24 +195,26 @@ public class ResideMenu extends FrameLayout {
      * @param imageResrouce
      */
     public void setBackground(int imageResrouce) {
-        Drawable drawable = context.getResources().getDrawable(imageResrouce);
-        Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
-        int nWidth = bmp.getWidth() * nScreenHeight / bmp.getHeight();
-        if (nWidth <= nScreenWidth) {
-            imageViewBackground.setScaleType(ScaleType.CENTER_CROP);
-            imageViewBackground.setImageResource(imageResrouce);
-            return;
-        } else {
-            imageViewBackground.setScaleType(ScaleType.MATRIX);
-//            nTotalDistance = nWidth - nScreenWidth;
-//            nCurrentDistance = nTotalDistance;
-            Bitmap bmpBg = Bitmap.createScaledBitmap(bmp, nWidth,
-                    nScreenHeight, true);
-            imageViewBackground.setImageBitmap(bmpBg);
-            Matrix matrix = new Matrix();
-//            matrix.postTranslate(-nTotalDistance, 0);
-            imageViewBackground.setImageMatrix(matrix);
-        }
+        imageViewBackground.setScaleType(ScaleType.CENTER_CROP);
+        imageViewBackground.setImageResource(imageResrouce);
+//        Drawable drawable = context.getResources().getDrawable(imageResrouce);
+//        Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
+//        int nWidth = bmp.getWidth() * nScreenHeight / bmp.getHeight();
+//        if (nWidth <= nScreenWidth) {
+//            imageViewBackground.setScaleType(ScaleType.CENTER_CROP);
+//            imageViewBackground.setImageResource(imageResrouce);
+//            return;
+//        } else {
+//            imageViewBackground.setScaleType(ScaleType.MATRIX);
+////            nTotalDistance = nWidth - nScreenWidth;
+////            nCurrentDistance = nTotalDistance;
+//            Bitmap bmpBg = Bitmap.createScaledBitmap(bmp, nWidth,
+//                    nScreenHeight, true);
+//            imageViewBackground.setImageBitmap(bmpBg);
+//            Matrix matrix = new Matrix();
+////            matrix.postTranslate(-nTotalDistance, 0);
+//            imageViewBackground.setImageMatrix(matrix);
+//        }
     }
 
     public void setBackgroundColor(int color) {

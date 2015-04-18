@@ -38,8 +38,13 @@
             android:scaleType="fitCenter"
             android:visibility="gone" />
     </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/fl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
+        <TextView
         android:id="@+id/activity_view_large_image_tv_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -69,6 +74,8 @@
         android:onClick="onShare"
         android:scaleType="fitXY"
         android:src="?share" />
+        </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
