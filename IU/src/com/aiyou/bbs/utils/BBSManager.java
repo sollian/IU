@@ -25,6 +25,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ import android.widget.Toast;
 public class BBSManager {
     public static final String REFER_RECEIVER_ACTION = "android.intent.action.MY_RECEIVER";
 
-    public static final String APPKEY = "";
+    public static final String APPKEY = "";//论坛申请的appkey
     public static final String API_HEAD = "http://api.byr.cn";
     public static final String BBS_URL = "http://bbs.byr.cn";
     public static final String FORMAT = ".json";
@@ -63,6 +64,7 @@ public class BBSManager {
     /**
      * webview的缩放值
      */
+    private int mDefaultWvScale = 200;
     private static int BBS_WEBVIEW_SCALESIZE = -1;
 
     private SharedPreferences mSharedPref;
@@ -72,9 +74,12 @@ public class BBSManager {
 
     private String mAppTail;
 
+    @SuppressWarnings("deprecation")
     private BBSManager(Context context) {
         mContext = context;
         mSharedPref = mContext.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
+        WebView wv = new WebView(context);
+        mDefaultWvScale = (int)(wv.getScale() * 100);
     }
 
     public static BBSManager getInstance(Context context) {
@@ -115,7 +120,7 @@ public class BBSManager {
      */
     public int getWebViewScaleSize() {
         if (-1 == BBS_WEBVIEW_SCALESIZE) {
-            BBS_WEBVIEW_SCALESIZE = mSharedPref.getInt(KEY_BBS_WEBVIEW_SCALESIZE, 175);
+            BBS_WEBVIEW_SCALESIZE = mSharedPref.getInt(KEY_BBS_WEBVIEW_SCALESIZE, mDefaultWvScale);
         }
         return BBS_WEBVIEW_SCALESIZE;
     }
@@ -330,7 +335,7 @@ public class BBSManager {
     public static List<TreeElement> initTreeViewData(Context context,
             List<TreeElement> treeElementList) {
         Section sections = Section.getRootSection(context);
-        if (sections != null) {
+        if (sections != null && sections.sections != null) {
             if (treeElementList == null) {
                 treeElementList = new ArrayList<TreeElement>();
             } else {
@@ -395,7 +400,7 @@ public class BBSManager {
     }
 
     public static boolean checkFavorite(String boardName) {
-        if (Favorite.mFavorite == null) {
+        if (Favorite.mFavorite == null || Favorite.mFavorite.boards == null) {
             return false;
         }
         for (Board b : Favorite.mFavorite.boards) {

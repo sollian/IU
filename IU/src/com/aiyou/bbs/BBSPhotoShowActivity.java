@@ -1,4 +1,3 @@
-
 package com.aiyou.bbs;
 
 import java.util.ArrayList;
@@ -154,7 +153,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
     /**
      * 获取贴图列表的线程
      * 
-     * @param page 页数
+     * @param page
+     *            页数
      */
     private void threadGetList(final int page) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -168,7 +168,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String strJson = Board.getBoard(BBSPhotoShowActivity.this, "Picture", page);
+                String strJson = Board.getBoard(BBSPhotoShowActivity.this,
+                        "Picture", page);
                 if (TextUtils.isEmpty(strJson)) {
                     if (mHandler != null) {
                         mHandler.sendEmptyMessage(MSG_ERROR);
@@ -266,7 +267,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
              * 打开Article对应的Threads
              */
             Intent intent = new Intent(this, BBSContentActivity.class);
-            intent.putExtra(BBSContentActivity.KEY_ARTICLE, mPainting.getArticle());
+            intent.putExtra(BBSContentActivity.KEY_ARTICLE,
+                    mPainting.getArticle());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             ActivityFunc.startActivity(this, intent);
         } else if (nId == R.id.activity_bbs_photoshow_civ_face) {
@@ -314,7 +316,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
         tv_date.setText(painting.getDate());
         // 设置内容
         ll_content.removeAllViews();
-        processContent(ll_content, JsonHelper.toHtml(painting.getArticle(), true));
+        processContent(ll_content,
+                JsonHelper.toHtml(painting.getArticle(), true));
     }
 
     /**
@@ -412,7 +415,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         if (mUnfoldableView != null
-                && (mUnfoldableView.isUnfolded() || mUnfoldableView.isUnfolding())) {
+                && (mUnfoldableView.isUnfolded() || mUnfoldableView
+                        .isUnfolding())) {
             mUnfoldableView.foldBack();
             return;
         }
@@ -535,8 +539,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
         @Override
         public void run() {
-            String strJson = Article
-                    .getArticle(BBSPhotoShowActivity.this, article.board_name, article.id);
+            String strJson = Article.getArticle(BBSPhotoShowActivity.this,
+                    article.board_name, article.id);
             if (TextUtils.isEmpty(strJson)) {
                 return;
             }
@@ -659,10 +663,12 @@ public class BBSPhotoShowActivity extends BaseActivity implements
                     ll.removeAllViews();
                     ll.addView(ive);
                 } catch (OutOfMemoryError e) {
-
-                    bmp = BitmapFactory.decodeByteArray(result, 0,
-                            result.length, option);
-                    iv.setImageBitmap(bmp);
+                    try {
+                        bmp = BitmapFactory.decodeByteArray(result, 0,
+                                result.length, option);
+                        iv.setImageBitmap(bmp);
+                    } catch (OutOfMemoryError e1) {
+                    }
                 }
             } else {
                 if (mHandler == null) {
@@ -684,8 +690,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
             if (url.contains(BBSManager.API_HEAD)) {
                 url += BBSManager.FORMAT + "?appkey=" + BBSManager.APPKEY;
             }
-            byte[] data = HttpManager.getInstance(getBaseContext()).getHttpByte(getBaseContext(),
-                    url);
+            byte[] data = HttpManager.getInstance(getBaseContext())
+                    .getHttpByte(getBaseContext(), url);
             return data;
         }
     }
