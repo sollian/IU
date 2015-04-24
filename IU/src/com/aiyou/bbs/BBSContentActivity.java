@@ -283,6 +283,8 @@ public class BBSContentActivity extends BaseActivity implements
         });
         // 更新页数列表
         updatePageDrawer();
+        // 清除WebView的tag
+        clearWebViewsTag();
         int nChildCount = mListLLayout.getChildCount();
         // 删除多余的布局
         while (mThreads.articles.length < nChildCount) {
@@ -566,38 +568,50 @@ public class BBSContentActivity extends BaseActivity implements
             html = "<style type=\"text/css\">body{color:#000000}</style>"
                     + html;
         }
-        WebView wv = new WebView(this);
-        WebSettings setting = wv.getSettings();
-        setting.setJavaScriptEnabled(true);
-        setting.setAllowFileAccess(true);
-        setting.setAppCacheEnabled(true);
-        setting.setLoadsImagesAutomatically(true);
-        setting.setPluginState(PluginState.ON);
-        // 设置缩放比例
-        wv.setInitialScale(mBBSMgr.getWebViewScaleSize());
-        // 设置背景色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            wv.setBackgroundColor(0x01000000);
-        } else {
-            if (mSwitchMgr.isNightModeEnabled()) {
-                wv.setBackgroundColor(Color.parseColor("#111111"));
+        WebView wv;
+        wv = getWebView();
+        if (wv == null) {
+            wv = new WebView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            wv.setLayoutParams(params);
+            mWebViewList.add(wv);
+            WebSettings setting = wv.getSettings();
+            setting.setJavaScriptEnabled(true);
+            setting.setAllowFileAccess(true);
+            setting.setAppCacheEnabled(true);
+            setting.setLoadsImagesAutomatically(true);
+            setting.setPluginState(PluginState.ON);
+            // 设置缩放
+            wv.setInitialScale(mBBSMgr.getWebViewScaleSize());
+            // 设置背景色
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                wv.setBackgroundColor(0x01000000);
             } else {
-                wv.setBackgroundColor(Color.parseColor("#ffffff"));
+                if (mSwitchMgr.isNightModeEnabled()) {
+                    wv.setBackgroundColor(Color.parseColor("#111111"));
+                } else {
+                    wv.setBackgroundColor(Color.parseColor("#ffffff"));
+                }
             }
+            // 滚动条不显示
+            wv.setHorizontalScrollBarEnabled(false);
+            wv.setVerticalScrollBarEnabled(false);
         }
-        // 水平滚动条不显示
-        wv.setHorizontalScrollBarEnabled(false);
-        // if (html.contains("<audio")) {
-        mWebViewList.add(wv);
-        // }
+        if (html.contains("<audio")) {
+            wv.setTag(R.id.type, "audio");
+        } else {
+            wv.setTag(R.id.type, "text");
+        }
         wv.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-        wv.setTag(article);
+        wv.setTag(R.id.article, article);
         if (!BBSManager.GUEST.equals(mBBSMgr.getUserId())) {
             wv.setOnTouchListener(new OnTouchListener() {
                 @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    Article article = (Article) v.getTag();
+                    Article article = (Article) v.getTag(R.id.article);
                     mReplyET.setHint("回复" + article.user.id);
                     mSendReplyIV.setTag(article);
 
@@ -615,6 +629,41 @@ public class BBSContentActivity extends BaseActivity implements
             });
         }
         ll.addView(wv);
+    }
+
+    private void clearWebViewsTag() {
+        if (mWebViewList == null || mWebViewList.isEmpty()) {
+            return;
+        }
+        for (WebView wv : mWebViewList) {
+            if (null != wv) {
+                String tag = (String) wv.getTag(R.id.type);
+                if (tag != null && !tag.equals("audio")) {
+                    // 设置缩放
+                    // int size = (int) (wv.getScale() * 100);
+                    // if (size >= mBBSMgr.getWebViewScaleSize()) {
+                    // size = mBBSMgr.getWebViewScaleSize() - 1;
+                    // } else if (size < mBBSMgr.getWebViewScaleSize()) {
+                    // size = mBBSMgr.getWebViewScaleSize() + 1;
+                    // }
+                    // wv.setInitialScale(size);
+                    wv.setTag(R.id.type, null);
+                    wv.setTag(R.id.article, null);
+                }
+            }
+        }
+    }
+
+    private WebView getWebView() {
+        if (mWebViewList == null || mWebViewList.isEmpty()) {
+            return null;
+        }
+//        for (WebView wv : mWebViewList) {
+//            if (null != wv && wv.getTag(R.id.type) == null) {
+//                return wv;
+//            }
+//        }
+        return null;
     }
 
     @SuppressLint({
@@ -1114,7 +1163,6 @@ public class BBSContentActivity extends BaseActivity implements
                         .show();
             } else {
                 mBBSMgr.setWebViewScaleSize(size - 25);
-                showContent();
             }
         } else if (R.id.pagedrawer_iv_zoomout == nId) {
             // 放大
@@ -1123,7 +1171,11 @@ public class BBSContentActivity extends BaseActivity implements
                         .show();
             } else {
                 mBBSMgr.setWebViewScaleSize(size + 25);
-                showContent();
+            }
+        }
+        for (WebView wv : mWebViewList) {
+            if (null != wv) {
+                wv.setInitialScale(mBBSMgr.getWebViewScaleSize());
             }
         }
     }

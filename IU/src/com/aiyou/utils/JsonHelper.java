@@ -1,4 +1,3 @@
-
 package com.aiyou.utils;
 
 import java.util.regex.MatchResult;
@@ -89,8 +88,10 @@ public class JsonHelper {
     /**
      * 将content转换为html内容
      * 
-     * @param obj 可选：Article|Mail
-     * @param isArticle 是否是Article
+     * @param obj
+     *            可选：Article|Mail
+     * @param isArticle
+     *            是否是Article
      * @return 字符串数组：[0]——文章内容；[1]——回复内容
      */
     @SuppressLint("DefaultLocale")
@@ -153,45 +154,53 @@ public class JsonHelper {
             }
             strResult = str1 + str2;
         }
-        // 链接
-        strResult = strResult.replaceAll("=http://", "\\[sollian\\]");
-        strResult = strResult.replaceAll("=https://", "\\[sollian1\\]");
-        strResult = strResult.replaceAll(
-                "(http[s]?://[0-9a-zA-Z\\-\\+\\.\\?&%_/=#!~:]*)",
-                "<a href=\"$1\">$1</a>");
-        strResult = strResult.replaceAll("\\[sollian\\]", "=http://");
-        strResult = strResult.replaceAll("\\[sollian1\\]", "=https://");
 
-        p = Pattern
-                .compile("\\[(?:URL|url)=([^\\]]*?)\\]([\\s\\S]*?)\\[/(?:URL|url)\\]");
-        m = p.matcher(strResult);
         String url = null;
         String text = null;
-        while (m.find()) {
-            mr = m.toMatchResult();
-            url = mr.group(1);
-            text = mr.group(2);
-            strReplace = "<a href=\"" + url + "\">" + text + "</a>";
-            strResult = strResult.replace(m.group(), strReplace);
+        // 链接
+        if (strResult.contains("=http")) {
+            strResult = strResult.replaceAll("=http://", "\\[sollian\\]");
+            strResult = strResult.replaceAll("=https://", "\\[sollian1\\]");
+            strResult = strResult.replaceAll(
+                    "(http[s]?://[0-9a-zA-Z\\-\\+\\.\\?&%_/=#!~:]*)",
+                    "<a href=\"$1\">$1</a>");
+            strResult = strResult.replaceAll("\\[sollian\\]", "=http://");
+            strResult = strResult.replaceAll("\\[sollian1\\]", "=https://");
+
+            p = Pattern
+                    .compile("\\[(?:URL|url)=([^\\]]*?)\\]([\\s\\S]*?)\\[/(?:URL|url)\\]");
+            m = p.matcher(strResult);
+
+            while (m.find()) {
+                mr = m.toMatchResult();
+                url = mr.group(1);
+                text = mr.group(2);
+                strReplace = "<a href=\"" + url + "\">" + text + "</a>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // marquee动画
-        p = Pattern.compile("\\[fly\\]([\\s\\S]*?)\\[/fly\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            text = mr.group(1);
-            strReplace = "<marquee width=\"100%\" behavior=\"alternate\" scrollamount=\"3\">"
-                    + text + "</marquee>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[fly")) {
+            p = Pattern.compile("\\[fly\\]([\\s\\S]*?)\\[/fly\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                text = mr.group(1);
+                strReplace = "<marquee width=\"100%\" behavior=\"alternate\" scrollamount=\"3\">"
+                        + text + "</marquee>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
-
-        p = Pattern.compile("\\[move\\]([\\s\\S]*?)\\[/move\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            text = mr.group(1);
-            strReplace = "<marquee scrollamount=\"3\">" + text + "</marquee>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[move")) {
+            p = Pattern.compile("\\[move\\]([\\s\\S]*?)\\[/move\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                text = mr.group(1);
+                strReplace = "<marquee scrollamount=\"3\">" + text
+                        + "</marquee>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 粗体
         strResult = strResult.replaceAll("\\[[bB]\\]", "<b>");
@@ -203,105 +212,129 @@ public class JsonHelper {
         strResult = strResult.replaceAll("\\[[uU]\\]", "<u>");
         strResult = strResult.replaceAll("\\[/[uU]\\]", "</u>");
         // 字体
-        p = Pattern.compile("\\[face=([^\\]]*?)\\]([\\s\\S]*?)\\[/face\\]");
-        m = p.matcher(strResult);
-        String face = null;
-        while (m.find()) {
-            mr = m.toMatchResult();
-            face = mr.group(1);
-            text = mr.group(2);
-            strReplace = "<font face=\"" + face + "\">" + text + "</font>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[face=")) {
+            p = Pattern.compile("\\[face=([^\\]]*?)\\]([\\s\\S]*?)\\[/face\\]");
+            m = p.matcher(strResult);
+            String face = null;
+            while (m.find()) {
+                mr = m.toMatchResult();
+                face = mr.group(1);
+                text = mr.group(2);
+                strReplace = "<font face=\"" + face + "\">" + text + "</font>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 字体颜色
-        p = Pattern.compile("\\[color=([^\\]]*?)\\]([\\s\\S]*?)\\[/color\\]");
-        m = p.matcher(strResult);
-        String color = null;
-        while (m.find()) {
-            mr = m.toMatchResult();
-            color = mr.group(1);
-            text = mr.group(2);
-            strReplace = "<font color=\"" + color + "\">" + text + "</font>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[color=")) {
+            p = Pattern
+                    .compile("\\[color=([^\\]]*?)\\]([\\s\\S]*?)\\[/color\\]");
+            m = p.matcher(strResult);
+            String color = null;
+            while (m.find()) {
+                mr = m.toMatchResult();
+                color = mr.group(1);
+                text = mr.group(2);
+                strReplace = "<font color=\"" + color + "\">" + text
+                        + "</font>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 字体大小
-        p = Pattern.compile("\\[size=([^\\]]*?)\\]([\\s\\S]*?)\\[/size\\]");
-        m = p.matcher(strResult);
-        String size = null;
-        while (m.find()) {
-            mr = m.toMatchResult();
-            size = mr.group(1);
-            text = mr.group(2);
-            strReplace = "<font size=\"" + size + "\">" + text + "</font>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[size=")) {
+            p = Pattern.compile("\\[size=([^\\]]*?)\\]([\\s\\S]*?)\\[/size\\]");
+            m = p.matcher(strResult);
+            String size = null;
+            while (m.find()) {
+                mr = m.toMatchResult();
+                size = mr.group(1);
+                text = mr.group(2);
+                strReplace = "<font size=\"" + size + "\">" + text + "</font>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 代码块
-        p = Pattern.compile("\\[code=([^\\]]*?)\\]([\\s\\S]*?)\\[/code\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            text = mr.group(2);
-            strReplace = "<pre>" + text + "</pre>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[code=")) {
+            p = Pattern.compile("\\[code=([^\\]]*?)\\]([\\s\\S]*?)\\[/code\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                text = mr.group(2);
+                strReplace = "<pre>" + text + "</pre>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 图片
-        p = Pattern.compile("\\[(?:IMG|img)=([^\\]]*?)\\]\\[/(?:IMG|img)\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            url = mr.group(1);
-            strReplace = "<image=" + url + ">";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[img=") || strResult.contains("[IMG=")) {
+            p = Pattern
+                    .compile("\\[(?:IMG|img)=([^\\]]*?)\\]\\[/(?:IMG|img)\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                url = mr.group(1);
+                strReplace = "<image=" + url + ">";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // swf
-        p = Pattern.compile("\\[(?:SWF|swf)=([^\\]]*?)\\]\\[/(?:SWF|swf)\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            url = mr.group(1);
-            strReplace = "<a href=\"" + url + "\">" + "观看视频：" + url + "</a>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[swf=") || strResult.contains("[SWF=")) {
+            p = Pattern
+                    .compile("\\[(?:SWF|swf)=([^\\]]*?)\\]\\[/(?:SWF|swf)\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                url = mr.group(1);
+                strReplace = "<a href=\"" + url + "\">" + "观看视频：" + url
+                        + "</a>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // radio
-        p = Pattern
-                .compile("\\[(?:RADIO|radio)=([^\\]]*?)\\].*?\\[/(?:RADIO|radio)\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            url = mr.group(1);
-            strReplace = "<a href=\"" + url + "\">" + "radio地址：" + url + "</a>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[radio=") || strResult.contains("[RADIO=")) {
+            p = Pattern
+                    .compile("\\[(?:RADIO|radio)=([^\\]]*?)\\].*?\\[/(?:RADIO|radio)\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                url = mr.group(1);
+                strReplace = "<a href=\"" + url + "\">" + "radio地址：" + url
+                        + "</a>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 音频
-        p = Pattern
-                .compile("\\[(?:MP|mp)3=([^\\]]*?) auto=0\\]\\[/(?:MP|mp)3\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            url = mr.group(1);
-            strReplace = "<audio controls=\"controls\" src=\"" + url
-                    + "\" STYLE=\"opacity:0.6;\">" + "<a href=\"" + url
-                    + "\">点击查看：" + url + "</a>" + "</audio>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[mp3=") || strResult.contains("[MP3=")) {
+            p = Pattern
+                    .compile("\\[(?:MP|mp)3=([^\\]]*?) auto=0\\]\\[/(?:MP|mp)3\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                url = mr.group(1);
+                strReplace = "<audio controls=\"controls\" src=\"" + url
+                        + "\" STYLE=\"opacity:0.6;\">" + "<a href=\"" + url
+                        + "\">点击查看：" + url + "</a>" + "</audio>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         // 表情
-        p = Pattern.compile("\\[(em[a|b|c]?\\d+)\\]");
-        m = p.matcher(strResult);
-        String name = null;
-        while (m.find()) {
-            mr = m.toMatchResult();
-            name = mr.group(1);
-            strReplace = "<img src=\"file:///android_asset/face/" + name
-                    + ".gif\" " + "alt=\"" + name
-                    + "\" style=\"display:inline;border-style:none\"/>";
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[em")) {
+            p = Pattern.compile("\\[(em[a|b|c]?\\d+)\\]");
+            m = p.matcher(strResult);
+            String name = null;
+            while (m.find()) {
+                mr = m.toMatchResult();
+                name = mr.group(1);
+                strReplace = "<img src=\"file:///android_asset/face/" + name
+                        + ".gif\" " + "alt=\"" + name
+                        + "\" style=\"display:inline;border-style:none\"/>";
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
         /**
          * 附件
          */
-        String fileName = null;
-        String strToReplace = null;
         if (has_attachment) {
+            String fileName = null;
+            String strToReplace = null;
             int length = attachment.files.length;
             for (int i = 0; i < length; i++) {
                 strToReplace = "[upload=" + (i + 1) + "][/upload]";
@@ -367,13 +400,15 @@ public class JsonHelper {
         }
         strResult = strResult.replaceAll("\\[ub\\]", "");
 
-        p = Pattern
-                .compile("\\[(?:GLOW|glow)[\\s\\S]*?\\]([\\s\\S]*?)\\[/(?:GLOW|glow)\\]");
-        m = p.matcher(strResult);
-        while (m.find()) {
-            mr = m.toMatchResult();
-            strReplace = mr.group(1);
-            strResult = strResult.replace(m.group(), strReplace);
+        if (strResult.contains("[glow") || strResult.contains("[GLOW")) {
+            p = Pattern
+                    .compile("\\[(?:GLOW|glow)[\\s\\S]*?\\]([\\s\\S]*?)\\[/(?:GLOW|glow)\\]");
+            m = p.matcher(strResult);
+            while (m.find()) {
+                mr = m.toMatchResult();
+                strReplace = mr.group(1);
+                strResult = strResult.replace(m.group(), strReplace);
+            }
         }
 
         String array[] = new String[2];
@@ -391,60 +426,60 @@ public class JsonHelper {
     private static String getColor(int ng) {
         String strColor = null;
         switch (ng) {
-            case 30:
-                strColor = "#000000";
-                break;
-            case 31:
-                strColor = "#e80000";
-                break;
-            case 32:
-                strColor = "#009600";
-                break;
-            case 33:
-                strColor = "#919600";
-                break;
-            case 34:
-                strColor = "#0000ff";
-                break;
-            case 35:
-                strColor = "#ff00ff";
-                break;
-            case 36:
-                strColor = "#00ffff";
-                break;
-            case 37:
-                strColor = "#888888";
-                break;
-            case 130:
-                strColor = "#cccccc";
-                break;
-            case 131:
-                strColor = "#ffe0e0";
-                break;
-            case 132:
-                strColor = "#90ee90";
-                break;
-            case 133:
-                strColor = "#ffff00";
-                break;
-            case 134:
-                strColor = "#add8e6";
-                break;
-            case 135:
-                strColor = "#ffe0ff";
-                break;
-            case 136:
-                strColor = "#e0ffff";
-                break;
-            case 137:
-                strColor = "#ffffff";
-                break;
-            case 500:
-                strColor = "#919600";
-                break;
-            default:
-                strColor = "#ffff00";
-                break;
+        case 30:
+            strColor = "#000000";
+            break;
+        case 31:
+            strColor = "#e80000";
+            break;
+        case 32:
+            strColor = "#009600";
+            break;
+        case 33:
+            strColor = "#919600";
+            break;
+        case 34:
+            strColor = "#0000ff";
+            break;
+        case 35:
+            strColor = "#ff00ff";
+            break;
+        case 36:
+            strColor = "#00ffff";
+            break;
+        case 37:
+            strColor = "#888888";
+            break;
+        case 130:
+            strColor = "#cccccc";
+            break;
+        case 131:
+            strColor = "#ffe0e0";
+            break;
+        case 132:
+            strColor = "#90ee90";
+            break;
+        case 133:
+            strColor = "#ffff00";
+            break;
+        case 134:
+            strColor = "#add8e6";
+            break;
+        case 135:
+            strColor = "#ffe0ff";
+            break;
+        case 136:
+            strColor = "#e0ffff";
+            break;
+        case 137:
+            strColor = "#ffffff";
+            break;
+        case 500:
+            strColor = "#919600";
+            break;
+        default:
+            strColor = "#ffff00";
+            break;
         }
         return strColor;
     }
@@ -463,7 +498,8 @@ public class JsonHelper {
         }
         String strReplace = "";
         if (FileManager.isImage(fileName)) {
-            if (SwitchManager.getInstance(AiYouApplication.getInstance()).isLargeImageEnabled()) {
+            if (SwitchManager.getInstance(AiYouApplication.getInstance())
+                    .isLargeImageEnabled()) {
                 // 显示大缩略图
                 strReplace = "<image="
                         + attachment.files[index].thumbnail_middle + ">";

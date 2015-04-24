@@ -5,7 +5,8 @@
     <ImageView
         android:id="@+id/activity_bbswrite_iv_drag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:scaleType="matrix"
         android:alpha="150"
         android:background="#00000000"
         android:contentDescription="@null" />

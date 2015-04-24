@@ -17,7 +17,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -35,7 +34,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
 
     private int mFlag = 0;
     private float mY = 0, mRawY = 0;
-    private float mThreshold = 2;
+    private final float THRESHOLD = AiYouManager.getInstance(this).dip2px(5);
 
     private VideoView mVideoView;
     private MediaController mMediaController;
@@ -45,6 +44,9 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏
         if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
             // 夜间模式
             this.setTheme(R.style.ThemeNight);
@@ -52,9 +54,6 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
             // 日间模式
             this.setTheme(R.style.ThemeDay);
         }
-        requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏
         setContentView(R.layout.activity_viewbuffer);
 
         init();
@@ -88,8 +87,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
 
         Chanel chanel = (Chanel) getIntent().getSerializableExtra(KEY_CHANEL);
         Logcat.e(chanel.name, chanel.url);
-        Uri uri = Uri.parse(chanel.url);
-        mVideoView.setVideoURI(uri);
+        mVideoView.setVideoPath(chanel.url);
         mMediaController = new MediaController(this);
         mVideoView.setMediaController(mMediaController);
         mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
@@ -190,7 +188,6 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
     }
 
     private void touchEvent(MotionEvent event) {
-        Logcat.e("touch", "true");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mY = event.getY();
@@ -203,7 +200,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
                 break;
             case MotionEvent.ACTION_MOVE:
                 float y = event.getY();
-                float yy = (mY - y) / mThreshold;
+                float yy = (mY - y) / THRESHOLD;
                 if (Math.abs(yy) >= 1) {
                     mY = y;
                     if (mFlag == 0) {

@@ -1,4 +1,3 @@
-
 package com.aiyou.bbs;
 
 import java.util.ArrayList;
@@ -257,8 +256,10 @@ public class BBSMailActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(BBSMailActivity.this,
                         ViewLargeImageActivity.class);
-                intent.putExtra(ViewLargeImageActivity.KEY_URL, (String) view.getTag());
-                intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST, mImgUrlList);
+                intent.putExtra(ViewLargeImageActivity.KEY_URL,
+                        (String) view.getTag());
+                intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST,
+                        mImgUrlList);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 ActivityFunc.startActivity(BBSMailActivity.this, intent);
             }
@@ -276,10 +277,9 @@ public class BBSMailActivity extends BaseActivity {
     private void processWebView(LinearLayout ll, String html) {
         html = html.trim().replaceAll("\n", "<br/>");
         html = "<body "
-                // +
-                // "style=\"text-align:justify;text-justify:distribute-all-lines;"
-                + "\">"
-                + html + "</body>";
+        // +
+        // "style=\"text-align:justify;text-justify:distribute-all-lines;"
+                + "\">" + html + "</body>";
         if (mSwitchMgr.isNightModeEnabled()) {
             html = "<style type=\"text/css\">body{color:#888888}a:link{color:#00aaaa}</style>"
                     + html;
@@ -295,7 +295,8 @@ public class BBSMailActivity extends BaseActivity {
         setting.setLoadsImagesAutomatically(true);
         setting.setPluginState(PluginState.ON);
         // 设置缩放比例
-        wv.setInitialScale(BBSManager.getInstance(getBaseContext()).getWebViewScaleSize());
+        wv.setInitialScale(BBSManager.getInstance(getBaseContext())
+                .getWebViewScaleSize());
         // 设置背景色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             wv.setBackgroundColor(0x01000000);
@@ -306,8 +307,9 @@ public class BBSMailActivity extends BaseActivity {
                 wv.setBackgroundColor(Color.parseColor("#ffffff"));
             }
         }
-        // 水平滚动条不显示
+        // 滚动条不显示
         wv.setHorizontalScrollBarEnabled(false);
+        wv.setVerticalScrollBarEnabled(false);
 
         mWebViewList.add(wv);
 
@@ -342,7 +344,8 @@ public class BBSMailActivity extends BaseActivity {
                 Toast.makeText(getBaseContext(), "好友为空", Toast.LENGTH_SHORT)
                         .show();
             } else {
-                AiYouManager.viewInputMethod(BBSMailActivity.this, false, mForwardET);
+                AiYouManager.viewInputMethod(BBSMailActivity.this, false,
+                        mForwardET);
                 startThread(mMail.index, strId);
                 mForwardET.setVisibility(View.GONE);
             }
@@ -372,7 +375,8 @@ public class BBSMailActivity extends BaseActivity {
         }
         ThreadUtils.execute(new Runnable() {
             public void run() {
-                String strJson = Mail.getMail(BBSMailActivity.this, MailboxType.INBOX, index);
+                String strJson = Mail.getMail(BBSMailActivity.this,
+                        MailboxType.INBOX, index);
                 if (TextUtils.isEmpty(strJson)) {
                     if (mHandler != null) {
                         mHandler.sendEmptyMessage(MSG_ERROR);
@@ -417,7 +421,8 @@ public class BBSMailActivity extends BaseActivity {
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String strJson = Mail.forwardMail(BBSMailActivity.this, index, userId);
+                String strJson = Mail.forwardMail(BBSMailActivity.this, index,
+                        userId);
                 if (TextUtils.isEmpty(strJson)) {
                     if (mHandler != null) {
                         mHandler.sendEmptyMessage(MSG_ERROR);
@@ -483,9 +488,9 @@ public class BBSMailActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId,
                     KeyEvent event) {
                 switch (actionId) {
-                    case EditorInfo.IME_ACTION_SEND:
-                        onForward(null);
-                        break;
+                case EditorInfo.IME_ACTION_SEND:
+                    onForward(null);
+                    break;
                 }
                 return true;
             }

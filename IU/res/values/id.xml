@@ -1,0 +1,5 @@
+
+    <resources>
+        <item type="id" name="article"/>
+        <item type="id" name="type"/>
+    </resources>

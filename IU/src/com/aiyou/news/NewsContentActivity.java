@@ -1,4 +1,3 @@
-
 package com.aiyou.news;
 
 import java.util.ArrayList;
@@ -94,7 +93,8 @@ public class NewsContentActivity extends BaseActivity implements
         setContentView(R.layout.activity_news_content);
         init();
         Intent intent = getIntent();
-        mMode = (NewsType) intent.getSerializableExtra(NewsListActivity.KEY_MODE);
+        mMode = (NewsType) intent
+                .getSerializableExtra(NewsListActivity.KEY_MODE);
         mNews = (News) intent.getSerializableExtra(NewsListActivity.KEY_DATA);
         if (mNews == null) {
             selfFinish(null);
@@ -106,8 +106,8 @@ public class NewsContentActivity extends BaseActivity implements
 
     public void onShare(View view) {
         // 分享
-        ShareTask task = new ShareTask(NewsContentActivity.this, mNews.title, mNews.url,
-                new ShareTask.ShareListener() {
+        ShareTask task = new ShareTask(NewsContentActivity.this, mNews.title,
+                mNews.url, new ShareTask.ShareListener() {
                     @Override
                     public void onShareStart() {
                         showProgress(true);
@@ -188,7 +188,8 @@ public class NewsContentActivity extends BaseActivity implements
     /**
      * 处理WebView显示内容的方法
      * 
-     * @param wvContent 要处理得内容
+     * @param wvContent
+     *            要处理得内容
      */
     private void processWebView(String wvContent) {
         String tableArr[];
@@ -220,13 +221,16 @@ public class NewsContentActivity extends BaseActivity implements
                 if (Build.VERSION.SDK_INT >= 16) {
                     wv.setBackgroundColor(0x01000000);
                 } else {
-                    if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
+                    if (SwitchManager.getInstance(getBaseContext())
+                            .isNightModeEnabled()) {
                         wv.setBackgroundColor(Color.parseColor("#111111"));
                     } else {
                         wv.setBackgroundColor(Color.parseColor("#ffffff"));
                     }
                 }
-                wv.setHorizontalScrollBarEnabled(false);// 水平滚动条不显示
+                // 滚动条不显示
+                wv.setHorizontalScrollBarEnabled(false);
+                wv.setVerticalScrollBarEnabled(false);
                 // 控制页面缩放比例
                 if (mMode == NewsType.headline) {
                     // 北邮要闻
@@ -237,8 +241,10 @@ public class NewsContentActivity extends BaseActivity implements
                 }
                 outerHtml = "<body style=\"text-align:justify;text-justify:distribute-all-lines;\">"
                         + outerHtml + "</body>";
-                int fontSize = AiYouManager.getInstance(getBaseContext()).sp2px(8);
-                if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
+                int fontSize = AiYouManager.getInstance(getBaseContext())
+                        .sp2px(8);
+                if (SwitchManager.getInstance(getBaseContext())
+                        .isNightModeEnabled()) {
                     outerHtml = "<style type=\"text/css\">body{ font-size: "
                             + fontSize
                             + "px; color:#888888}a:link{color:#00aaaa}</style>"
@@ -258,7 +264,8 @@ public class NewsContentActivity extends BaseActivity implements
     /**
      * 显示图片的方法
      * 
-     * @param imgSrc 图片路径
+     * @param imgSrc
+     *            图片路径
      */
     private void processImage(String imgSrc) {
         SmartImageView siv = new SmartImageView(NewsContentActivity.this);
@@ -286,8 +293,10 @@ public class NewsContentActivity extends BaseActivity implements
             public void onClick(View view) {
                 Intent intent = new Intent(NewsContentActivity.this,
                         ViewLargeImageActivity.class);
-                intent.putExtra(ViewLargeImageActivity.KEY_URL, (String) view.getTag());
-                intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST, mImgUrlList);
+                intent.putExtra(ViewLargeImageActivity.KEY_URL,
+                        (String) view.getTag());
+                intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST,
+                        mImgUrlList);
                 intent.putExtra(ViewLargeImageActivity.KEY_NEWS, true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 ActivityFunc.startActivity(NewsContentActivity.this, intent);
@@ -350,7 +359,8 @@ public class NewsContentActivity extends BaseActivity implements
             if (mTitleLLayout.getTag() == null) {
                 if (y > oldY && View.VISIBLE == mTitleLLayout.getVisibility()) {
                     showTitle(false);
-                } else if (y < oldY && View.VISIBLE != mTitleLLayout.getVisibility()) {
+                } else if (y < oldY
+                        && View.VISIBLE != mTitleLLayout.getVisibility()) {
                     showTitle(true);
                 }
             }
