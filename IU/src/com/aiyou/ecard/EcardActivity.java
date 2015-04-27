@@ -160,6 +160,8 @@ public class EcardActivity extends BaseActivity implements
     @SuppressLint("InflateParams")
     private void init() {
         mProgressDlg = new ProgressDialog(this);
+        mProgressDlg.setCancelable(false);
+        mProgressDlg.setCanceledOnTouchOutside(false);
         mProgressDlg.setIndeterminate(true);
         mProgressDlg.setMessage("正在查询");
 

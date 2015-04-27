@@ -124,6 +124,8 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
             }
         });
         mProgressDlg = new ProgressDialog(this);
+        mProgressDlg.setCancelable(false);
+        mProgressDlg.setCanceledOnTouchOutside(false);
         mProgressDlg.setIndeterminate(true);
         mProgressDlg.setMessage("正在查询");
 
