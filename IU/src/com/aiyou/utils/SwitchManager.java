@@ -13,7 +13,7 @@ public class SwitchManager {
     private SharedPreferences mSharedPref;
     private static final String SPNAME = "switch";
 
-    private static final String KEY_SHOW_WELCOME = "show_welcome_2_7";
+    private static final String KEY_SHOW_WELCOME = "show_welcome_2_7_1";
     private static final String KEY_SIMPLE_MODE = "simple_mode_enabled";
     private static final String KEY_SHAKE_SHARE = "shake_share";
     private static final String KEY_FACE_HELP = "face_help";

@@ -158,7 +158,7 @@ public class JsonHelper {
         String url = null;
         String text = null;
         // 链接
-        if (strResult.contains("=http")) {
+        if (strResult.contains("http")) {
             strResult = strResult.replaceAll("=http://", "\\[sollian\\]");
             strResult = strResult.replaceAll("=https://", "\\[sollian1\\]");
             strResult = strResult.replaceAll(

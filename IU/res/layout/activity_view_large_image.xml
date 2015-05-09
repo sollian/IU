@@ -26,7 +26,7 @@
         android:layout_gravity="left|left"
         android:layout_marginTop="50dp" >
 
-        <external.OtherView.TouchImageView
+        <external.OtherView.MagicImageView
             android:id="@+id/activity_view_large_image_tiv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -107,6 +107,7 @@
             android:contentDescription="@null"
             android:onClick="onRotateLargeImage"
             android:scaleType="centerInside"
+            android:visibility="invisible"
             android:src="?rotate" />
 
         <TextView
@@ -138,6 +139,7 @@
             android:onClick="onRotateLargeImage"
             android:rotationY="180"
             android:scaleType="centerInside"
+            android:visibility="invisible"
             android:src="?rotate" />
 
         <TextView

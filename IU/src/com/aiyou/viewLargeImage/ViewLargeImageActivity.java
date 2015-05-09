@@ -15,8 +15,8 @@ import com.aiyou.utils.share.ShareTask.ShareListener;
 import com.aiyou.viewLargeImage.GetLargeImgTask.ProgressListener;
 
 import external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx;
+import external.OtherView.MagicImageView;
 import external.OtherView.SinkingView;
-import external.OtherView.TouchImageView;
 import external.OtherView.Win8ProgressBar;
 import external.SmartImageView.SmartImageView;
 import android.annotation.TargetApi;
@@ -77,7 +77,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
     private SmartImageView mSmartIV;
     // 查看大图
     private FrameLayout mTIVFLayout;
-    private TouchImageView mTouchImageView;
+    private MagicImageView mTouchImageView;
     private ImageViewEx mImageViewEx;
     private TextView mTitleTV;
     private ImageView mRotateLeftIV, mRotateRightIV;
@@ -149,7 +149,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
          * 大图
          */
         mTIVFLayout = (FrameLayout) findViewById(R.id.activity_view_large_image_fl_tiv);
-        mTouchImageView = (TouchImageView) findViewById(R.id.activity_view_large_image_tiv);
+        mTouchImageView = (MagicImageView) findViewById(R.id.activity_view_large_image_tiv);
         mImageViewEx = (ImageViewEx) findViewById(R.id.activity_view_large_image_ive);
         mTitleTV = (TextView) findViewById(R.id.activity_view_large_image_tv_title);
         mRotateLeftIV = (ImageView) findViewById(R.id.activity_view_large_image_btl);
@@ -164,12 +164,10 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
         }
 
         // 设置缩放比例
-        mTouchImageView.setMaxZoom(10f);
+        mTouchImageView.setMaxScale(10f);
 
         if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
             mSmartIV.setColorFilter(Color.GRAY,
-                    android.graphics.PorterDuff.Mode.MULTIPLY);
-            mTouchImageView.setColorFilter(Color.GRAY,
                     android.graphics.PorterDuff.Mode.MULTIPLY);
             mImageViewEx.setColorFilter(Color.GRAY,
                     android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -473,17 +471,18 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             Toast.makeText(getBaseContext(), "下载失败", Toast.LENGTH_SHORT).show();
             return;
         }
-        Bitmap bmp = null;
-//        bmp = ImageFactory.getMaxBmp(result, false);
-        bmp = ImageFactory.getFixedBmp(result, 2000, 3000, false);
-        if (bmp == null) {
-            return;
-        }
-        Matrix matrix = new Matrix();
-        matrix.setRotate(90 * mDegree);
-        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
-                bmp.getHeight(), matrix, true);
-        mTouchImageView.setImageBitmap(bmp);
+//        Bitmap bmp = null;
+////        bmp = ImageFactory.getMaxBmp(result, false);
+//        bmp = ImageFactory.getFixedBmp(result, 2000, 3000, false);
+//        if (bmp == null) {
+//            return;
+//        }
+//        Matrix matrix = new Matrix();
+//        matrix.setRotate(90 * mDegree);
+//        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
+//                bmp.getHeight(), matrix, true);
+//        mTouchImageView.setImageBitmap(bmp);
+        mTouchImageView.setByte(result);
         try {
             mImageViewEx.setSource(result);
         } catch (OutOfMemoryError e) {
