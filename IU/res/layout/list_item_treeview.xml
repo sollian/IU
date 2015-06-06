@@ -46,7 +46,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/collect" />
 
-        <external.OtherView.Win8ProgressBar
+        <external.otherview.Win8ProgressBar
             android:id="@+id/list_item_treeview_progress_bar"
             android:layout_width="45dp"
             android:layout_height="45dp"

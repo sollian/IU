@@ -42,7 +42,7 @@ import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.thread.ThreadUtils;
 
 import external.PullToRefresh.PullToRefreshListView;
-import external.SmartImageView.SmartImageView;
+import external.smartimageview.SmartImageView;
 
 public class EcardActivity extends BaseActivity implements
         OnPageChangeListener, OnClickListener {

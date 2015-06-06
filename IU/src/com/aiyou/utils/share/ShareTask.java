@@ -4,7 +4,7 @@ package com.aiyou.utils.share;
 import java.io.File;
 
 import com.aiyou.R;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 
 import android.app.Activity;
 import android.content.Context;

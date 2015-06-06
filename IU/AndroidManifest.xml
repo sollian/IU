@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="22" />
 
     <supports-screens
         android:anyDensity="true"
@@ -289,7 +289,7 @@
             android:enabled="true"
             android:process=":remote" />
         <!-- 新回复、新邮件、新@ -->
-        <service android:name="com.aiyou.bbs.PullRefer.BBSService" />
+        <service android:name="com.aiyou.bbs.pullrefer.BBSService" />
         <!-- appwidget -->
         <activity
             android:name="com.aiyou.appwidget.WidgetClickActivity"

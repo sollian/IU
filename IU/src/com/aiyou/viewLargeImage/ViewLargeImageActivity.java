@@ -1,4 +1,3 @@
-
 package com.aiyou.viewLargeImage;
 
 import java.util.ArrayList;
@@ -8,23 +7,18 @@ import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
-import com.aiyou.utils.FileCache.FileManager;
-import com.aiyou.utils.image.ImageFactory;
 import com.aiyou.utils.share.ShareTask;
 import com.aiyou.utils.share.ShareTask.ShareListener;
 import com.aiyou.viewLargeImage.GetLargeImgTask.ProgressListener;
 
 import external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx;
-import external.OtherView.MagicImageView;
-import external.OtherView.SinkingView;
-import external.OtherView.Win8ProgressBar;
-import external.SmartImageView.SmartImageView;
-import android.annotation.TargetApi;
+import external.otherview.MagicImageView;
+import external.otherview.SinkingView;
+import external.otherview.Win8ProgressBar;
+import external.smartimageview.SmartImageView;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.os.AsyncTask.Status;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,7 +39,8 @@ import android.widget.Toast;
  * 
  * @author sollian
  */
-public class ViewLargeImageActivity extends BaseActivity implements ProgressListener {
+public class ViewLargeImageActivity extends BaseActivity implements
+        ProgressListener {
     public static final String KEY_NEWS = "news";
     public static final String KEY_URL = "url";
     public static final String KEY_URL_LIST = "url_list";
@@ -77,7 +72,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
     private SmartImageView mSmartIV;
     // 查看大图
     private FrameLayout mTIVFLayout;
-    private MagicImageView mTouchImageView;
+    private MagicImageView mMagicImageView;
     private ImageViewEx mImageViewEx;
     private TextView mTitleTV;
     private ImageView mRotateLeftIV, mRotateRightIV;
@@ -101,7 +96,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             Intent intent = getIntent();
             mFlag = intent.getBooleanExtra(KEY_NEWS, false);
             init(mFlag);
-            mTouchImageView.setTag(intent.getStringExtra(KEY_URL));
+            mMagicImageView.setTag(intent.getStringExtra(KEY_URL));
             List<String> tempList = (ArrayList<String>) intent
                     .getSerializableExtra(KEY_URL_LIST);
             int size = tempList.size();
@@ -114,7 +109,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
         } else {
             mFlag = savedInstanceState.getBoolean(KEY_NEWS, false);
             init(mFlag);
-            mTouchImageView.setTag(savedInstanceState.getString(KEY_URL));
+            mMagicImageView.setTag(savedInstanceState.getString(KEY_URL));
             String list = savedInstanceState.getString(KEY_URL_LIST);
             String arr[] = list.split(",");
             mUrlList.clear();
@@ -123,18 +118,18 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             }
             mTitleTV.setText(savedInstanceState.getString(KEY_TITLE));
             mDegree = savedInstanceState.getInt(KEY_DEGREE);
-            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {    
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mTitleFL.setVisibility(View.GONE);
-                ((FrameLayout.LayoutParams)mTIVFLayout.getLayoutParams()).topMargin = 0;
-            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    
+                ((FrameLayout.LayoutParams) mTIVFLayout.getLayoutParams()).topMargin = 0;
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mTitleFL.setVisibility(View.VISIBLE);
-            }   
+            }
         }
         showLargeImage();
     }
 
     private void init(boolean flag) {
-        mTitleFL = (FrameLayout)findViewById(R.id.fl_title);
+        mTitleFL = (FrameLayout) findViewById(R.id.fl_title);
         /**
          * 进度条
          */
@@ -149,7 +144,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
          * 大图
          */
         mTIVFLayout = (FrameLayout) findViewById(R.id.activity_view_large_image_fl_tiv);
-        mTouchImageView = (MagicImageView) findViewById(R.id.activity_view_large_image_tiv);
+        mMagicImageView = (MagicImageView) findViewById(R.id.activity_view_large_image_tiv);
         mImageViewEx = (ImageViewEx) findViewById(R.id.activity_view_large_image_ive);
         mTitleTV = (TextView) findViewById(R.id.activity_view_large_image_tv_title);
         mRotateLeftIV = (ImageView) findViewById(R.id.activity_view_large_image_btl);
@@ -164,7 +159,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
         }
 
         // 设置缩放比例
-        mTouchImageView.setMaxScale(10f);
+        mMagicImageView.setMaxScale(10f);
 
         if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
             mSmartIV.setColorFilter(Color.GRAY,
@@ -173,7 +168,9 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
                     android.graphics.PorterDuff.Mode.MULTIPLY);
         }
 
-        if (flag && !SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
+        if (flag
+                && !SwitchManager.getInstance(getBaseContext())
+                        .isNightModeEnabled()) {
             mTitleTV.setBackgroundColor(Color.parseColor("#aae46600"));
             mRotateLeftIV
                     .setBackgroundResource(R.drawable.background_large_image_orange);
@@ -192,19 +189,19 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             // 查看大图->动图|静图切换
             if (View.GONE == mImageViewEx.getVisibility()) {
                 mImageViewEx.setVisibility(View.VISIBLE);
-                mTouchImageView.setVisibility(View.GONE);
+                mMagicImageView.setVisibility(View.GONE);
                 mDynamicBtn.setText("返回");
-                mRotateLeftIV.setVisibility(View.INVISIBLE);
-                mRotateRightIV.setVisibility(View.INVISIBLE);
+                // mRotateLeftIV.setVisibility(View.INVISIBLE);
+                // mRotateRightIV.setVisibility(View.INVISIBLE);
                 if (mImageViewEx.canPlay()) {
                     mImageViewEx.play();
                 }
             } else {
                 mImageViewEx.setVisibility(View.GONE);
-                mTouchImageView.setVisibility(View.VISIBLE);
+                mMagicImageView.setVisibility(View.VISIBLE);
                 mDynamicBtn.setText(R.string.dynamic_bmp);
-                mRotateLeftIV.setVisibility(View.VISIBLE);
-                mRotateRightIV.setVisibility(View.VISIBLE);
+                // mRotateLeftIV.setVisibility(View.VISIBLE);
+                // mRotateRightIV.setVisibility(View.VISIBLE);
                 if (mImageViewEx.isPlaying()) {
                     mImageViewEx.stop();
                 }
@@ -214,22 +211,23 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
 
     public void onShare(View view) {
         // 分享
-        String urlImg = (String) mTouchImageView.getTag();
+        String urlImg = (String) mMagicImageView.getTag();
         if (null != urlImg) {
             int index = urlImg.indexOf("+") + 1;
             urlImg = urlImg.substring(index);
         }
-        ShareTask task = new ShareTask(ViewLargeImageActivity.this, urlImg, new ShareListener() {
-            @Override
-            public void onShareStart() {
-                showProgress(true);
-            }
+        ShareTask task = new ShareTask(ViewLargeImageActivity.this, urlImg,
+                new ShareListener() {
+                    @Override
+                    public void onShareStart() {
+                        showProgress(true);
+                    }
 
-            @Override
-            public void onShareFinish(Boolean success) {
-                showProgress(false);
-            }
-        });
+                    @Override
+                    public void onShareFinish(Boolean success) {
+                        showProgress(false);
+                    }
+                });
         task.execute();
     }
 
@@ -239,7 +237,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
      * @param view
      */
     public void onSwapLargeImage(View view) {
-        String url = (String) mTouchImageView.getTag();
+        String url = (String) mMagicImageView.getTag();
         int position = mUrlList.indexOf(url);
         if (position < 0 || position >= mUrlList.size()) {
             return;
@@ -252,7 +250,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
                 return;
             }
             url = mUrlList.get(position - 1);
-            mTouchImageView.setTag(url);
+            mMagicImageView.setTag(url);
             int index = url.indexOf("+") + 1;
             url = url.substring(index);
         } else if (view == mNextIV) {
@@ -263,65 +261,65 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
                 return;
             }
             url = mUrlList.get(position + 1);
-            mTouchImageView.setTag(url);
+            mMagicImageView.setTag(url);
             int index = url.indexOf("+") + 1;
             url = url.substring(index);
         }
         showLargeImage();
     }
 
-    /**
-     * 旋转大图
-     * 
-     * @param view
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void onRotateLargeImage(View view) {
-        if (null != mTask) {
-            if (Status.FINISHED != mTask.getStatus()) {
-                Toast.makeText(getBaseContext(), "下载中", Toast.LENGTH_SHORT)
-                        .show();
-                return;
-            }
-        }
-        int nId = view.getId();
-        FileManager imgch = new FileManager(FileManager.DIR_LARGEIMG);
-        String url = (String) mTouchImageView.getTag();
-        int index = url.indexOf("+") + 1;
-        url = url.substring(index);
-        Bitmap bmp = ImageFactory.getMaxBmp(imgch.getImage(url), false);
-        if (null != bmp) {
-            Matrix matrix = new Matrix();
-            if (R.id.activity_view_large_image_btl == nId) {
-                // 逆时针旋转
-                matrix.setRotate(90 * (--mDegree));
-                rotate(mNextIV, 90 * mDegree, 90 * (mDegree + 1));
-                rotate(mPreviousIV, 90 * mDegree, 90 * (mDegree + 1));
-                rotate(mRotateLeftIV, 90 * mDegree, 90 * (mDegree + 1));
-                rotate(mRotateRightIV, 90 * mDegree, 90 * (mDegree + 1));
-                rotate(mDynamicBtn, 90 * mDegree, 90 * (mDegree + 1));
-            } else if (R.id.activity_view_large_image_btr == nId) {
-                // 顺时针旋转
-                matrix.setRotate(90 * (++mDegree));
-                rotate(mNextIV, 90 * mDegree, 90 * (mDegree - 1));
-                rotate(mPreviousIV, 90 * mDegree, 90 * (mDegree - 1));
-                rotate(mRotateLeftIV, 90 * mDegree, 90 * (mDegree - 1));
-                rotate(mRotateRightIV, 90 * mDegree, 90 * (mDegree - 1));
-                rotate(mDynamicBtn, 90 * mDegree, 90 * (mDegree - 1));
-            }
-            try {
-                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
-                        bmp.getHeight(), matrix, true);
-            } catch (OutOfMemoryError e) {
-                Toast.makeText(getBaseContext(), "图片太大,转不动了",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-            mTouchImageView.setImageBitmap(bmp);
-            mSinkView.setRotation(90 * mDegree);
-
-        }
-    }
+//    /**
+//     * 旋转大图
+//     * 
+//     * @param view
+//     */
+//    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+//    private void onRotateLargeImage(View view) {
+//        if (null != mTask) {
+//            if (Status.FINISHED != mTask.getStatus()) {
+//                Toast.makeText(getBaseContext(), "下载中", Toast.LENGTH_SHORT)
+//                        .show();
+//                return;
+//            }
+//        }
+//        int nId = view.getId();
+//        FileManager imgch = new FileManager(FileManager.DIR_LARGEIMG);
+//        String url = (String) mMagicImageView.getTag();
+//        int index = url.indexOf("+") + 1;
+//        url = url.substring(index);
+//        Bitmap bmp = ImageFactory.getMaxBmp(imgch.getImage(url), false);
+//        if (null != bmp) {
+//            Matrix matrix = new Matrix();
+//            if (R.id.activity_view_large_image_btl == nId) {
+//                // 逆时针旋转
+//                matrix.setRotate(90 * (--mDegree));
+//                rotate(mNextIV, 90 * mDegree, 90 * (mDegree + 1));
+//                rotate(mPreviousIV, 90 * mDegree, 90 * (mDegree + 1));
+//                rotate(mRotateLeftIV, 90 * mDegree, 90 * (mDegree + 1));
+//                rotate(mRotateRightIV, 90 * mDegree, 90 * (mDegree + 1));
+//                rotate(mDynamicBtn, 90 * mDegree, 90 * (mDegree + 1));
+//            } else if (R.id.activity_view_large_image_btr == nId) {
+//                // 顺时针旋转
+//                matrix.setRotate(90 * (++mDegree));
+//                rotate(mNextIV, 90 * mDegree, 90 * (mDegree - 1));
+//                rotate(mPreviousIV, 90 * mDegree, 90 * (mDegree - 1));
+//                rotate(mRotateLeftIV, 90 * mDegree, 90 * (mDegree - 1));
+//                rotate(mRotateRightIV, 90 * mDegree, 90 * (mDegree - 1));
+//                rotate(mDynamicBtn, 90 * mDegree, 90 * (mDegree - 1));
+//            }
+//            try {
+//                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
+//                        bmp.getHeight(), matrix, true);
+//            } catch (OutOfMemoryError e) {
+//                Toast.makeText(getBaseContext(), "图片太大,转不动了",
+//                        Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            mMagicImageView.setImageBitmap(bmp);
+//            mSinkView.setRotation(90 * mDegree);
+//
+//        }
+//    }
 
     /**
      * 左上角返回按钮
@@ -374,7 +372,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
     public void onSaveInstanceState(Bundle outState) {// 记录旧状态
         super.onSaveInstanceState(outState);
         // 保存tag
-        String url = (String) mTouchImageView.getTag();
+        String url = (String) mMagicImageView.getTag();
         outState.putString(KEY_URL, url);
         // 保存nDegree
         outState.putInt(KEY_DEGREE, mDegree);
@@ -415,34 +413,35 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
      */
     private void showLargeImage() {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
-            Toast.makeText(getBaseContext(), NetWorkManager.MSG_NONET, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), NetWorkManager.MSG_NONET,
+                    Toast.LENGTH_LONG).show();
             return;
         }
         if (null != mTask) {
             switch (mTask.getStatus()) {
-                case RUNNING:
-                    mTask.cancel(true);
-                    break;
-                case PENDING:
-                    mTask.cancel(false);
-                    break;
-                default:
-                    break;
+            case RUNNING:
+                mTask.cancel(true);
+                break;
+            case PENDING:
+                mTask.cancel(false);
+                break;
+            default:
+                break;
             }
         }
 
-        String url = (String) mTouchImageView.getTag();
+        String url = (String) mMagicImageView.getTag();
         int index = url.indexOf("+") + 1;
-        mTask = new GetLargeImgTask(getBaseContext(), url.substring(index), this);
+        mTask = new GetLargeImgTask(getBaseContext(), url.substring(index),
+                this);
         mTask.execute();
-        mTouchImageView.setImageResource(R.drawable.touch_image_view);
+        mMagicImageView.setImageResource(R.drawable.touch_image_view);
         mImageViewEx.setImageBitmap(null);
 
         mPreviousIV.setVisibility(View.VISIBLE);
         mNextIV.setVisibility(View.VISIBLE);
         int position = mUrlList.indexOf(url);
-        mTitleTV.setText("查看大图    " + (position + 1) + "/"
-                + mUrlList.size());
+        mTitleTV.setText("查看大图    " + (position + 1) + "/" + mUrlList.size());
     }
 
     @Override
@@ -452,7 +451,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
         mSinkView.clearAnimation();
         mSinkView.setVisibility(View.VISIBLE);
 
-        String url = (String) mTouchImageView.getTag();
+        String url = (String) mMagicImageView.getTag();
         int index = url.indexOf("+") + 1;
         url = url.substring(index);
         mSmartIV.setImageUrl(url, R.drawable.iu_default_gray,
@@ -471,18 +470,18 @@ public class ViewLargeImageActivity extends BaseActivity implements ProgressList
             Toast.makeText(getBaseContext(), "下载失败", Toast.LENGTH_SHORT).show();
             return;
         }
-//        Bitmap bmp = null;
-////        bmp = ImageFactory.getMaxBmp(result, false);
-//        bmp = ImageFactory.getFixedBmp(result, 2000, 3000, false);
-//        if (bmp == null) {
-//            return;
-//        }
-//        Matrix matrix = new Matrix();
-//        matrix.setRotate(90 * mDegree);
-//        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
-//                bmp.getHeight(), matrix, true);
-//        mTouchImageView.setImageBitmap(bmp);
-        mTouchImageView.setByte(result);
+        // Bitmap bmp = null;
+        // // bmp = ImageFactory.getMaxBmp(result, false);
+        // bmp = ImageFactory.getFixedBmp(result, 2000, 3000, false);
+        // if (bmp == null) {
+        // return;
+        // }
+        // Matrix matrix = new Matrix();
+        // matrix.setRotate(90 * mDegree);
+        // bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
+        // bmp.getHeight(), matrix, true);
+        // mTouchImageView.setImageBitmap(bmp);
+        mMagicImageView.setByte(result);
         try {
             mImageViewEx.setSource(result);
         } catch (OutOfMemoryError e) {

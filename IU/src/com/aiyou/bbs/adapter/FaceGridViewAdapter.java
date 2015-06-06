@@ -2,7 +2,7 @@
 package com.aiyou.bbs.adapter;
 
 import com.aiyou.utils.AiYouManager;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 import com.aiyou.view.DarkImageView;
 
 import android.content.Context;

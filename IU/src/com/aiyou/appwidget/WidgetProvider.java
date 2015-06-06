@@ -2,13 +2,14 @@
 package com.aiyou.appwidget;
 
 import com.aiyou.R;
-
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class WidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.hasCategory(Intent.CATEGORY_ALTERNATIVE)) {
@@ -40,6 +42,7 @@ public class WidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @SuppressWarnings("deprecation")
     private void updateWidget(Context context, int id) {
         Intent serviceIntent = new Intent(context, WidgetService.class);

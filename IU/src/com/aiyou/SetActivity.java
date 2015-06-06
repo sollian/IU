@@ -5,12 +5,12 @@ import com.aiyou.bbs.BBSLoginActivity;
 import com.aiyou.utils.ActivityFunc;
 import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.SwitchManager;
-import com.aiyou.utils.FileCache.ClearCacheTask;
-import com.aiyou.utils.FileCache.ClearCacheTask.ClearCacheListener;
+import com.aiyou.utils.filecache.ClearCacheTask;
+import com.aiyou.utils.filecache.ClearCacheTask.ClearCacheListener;
 import com.aiyou.view.CustomDialog;
 import com.aiyou.view.SwitchPreferences;
 
-import external.OtherView.ActivitySplitAnimationUtil;
+import external.otherview.ActivitySplitAnimationUtil;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

@@ -15,7 +15,7 @@ import com.aiyou.AiYouApplication;
 import com.aiyou.bbs.bean.Article;
 import com.aiyou.bbs.bean.Attachment;
 import com.aiyou.bbs.bean.Mail;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 import com.aiyou.utils.logcat.Logcat;
 
 /**

@@ -3,6 +3,7 @@ package com.aiyou.bbs.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
 import com.aiyou.R;
 import com.aiyou.bbs.bean.User;
 import com.aiyou.utils.SwitchManager;
@@ -11,7 +12,8 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.view.ViewHelper;
-import external.OtherView.CircleImageView;
+
+import external.otherview.CircleImageView;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;

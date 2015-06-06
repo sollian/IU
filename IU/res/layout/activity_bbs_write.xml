@@ -436,7 +436,7 @@
         android:clickable="true"
         android:visibility="gone" >
 
-        <external.OtherView.Win8ProgressBar
+        <external.otherview.Win8ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="@dimen/progress_bar"
             android:layout_height="@dimen/progress_bar"
@@ -470,7 +470,7 @@
         android:background="#88ffffff"
         android:visibility="gone"
         />
-    <com.aiyou.bbs.FileSelect.DirectoryChooserView 
+    <com.aiyou.bbs.fileselect.DirectoryChooserView 
         android:id="@+id/activity_bbswrite_dsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

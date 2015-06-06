@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <external.OtherView.BounceScrollView
+    <external.otherview.BounceScrollView
         android:id="@+id/activity_set_bsv_set"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -200,7 +200,7 @@
                     android:textSize="@dimen/set_tv_size" />
             </LinearLayout>
         </LinearLayout>
-    </external.OtherView.BounceScrollView>
+    </external.otherview.BounceScrollView>
 
     <ImageView
         android:id="@+id/activity_set_iv_back"

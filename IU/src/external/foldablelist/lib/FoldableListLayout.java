@@ -3,13 +3,15 @@ package external.foldablelist.lib;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
 import external.foldablelist.lib.shading.FoldShading;
 import external.foldablelist.lib.shading.SimpleFoldShading;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.GestureDetector;
@@ -71,6 +73,7 @@ public class FoldableListLayout extends FrameLayout implements
         init(context);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void init(Context context) {
         mGestureDetector = new GestureDetector(context, this);
         mAnimator = ObjectAnimator.ofFloat(this, "foldRotation", 0);
@@ -103,6 +106,7 @@ public class FoldableListLayout extends FrameLayout implements
         return processTouch(event);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // We will be here if no children wants to handle current touches or if
@@ -154,6 +158,7 @@ public class FoldableListLayout extends FrameLayout implements
         setFoldRotation(rotation, false);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void setFoldRotation(float rotation, boolean isFromUser) {
         if (isFromUser)
             mAnimator.cancel();
@@ -264,6 +269,7 @@ public class FoldableListLayout extends FrameLayout implements
         mFoldableLayoutsMap.clear();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void scrollToPosition(int index) {
         index = Math.max(0, Math.min(index, getCount() - 1));
 
@@ -282,6 +288,7 @@ public class FoldableListLayout extends FrameLayout implements
         scrollToPosition((int) ((current + 90f) / 180f));
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private boolean processTouch(MotionEvent event) {
         // Checking if that event was already processed (by
         // onInterceptTouchEvent prior to onTouchEvent)

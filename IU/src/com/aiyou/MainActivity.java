@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 
 import com.aiyou.bbs.BBSContentActivity;
 import com.aiyou.bbs.BBSListActivity;
-import com.aiyou.bbs.PullRefer.BBSService;
 import com.aiyou.bbs.bean.Article;
 import com.aiyou.bbs.bean.Board;
 import com.aiyou.bbs.bean.Favorite;
 import com.aiyou.bbs.bean.Section;
 import com.aiyou.bbs.bean.Refer.ReferType;
+import com.aiyou.bbs.pullrefer.BBSService;
 import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.ecard.EcardActivity;
 import com.aiyou.electricity.ElectricityActivity;
@@ -33,7 +33,7 @@ import com.aiyou.view.IUWidget;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 
-import external.OtherView.ActivitySplitAnimationUtil;
+import external.otherview.ActivitySplitAnimationUtil;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;

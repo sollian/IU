@@ -62,7 +62,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <external.OtherView.CircleImageView
+    <external.otherview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
         android:id="@+id/list_item_bbslist_vote_civ_face"
         android:layout_width="100dp"

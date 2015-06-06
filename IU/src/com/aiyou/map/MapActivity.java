@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
+
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.map.adapter.MySpinnerAdapter;
@@ -68,7 +70,8 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteLine;
 import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
-import external.OtherView.ActivitySplitAnimationUtil;
+
+import external.otherview.ActivitySplitAnimationUtil;
 
 public class MapActivity extends BaseActivity implements
         OnGetRoutePlanResultListener {

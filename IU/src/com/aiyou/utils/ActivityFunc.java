@@ -3,7 +3,7 @@ package com.aiyou.utils;
 
 import com.aiyou.bbs.bean.User;
 
-import external.OtherView.ActivitySplitAnimationUtil;
+import external.otherview.ActivitySplitAnimationUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

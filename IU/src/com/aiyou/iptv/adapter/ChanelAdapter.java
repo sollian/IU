@@ -1,4 +1,3 @@
-
 package com.aiyou.iptv.adapter;
 
 import java.util.List;
@@ -7,7 +6,7 @@ import com.aiyou.R;
 import com.aiyou.iptv.bean.Chanel;
 import com.aiyou.utils.SwitchManager;
 
-import external.SmartImageView.SmartImageView;
+import external.smartimageview.SmartImageView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
@@ -51,17 +50,21 @@ public class ChanelAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_chanel, null);
             holder = new ViewHolder();
-            holder.ll = (LinearLayout)convertView.findViewById(R.id.ll);
-            holder.siv_logo = (SmartImageView)convertView.findViewById(R.id.siv_logo);
-            holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tv_frequency = (TextView) convertView.findViewById(R.id.tv_frequency);
+            holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
+            holder.siv_logo = (SmartImageView) convertView
+                    .findViewById(R.id.siv_logo);
+            holder.tv_title = (TextView) convertView
+                    .findViewById(R.id.tv_title);
+            holder.tv_frequency = (TextView) convertView
+                    .findViewById(R.id.tv_frequency);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         Chanel chanel = mList.get(position);
-        if(!TextUtils.isEmpty(chanel.logo)) {
-            holder.siv_logo.setImageUrl(chanel.logo);
+        if (!TextUtils.isEmpty(chanel.logo)) {
+            holder.siv_logo.setImageUrl(chanel.logo, R.drawable.default_logo,
+                    R.drawable.default_logo);
         } else {
             holder.siv_logo.setImageResource(R.drawable.default_logo);
         }
@@ -71,8 +74,8 @@ public class ChanelAdapter extends BaseAdapter {
             holder.tv_title.setText("");
         }
         holder.tv_frequency.setText("观看" + chanel.frequency + "次");
-        
-        if(SwitchManager.getInstance(mContext).isNightModeEnabled()) {
+
+        if (SwitchManager.getInstance(mContext).isNightModeEnabled()) {
             holder.ll.setBackgroundColor(0xff222222);
             holder.tv_title.setTextColor(0xff888888);
         } else {

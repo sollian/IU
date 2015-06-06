@@ -17,9 +17,9 @@ import com.aiyou.utils.time.TimeUtils;
 import com.aiyou.view.ScrollTextView;
 import com.aiyou.viewLargeImage.ViewLargeImageActivity;
 
-import external.OtherView.CircleImageView;
-import external.OtherView.Win8ProgressBar;
-import external.SmartImageView.SmartImageView;
+import external.otherview.CircleImageView;
+import external.otherview.Win8ProgressBar;
+import external.smartimageview.SmartImageView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;

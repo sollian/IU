@@ -21,9 +21,9 @@ import com.aiyou.view.GetScrollDistanceScrollView.OnScrollListener;
 import com.aiyou.view.ScrollTextView;
 import com.aiyou.viewLargeImage.ViewLargeImageActivity;
 
-import external.OtherView.BounceScrollView;
-import external.OtherView.Win8ProgressBar;
-import external.SmartImageView.SmartImageView;
+import external.otherview.BounceScrollView;
+import external.otherview.Win8ProgressBar;
+import external.smartimageview.SmartImageView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;

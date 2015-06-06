@@ -32,7 +32,7 @@
                 android:textColor="@color/title"
                 android:textSize="15sp" />
 
-            <external.ArcMenu.RayMenu
+            <external.arcmenu.RayMenu
                 xmlns:arc="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/list_item_bbslist_board_rm"
                 android:layout_width="100dp"
@@ -61,7 +61,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <external.OtherView.CircleImageView
+        <external.otherview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
             android:id="@+id/list_item_bbslist_board_civ_face"
             android:layout_width="100dp"

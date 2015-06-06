@@ -16,7 +16,7 @@ import com.aiyou.utils.SwitchManager;
 import com.azcltd.fluffycommons.adapters.ItemsAdapter;
 import com.azcltd.fluffycommons.utils.Views;
 
-import external.SmartImageView.SmartImageView;
+import external.smartimageview.SmartImageView;
 
 public class PaintingsAdapter extends ItemsAdapter<Painting> implements
         View.OnClickListener {

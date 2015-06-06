@@ -2,12 +2,15 @@
 package external.foldablelist.lib;
 
 import external.foldablelist.lib.shading.FoldShading;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -247,6 +250,7 @@ public class FoldableItemLayout extends FrameLayout {
         private float mLocalFoldRotation;
         private FoldShading mShading;
 
+        @SuppressLint("NewApi")
         public PartView(FoldableItemLayout parent, int gravity) {
             super(parent.getContext());
             mGravity = gravity;
@@ -300,6 +304,7 @@ public class FoldableItemLayout extends FrameLayout {
             invalidate();
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         private void applyFoldRotation(float rotation) {
             float position = rotation;
             while (position < 0)
@@ -339,11 +344,13 @@ public class FoldableItemLayout extends FrameLayout {
             invalidate(); // needed to draw shadow overlay
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         private void applyScale(float scale) {
             setScaleX(scale);
             setScaleY(scale);
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         private void applyRollingDistance(float distance, float scale) {
             // applying translation
             setTranslationY((int) (distance * scale + 0.5f));

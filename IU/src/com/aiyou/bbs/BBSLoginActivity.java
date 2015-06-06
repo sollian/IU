@@ -15,9 +15,9 @@ import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.utils.thread.ThreadUtils;
 
-import external.OtherView.CircleImageView;
-import external.OtherView.FloatLabeledEditText;
-import external.OtherView.Win8ProgressBar;
+import external.otherview.CircleImageView;
+import external.otherview.FloatLabeledEditText;
+import external.otherview.Win8ProgressBar;
 import external.shimmer.Shimmer;
 import external.shimmer.ShimmerTextView;
 import android.content.Intent;

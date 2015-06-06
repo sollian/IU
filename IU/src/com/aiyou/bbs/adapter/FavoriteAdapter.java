@@ -8,7 +8,7 @@ import com.aiyou.bbs.bean.Board;
 import com.aiyou.view.DarkImageView;
 import com.aiyou.view.ScrollTextView;
 
-import external.OtherView.Win8ProgressBar;
+import external.otherview.Win8ProgressBar;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

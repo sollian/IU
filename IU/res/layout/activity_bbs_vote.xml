@@ -70,7 +70,7 @@
                 android:layout_height="50dp"
                 android:orientation="horizontal" >
 
-                <external.OtherView.CircleImageView
+                <external.otherview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res/com.aiyou"
                     android:id="@+id/activity_bbsmail_civ_face"
                     android:layout_width="50dp"
@@ -116,7 +116,7 @@
                     android:textSize="20sp" />
             </LinearLayout>
 
-            <external.OtherView.BounceScrollView
+            <external.otherview.BounceScrollView
                 android:id="@+id/activity_bbsvote_sv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -151,7 +151,7 @@
                         <!-- 加载vote的选项 -->
                     </LinearLayout>
                 </LinearLayout>
-            </external.OtherView.BounceScrollView>
+            </external.otherview.BounceScrollView>
         </LinearLayout>
     </LinearLayout>
 
@@ -163,7 +163,7 @@
         android:visibility="gone"
         >
 
-        <external.OtherView.Win8ProgressBar
+        <external.otherview.Win8ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="@dimen/progress_bar"
             android:layout_height="@dimen/progress_bar"

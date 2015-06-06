@@ -23,8 +23,8 @@ import com.aiyou.utils.thread.ThreadUtils;
 import com.aiyou.utils.time.TimeUtils;
 import com.aiyou.view.ScrollTextView;
 
-import external.OtherView.CircleImageView;
-import external.OtherView.Win8ProgressBar;
+import external.otherview.CircleImageView;
+import external.otherview.Win8ProgressBar;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;

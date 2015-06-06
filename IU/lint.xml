@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="Assert">
+        <ignore path="src/io/vov/vitamio/utils/Base64.java" />
+    </issue>
+    <issue id="ButtonOrder">
+        <ignore path="res/layout-v9/umeng_common_download_notification.xml" />
+        <ignore path="res/layout/umeng_common_download_notification.xml" />
+    </issue>
+    <issue id="DefaultLocale" severity="ignore">
+        <ignore path="src/io/vov/vitamio/utils/CPU.java" />
+        <ignore path="src/io/vov/vitamio/utils/Device.java" />
+    </issue>
+    <issue id="MissingTranslation" severity="ignore">
+        <ignore path="res/values/strings.xml" />
+    </issue>
+    <issue id="UnusedAttribute">
+        <ignore path="AndroidManifest.xml" />
+    </issue>
+    <issue id="WrongCall">
+        <ignore path="src/external/shimmer/ShimmerButton.java" />
+    </issue>
 </lint>

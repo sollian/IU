@@ -20,7 +20,7 @@ import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.JsonHelper;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 import com.aiyou.utils.logcat.Logcat;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.baidu.lbsapi.BMapManager;

@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <external.OtherView.CircleImageView
+        <external.otherview.CircleImageView
             android:id="@+id/activity_bbslogin_civ_face"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -64,7 +64,7 @@
                 android:orientation="vertical"
                 android:showDividers="beginning" >
 
-                <external.OtherView.FloatLabeledEditText
+                <external.otherview.FloatLabeledEditText
                     android:id="@+id/activity_bbslogin_flet_user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     app:fletTextColor="#000000"
                     float:fletFloatingHint="用户名" />
 
-                <external.OtherView.FloatLabeledEditText
+                <external.otherview.FloatLabeledEditText
                     android:id="@+id/activity_bbslogin_flet_user_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/button_size"/>
 
-                <external.OtherView.Win8ProgressBar
+                <external.otherview.Win8ProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

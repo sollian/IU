@@ -11,7 +11,7 @@ import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.view.DarkImageView;
 
-import external.OtherView.Win8ProgressBar;
+import external.otherview.Win8ProgressBar;
 import external.shimmer.ShimmerTextView;
 import android.annotation.SuppressLint;
 import android.content.Context;

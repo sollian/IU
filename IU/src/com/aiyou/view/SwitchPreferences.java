@@ -3,7 +3,7 @@ package com.aiyou.view;
 
 import com.aiyou.R;
 
-import external.SwitchButton.SwitchButton;
+import external.switchbutton.SwitchButton;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;

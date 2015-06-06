@@ -55,7 +55,7 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <external.OtherView.CircleImageView
+            <external.otherview.CircleImageView
                 android:id="@+id/civ_face"
                 android:layout_width="120dp"
                 android:layout_height="120dp"

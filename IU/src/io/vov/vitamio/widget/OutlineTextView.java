@@ -16,6 +16,7 @@
 
 package io.vov.vitamio.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -119,7 +120,8 @@ public class OutlineTextView extends TextView {
     initPaint();
   }
 
-  @Override
+  @SuppressLint("DrawAllocation")
+@Override
   protected void onDraw(Canvas canvas) {
     Layout layout = new StaticLayout(getText(), mTextPaintOutline, getWidth(), Layout.Alignment.ALIGN_CENTER, mSpacingMult, mSpacingAdd, mIncludePad);
     layout.draw(canvas);
@@ -127,7 +129,8 @@ public class OutlineTextView extends TextView {
     layout.draw(canvas);
   }
 
-  @Override
+  @SuppressLint("DrawAllocation")
+@Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     Layout layout = new StaticLayout(getText(), mTextPaintOutline, measureWidth(widthMeasureSpec), Layout.Alignment.ALIGN_CENTER, mSpacingMult, mSpacingAdd, mIncludePad);
     int ex = (int) (mBorderSize * 2 + 1);

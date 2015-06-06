@@ -14,8 +14,8 @@ import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.view.DarkImageView;
 
-import external.ArcMenu.RayMenu;
-import external.OtherView.CircleImageView;
+import external.arcmenu.RayMenu;
+import external.otherview.CircleImageView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;

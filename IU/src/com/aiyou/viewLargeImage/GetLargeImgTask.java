@@ -2,7 +2,7 @@
 package com.aiyou.viewLargeImage;
 
 import com.aiyou.bbs.utils.BBSManager;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 import com.aiyou.utils.http.HttpManager;
 
 import android.content.Context;

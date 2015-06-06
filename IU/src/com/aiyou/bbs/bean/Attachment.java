@@ -20,7 +20,7 @@ import android.content.Context;
 
 import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.utils.JsonHelper;
-import com.aiyou.utils.FileCache.FileManager;
+import com.aiyou.utils.filecache.FileManager;
 import com.aiyou.utils.http.HttpManager;
 import com.aiyou.utils.logcat.Logcat;
 

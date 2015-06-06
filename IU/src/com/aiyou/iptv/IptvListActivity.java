@@ -24,9 +24,9 @@ import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.utils.NetWorkManager.NetStatus;
 
-import external.OtherView.ActivitySplitAnimationUtil;
 import external.PullToRefresh.PullToRefreshListView;
 import external.PullToRefresh.PullToRefreshBase.Mode;
+import external.otherview.ActivitySplitAnimationUtil;
 
 public class IptvListActivity extends BaseActivity implements OnItemClickListener {
 

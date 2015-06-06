@@ -1,8 +1,10 @@
 
 package external.foldablelist.lib;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -196,6 +198,7 @@ public class UnfoldableView extends FoldableListLayout {
         scrollToPosition(0);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void onFoldedBack() {
         // clearing all foldable views
         setAdapter(null);
@@ -227,6 +230,7 @@ public class UnfoldableView extends FoldableListLayout {
         return mIsUnfolded;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void setFoldRotation(float rotation, boolean isFromUser) {
         super.setFoldRotation(rotation, isFromUser);

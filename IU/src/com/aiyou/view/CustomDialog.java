@@ -5,7 +5,7 @@ import com.aiyou.AiYouApplication;
 import com.aiyou.R;
 import com.aiyou.utils.SwitchManager;
 
-import external.OtherView.Win8ProgressBar;
+import external.otherview.Win8ProgressBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
