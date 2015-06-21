@@ -108,6 +108,9 @@ public class MagicImageView extends DarkImageView {
      */
     private float mDegree = 0;
 
+    private boolean mReachLeft = false;
+    private boolean mReachRight = false;
+
     public MagicImageView(Context context) {
         super(context);
         init();
@@ -407,6 +410,18 @@ public class MagicImageView extends DarkImageView {
                 minSize += contentSize;
                 maxSize += contentSize;
             }
+            if (isWidth) {
+                if (transSize >= maxSize) {
+                    mReachRight = true;
+                    mReachLeft = false;
+                } else if (transSize <= minSize) {
+                    mReachLeft = true;
+                    mReachRight = false;
+                } else {
+                    mReachRight = false;
+                    mReachLeft = false;
+                }
+            }
             if (fixed) {
                 transSize = transSize > maxSize ? maxSize : transSize;
                 transSize = transSize < minSize ? minSize : transSize;
@@ -454,11 +469,17 @@ public class MagicImageView extends DarkImageView {
         private PointF curP2 = new PointF();
 
         private float deltaX, deltaY;
+        private float totalDeltaX = 0;
 
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (!mIsTranslate && !mIsRotate && !mIsScale) {
+                if (mNormalizedScale == 1) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 mScaleDetector.onTouchEvent(event);
                 mGestureDetector.onTouchEvent(event);
                 switch (event.getActionMasked()) {
@@ -484,10 +505,15 @@ public class MagicImageView extends DarkImageView {
                     default:
                         break;
                     }
+                    if (((mReachRight && deltaX > 0) || (mReachLeft && deltaX < 0))
+                            && Math.abs(totalDeltaX) < 100) {
+                        getParent().requestDisallowInterceptTouchEvent(false);
+                    }
                     break;
                 case MotionEvent.ACTION_UP:
                     mState = State.NONE;
-                    break;
+                    totalDeltaX = 0;
+                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     if (mState == State.ONE_POINT) {
                         mState = State.TWO_POINT;
@@ -519,6 +545,7 @@ public class MagicImageView extends DarkImageView {
             curP1.set(event.getX(0), event.getY(0));
             deltaX = curP1.x - lastP1.x;
             deltaY = curP1.y - lastP1.y;
+            totalDeltaX += Math.abs(deltaX);
             fixTranslation(deltaX, deltaY);
             lastP1.set(curP1);
             if (mListener != null) {

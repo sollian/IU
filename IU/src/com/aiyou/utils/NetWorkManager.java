@@ -1,9 +1,7 @@
 
 package com.aiyou.utils;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.aiyou.utils.http.ConcurrentHashSet;
 import com.aiyou.utils.logcat.Logcat;
 
 import android.annotation.SuppressLint;
@@ -46,7 +44,7 @@ public class NetWorkManager {
         public void onNetStatsChange();
     }
 
-    private Set<NetStatsChangeListener> mListenerSet = new HashSet<NetStatsChangeListener>();
+    private ConcurrentHashSet<NetStatsChangeListener> mListenerSet = new ConcurrentHashSet<NetStatsChangeListener>();
 
     private BroadcastReceiver mConnectionReceiver = new BroadcastReceiver() {
         @Override

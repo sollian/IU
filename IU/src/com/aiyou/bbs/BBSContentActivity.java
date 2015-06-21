@@ -527,7 +527,7 @@ public class BBSContentActivity extends BaseActivity implements
 
         siv.setImageUrl(url, R.drawable.iu_default_gray,
                 R.drawable.iu_default_green);
-        siv.setTag(mImgId++ + "+" + url);
+        siv.setTag(mImgId++ + "");
         // 将图片地址添加到listImgSrc中
         mImgUrlList.add(url);
 
@@ -538,7 +538,7 @@ public class BBSContentActivity extends BaseActivity implements
             public void onClick(View view) {
                 Intent intent = new Intent(BBSContentActivity.this,
                         ViewLargeImageActivity.class);
-                intent.putExtra(ViewLargeImageActivity.KEY_URL,
+                intent.putExtra(ViewLargeImageActivity.KEY_CUR_SEL,
                         (String) view.getTag());
                 intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST,
                         mImgUrlList);

@@ -284,7 +284,7 @@ public class NewsContentActivity extends BaseActivity implements
 
         siv.setAdjustViewBounds(true);
 
-        siv.setTag(mImgId++ + "+" + url);
+        siv.setTag(mImgId++ + "");
         // 将图片地址添加到listImgSrc中
         mImgUrlList.add(url);
         // 单击图片查看大图
@@ -293,7 +293,7 @@ public class NewsContentActivity extends BaseActivity implements
             public void onClick(View view) {
                 Intent intent = new Intent(NewsContentActivity.this,
                         ViewLargeImageActivity.class);
-                intent.putExtra(ViewLargeImageActivity.KEY_URL,
+                intent.putExtra(ViewLargeImageActivity.KEY_CUR_SEL,
                         (String) view.getTag());
                 intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST,
                         mImgUrlList);

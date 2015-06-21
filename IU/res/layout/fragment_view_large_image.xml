@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <external.otherview.SinkingView
+        android:id="@+id/activity_view_large_image_sv"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center" >
+
+        <external.smartimageview.SmartImageView
+            android:id="@+id/activity_view_large_image_siv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+    </external.otherview.SinkingView>
+
+    <FrameLayout
+        android:id="@+id/activity_view_large_image_fl_tiv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|left"
+         >
+
+        <external.otherview.MagicImageView
+            android:id="@+id/activity_view_large_image_tiv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx
+            android:id="@+id/activity_view_large_image_ive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</FrameLayout>

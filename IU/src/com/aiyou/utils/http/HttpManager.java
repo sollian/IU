@@ -1,4 +1,3 @@
-
 package com.aiyou.utils.http;
 
 import java.io.IOException;
@@ -91,7 +90,8 @@ public class HttpManager {
         return getHttpByte(context, netUrl, header);
     }
 
-    public byte[] getHttpByte(Context context, String netUrl, Map<String, String> header) {
+    public byte[] getHttpByte(Context context, String netUrl,
+            Map<String, String> header) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
         }
@@ -101,7 +101,8 @@ public class HttpManager {
         try {
             hg = new HttpGet(netUrl);
         } catch (IllegalArgumentException e) {
-            Logcat.e(TAG, "getHttpByte IllegalArgumentException:" + e.getMessage());
+            Logcat.e(TAG,
+                    "getHttpByte IllegalArgumentException:" + e.getMessage());
             return null;
         }
         if (header != null && !header.isEmpty()) {
@@ -117,7 +118,8 @@ public class HttpManager {
         try {
             result = getHttpClient(context).execute(hg, getResponseHandler());
         } catch (ClientProtocolException e) {
-            Logcat.e(TAG, "getHttpByte ClientProtocolException:" + e.getMessage());
+            Logcat.e(TAG,
+                    "getHttpByte ClientProtocolException:" + e.getMessage());
         } catch (IOException e) {
             Logcat.e(TAG, "getHttpByte IOException:" + e.getMessage());
         } catch (Exception e) {
@@ -190,9 +192,13 @@ public class HttpManager {
      */
     public void release() {
         if (mConnMgr != null) {
-            mConnMgr.shutdown();
+            new Thread() {
+                @Override
+                public void run() {
+                    mConnMgr.shutdown();
+                }
+            }.start();
         }
-        mConnMgr = null;
     }
 
     /**
@@ -269,8 +275,8 @@ public class HttpManager {
         }
         mRequestRetryHandler = new HttpRequestRetryHandler() {
             // 自定义的恢复策略
-            public synchronized boolean retryRequest(IOException exception, int executionCount,
-                    HttpContext context) {
+            public synchronized boolean retryRequest(IOException exception,
+                    int executionCount, HttpContext context) {
                 // 设置恢复策略，在发生异常时候将自动重试3次
                 if (executionCount > 3) {
                     // 超过最大次数则不需要重试
@@ -286,8 +292,7 @@ public class HttpManager {
                 }
                 HttpRequest request = (HttpRequest) context
                         .getAttribute(ExecutionContext.HTTP_REQUEST);
-                boolean idempotent = (request instanceof
-                        HttpEntityEnclosingRequest);
+                boolean idempotent = (request instanceof HttpEntityEnclosingRequest);
                 if (!idempotent) {
                     // 请求内容相同则重试
                     return true;
@@ -368,8 +373,7 @@ public class HttpManager {
 
         /* 从连接池中取连接的超时时间 */
         ConnManagerParams.setTimeout(mParams, POOL_TIMEOUT); // 设置连接池超时0秒钟
-        HttpConnectionParams.setConnectionTimeout(mParams,
-                CONNECT_TIMEOUT);
+        HttpConnectionParams.setConnectionTimeout(mParams, CONNECT_TIMEOUT);
         HttpConnectionParams.setSoTimeout(mParams, READ_TIMEOUT); // 设置等待数据超时时间0秒钟
         return mParams;
     }
