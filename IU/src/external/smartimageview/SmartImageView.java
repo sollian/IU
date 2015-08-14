@@ -1,4 +1,3 @@
-
 package external.smartimageview;
 
 import java.util.Map;
@@ -39,8 +38,7 @@ public class SmartImageView extends DarkImageView {
         setImage(new WebImage(url), null, null, null, header);
     }
 
-    public void setImageUrl(String url,
-            OnCompleteListener completeListener) {
+    public void setImageUrl(String url, OnCompleteListener completeListener) {
         setImage(new WebImage(url), completeListener);
     }
 
@@ -59,8 +57,7 @@ public class SmartImageView extends DarkImageView {
     }
 
     public void setImageUrl(String url, final Integer fallbackResource,
-            final Integer loadingResource,
-            OnCompleteListener completeListener) {
+            final Integer loadingResource, OnCompleteListener completeListener) {
         setImage(new WebImage(url), fallbackResource, loadingResource,
                 completeListener);
     }
@@ -80,8 +77,7 @@ public class SmartImageView extends DarkImageView {
     }
 
     public void setImage(final SmartImage image,
-            final Integer fallbackResource,
-            OnCompleteListener completeListener) {
+            final Integer fallbackResource, OnCompleteListener completeListener) {
         setImage(image, fallbackResource, fallbackResource, completeListener);
     }
 
@@ -93,21 +89,25 @@ public class SmartImageView extends DarkImageView {
     public void setImage(final SmartImage image,
             final Integer fallbackResource, final Integer loadingResource,
             final OnCompleteListener completeListener) {
-        setImage(image, fallbackResource, loadingResource, completeListener, null);
+        setImage(image, fallbackResource, loadingResource, completeListener,
+                null);
     }
 
     public void setImage(final SmartImage image,
             final Integer fallbackResource, final Integer loadingResource,
-            final OnCompleteListener completeListener, final Map<String, String> header) {
+            final OnCompleteListener completeListener,
+            final Map<String, String> header) {
         // Set a loading resource
         if (loadingResource != null) {
             setImageResource(loadingResource);
         }
 
-        Bitmap bmp = getBmpFromLocale(image.getUrl());
-        if (bmp != null) {
-            setImageBitmap(bmp);
-            return;
+        if (header == null) {
+            Bitmap bmp = getBmpFromLocale(image.getUrl());
+            if (bmp != null) {
+                setImageBitmap(bmp);
+                return;
+            }
         }
 
         // Cancel any existing tasks for this image view
@@ -118,24 +118,23 @@ public class SmartImageView extends DarkImageView {
 
         // Set up the new task
         mCurTask = new SmartImageTask(getContext(), image, header);
-        mCurTask
-                .setOnCompleteHandler(new OnCompleteHandler() {
-                    @Override
-                    public void onComplete(Bitmap bitmap) {
-                        if (bitmap != null) {
-                            setImageBitmap(bitmap);
-                        } else {
-                            // Set fallback resource
-                            if (fallbackResource != null) {
-                                setImageResource(fallbackResource);
-                            }
-                        }
-
-                        if (completeListener != null) {
-                            completeListener.onComplete();
-                        }
+        mCurTask.setOnCompleteHandler(new OnCompleteHandler() {
+            @Override
+            public void onComplete(Bitmap bitmap) {
+                if (bitmap != null) {
+                    setImageBitmap(bitmap);
+                } else {
+                    // Set fallback resource
+                    if (fallbackResource != null) {
+                        setImageResource(fallbackResource);
                     }
-                });
+                }
+
+                if (completeListener != null) {
+                    completeListener.onComplete();
+                }
+            }
+        });
 
         // Run the task in a threadpool
         ThreadUtils.execute(mCurTask);

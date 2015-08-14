@@ -196,6 +196,7 @@ public class HttpManager {
                 @Override
                 public void run() {
                     mConnMgr.shutdown();
+                    mConnMgr = null;
                 }
             }.start();
         }
@@ -212,12 +213,10 @@ public class HttpManager {
         }
         String tag = context.getClass().getSimpleName();
         Set<CustomHttp> temp = new HashSet<CustomHttp>();
-        synchronized (mConnSet) {
-            for (CustomHttp http : mConnSet) {
-                if (tag.equals(http.getTag())) {
-                    http.getHttp().abort();
-                    temp.add(http);
-                }
+        for (CustomHttp http : mConnSet) {
+            if (tag.equals(http.getTag())) {
+                http.getHttp().abort();
+                temp.add(http);
             }
         }
         if (!temp.isEmpty()) {
@@ -232,10 +231,8 @@ public class HttpManager {
         if (mConnSet.isEmpty()) {
             return;
         }
-        synchronized (mConnSet) {
-            for (CustomHttp http : mConnSet) {
-                http.getHttp().abort();
-            }
+        for (CustomHttp http : mConnSet) {
+            http.getHttp().abort();
         }
         mConnSet.clear();
     }

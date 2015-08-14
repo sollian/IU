@@ -2,7 +2,9 @@ package com.aiyou.bbs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
@@ -21,6 +23,7 @@ import com.aiyou.utils.AiYouManager;
 import com.aiyou.utils.JsonHelper;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
+import com.aiyou.utils.ViewContainer;
 import com.aiyou.utils.share.ShareTask;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.aiyou.utils.time.TimeUtils;
@@ -116,7 +119,7 @@ public class BBSContentActivity extends BaseActivity implements
     /**
      * 存放含有音频的webview
      */
-    private List<WebView> mWebViewList = new ArrayList<WebView>();
+    private Set<WebView> mWebViewSet = new HashSet<WebView>();
     /**
      * 只看此ID存放的用户ID
      */
@@ -179,6 +182,9 @@ public class BBSContentActivity extends BaseActivity implements
     private ImageView mHelpIV;
 
     private boolean mIsReplyEnabled = true;
+
+    private long mCurWrapTime;
+    private ViewContainer mViewContainer;
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
@@ -294,6 +300,7 @@ public class BBSContentActivity extends BaseActivity implements
         // 清空图片地址list
         mImgUrlList.clear();
         mImgId = 0;
+        mCurWrapTime = System.currentTimeMillis();
 
         Article article = null;
         ViewHolder holder = null;
@@ -515,7 +522,7 @@ public class BBSContentActivity extends BaseActivity implements
      * @param url
      */
     private void processImage(LinearLayout ll, String url) {
-        SmartImageView siv = new SmartImageView(this);
+        SmartImageView siv = mViewContainer.getSIV(mCurWrapTime);
         siv.setScaleType(ScaleType.CENTER_CROP);
         LayoutParams param = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
@@ -527,7 +534,7 @@ public class BBSContentActivity extends BaseActivity implements
 
         siv.setImageUrl(url, R.drawable.iu_default_gray,
                 R.drawable.iu_default_green);
-        siv.setTag(mImgId++ + "");
+        siv.setId(mImgId++);
         // 将图片地址添加到listImgSrc中
         mImgUrlList.add(url);
 
@@ -539,7 +546,7 @@ public class BBSContentActivity extends BaseActivity implements
                 Intent intent = new Intent(BBSContentActivity.this,
                         ViewLargeImageActivity.class);
                 intent.putExtra(ViewLargeImageActivity.KEY_CUR_SEL,
-                        (String) view.getTag());
+                        view.getId() + "");
                 intent.putExtra(ViewLargeImageActivity.KEY_URL_LIST,
                         mImgUrlList);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -576,7 +583,7 @@ public class BBSContentActivity extends BaseActivity implements
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             wv.setLayoutParams(params);
-            mWebViewList.add(wv);
+            mWebViewSet.add(wv);
             WebSettings setting = wv.getSettings();
             setting.setJavaScriptEnabled(true);
             setting.setAllowFileAccess(true);
@@ -632,10 +639,10 @@ public class BBSContentActivity extends BaseActivity implements
     }
 
     private void clearWebViewsTag() {
-        if (mWebViewList == null || mWebViewList.isEmpty()) {
+        if (mWebViewSet == null || mWebViewSet.isEmpty()) {
             return;
         }
-        for (WebView wv : mWebViewList) {
+        for (WebView wv : mWebViewSet) {
             if (null != wv) {
                 String tag = (String) wv.getTag(R.id.type);
                 if (tag != null && !tag.equals("audio")) {
@@ -655,14 +662,14 @@ public class BBSContentActivity extends BaseActivity implements
     }
 
     private WebView getWebView() {
-        if (mWebViewList == null || mWebViewList.isEmpty()) {
+        if (mWebViewSet == null || mWebViewSet.isEmpty()) {
             return null;
         }
-//        for (WebView wv : mWebViewList) {
-//            if (null != wv && wv.getTag(R.id.type) == null) {
-//                return wv;
-//            }
-//        }
+        // for (WebView wv : mWebViewList) {
+        // if (null != wv && wv.getTag(R.id.type) == null) {
+        // return wv;
+        // }
+        // }
         return null;
     }
 
@@ -670,6 +677,8 @@ public class BBSContentActivity extends BaseActivity implements
             "NewApi", "InflateParams"
     })
     private void init() {
+        mViewContainer = new ViewContainer(this);
+
         mIUMgr = AiYouManager.getInstance(getBaseContext());
         mBBSMgr = BBSManager.getInstance(getBaseContext());
         /**
@@ -942,7 +951,7 @@ public class BBSContentActivity extends BaseActivity implements
         mHistoryList = null;
         clearWebView();
         mThreads = null;
-        mWebViewList = null;
+        mWebViewSet = null;
         mHandler.removeCallbacksAndMessages(null);
         mHandler = null;
         System.gc();
@@ -1173,7 +1182,7 @@ public class BBSContentActivity extends BaseActivity implements
                 mBBSMgr.setWebViewScaleSize(size + 25);
             }
         }
-        for (WebView wv : mWebViewList) {
+        for (WebView wv : mWebViewSet) {
             if (null != wv) {
                 wv.setInitialScale(mBBSMgr.getWebViewScaleSize());
             }
@@ -1472,8 +1481,8 @@ public class BBSContentActivity extends BaseActivity implements
      */
     @SuppressLint("NewApi")
     private void clearWebView() {
-        if (0 != mWebViewList.size()) {
-            for (WebView wv : mWebViewList) {
+        if (0 != mWebViewSet.size()) {
+            for (WebView wv : mWebViewSet) {
                 if (null != wv) {
                     if (Build.VERSION.SDK_INT >= 11) {
                         wv.onPause();
@@ -1483,7 +1492,7 @@ public class BBSContentActivity extends BaseActivity implements
                 }
             }
         }
-        mWebViewList.clear();
+        mWebViewSet.clear();
     }
 
     class ViewHolder {

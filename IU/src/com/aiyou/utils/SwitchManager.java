@@ -1,5 +1,6 @@
-
 package com.aiyou.utils;
+
+import com.aiyou.AiYouApplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,7 +14,7 @@ public class SwitchManager {
     private SharedPreferences mSharedPref;
     private static final String SPNAME = "switch";
 
-    private static final String KEY_SHOW_WELCOME = "show_welcome_2_8";
+    private static final String KEY_SHOW_WELCOME;
     private static final String KEY_SIMPLE_MODE = "simple_mode_enabled";
     private static final String KEY_SHAKE_SHARE = "shake_share";
     private static final String KEY_FACE_HELP = "face_help";
@@ -25,14 +26,21 @@ public class SwitchManager {
     private static final String KEY_LARGE_IMAGE = "bbs_large_image";
     private static final String KEY_SWIPE_OUT = "swipe_out";
     private static final String KEY_UPDATE_WIFI = "update_only_wifi";
-    
+
     public static final int SWIPE_CLOSE = 0;
     public static final int SWIPE_LEFT = 1;
     public static final int SWIPE_RIGHT = 2;
     public static final int SWIPE_BOTH = 3;
 
+    static {
+        KEY_SHOW_WELCOME = "show_welcome_"
+                + AiYouManager.getInstance(AiYouApplication.getInstance())
+                        .getAppVersionName();
+    }
+
     private SwitchManager(Context context) {
-        mSharedPref = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
+        mSharedPref = context
+                .getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
     }
 
     public static SwitchManager getInstance(Context context) {
@@ -121,7 +129,7 @@ public class SwitchManager {
         editor.putBoolean(KEY_FACE_HELP, false);
         editor.commit();
     }
-    
+
     /**
      * 是否显示iptv_help
      * 
@@ -235,24 +243,24 @@ public class SwitchManager {
     public boolean isLargeImageEnabled() {
         return mSharedPref.getBoolean(KEY_LARGE_IMAGE, false);
     }
-    
+
     /**
      * 设置滑动结束当前Activity
      * 
      * @param edge
      */
     public void setSwipeOut(int edge) {
-        if(edge < 0) {
+        if (edge < 0) {
             edge = 0;
         }
-        if(edge > 3) {
+        if (edge > 3) {
             edge = 3;
         }
         SharedPreferences.Editor editor = mSharedPref.edit();
         editor.putInt(KEY_SWIPE_OUT, edge);
         editor.commit();
     }
-    
+
     /**
      * 
      * @return
@@ -260,9 +268,10 @@ public class SwitchManager {
     public int getSwipeOut() {
         return mSharedPref.getInt(KEY_SWIPE_OUT, SWIPE_BOTH);
     }
-    
+
     /**
      * 设置仅wifi下更新
+     * 
      * @param flag
      */
     public void setUpdateOnlyWifi(boolean flag) {
@@ -270,7 +279,7 @@ public class SwitchManager {
         editor.putBoolean(KEY_UPDATE_WIFI, flag);
         editor.commit();
     }
-    
+
     public boolean getUpdateOnlyWifi() {
         return mSharedPref.getBoolean(KEY_UPDATE_WIFI, true);
     }

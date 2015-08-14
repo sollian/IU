@@ -1,4 +1,3 @@
-
 package com.aiyou;
 
 import java.util.regex.Matcher;
@@ -142,8 +141,7 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("deprecation")
     public void onClick(View view) {
         int nId = view.getId();
-        if (R.id.iu_detail == nId
-                || R.id.tv_iu_detail == nId) {
+        if (R.id.iu_detail == nId || R.id.tv_iu_detail == nId) {
             mIUDetailFLayout.setVisibility(View.GONE);
         }
         if (R.id.iu_bless == nId) {
@@ -156,8 +154,10 @@ public class MainActivity extends BaseActivity {
             // 打开爱邮心声
             if (!"0".equals(mIUTitle) && !"0".equals(mIUContent)) {
                 if ("0".equals(mIUUrl)) {
-                    if (SwitchManager.getInstance(getBaseContext()).isSimpleModeEnabled()) {
-                        if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
+                    if (SwitchManager.getInstance(getBaseContext())
+                            .isSimpleModeEnabled()) {
+                        if (SwitchManager.getInstance(getBaseContext())
+                                .isNightModeEnabled()) {
                             mIUDetailFLayout.setBackgroundColor(getResources()
                                     .getColor(R.color.bbs_background_night));
                         } else {
@@ -181,8 +181,7 @@ public class MainActivity extends BaseActivity {
                         article.title = arr[0];
                         article.board_name = arr[1];
                         article.group_id = Integer.parseInt(arr[2]);
-                        intent = new Intent(this,
-                                BBSContentActivity.class);
+                        intent = new Intent(this, BBSContentActivity.class);
                         intent.putExtra(BBSContentActivity.KEY_ARTICLE, article);
                         ActivityFunc.startActivity(this, intent);
                     }
@@ -201,10 +200,12 @@ public class MainActivity extends BaseActivity {
             dPercent = 0.1;
         } else if (nId == R.id.iptv) {
             // iptv
-            if (IptvManager.mChanelList == null || IptvManager.mChanelList.isEmpty()) {
+            if (IptvManager.mChanelList == null
+                    || IptvManager.mChanelList.isEmpty()) {
                 // 获取iptv频道列表
                 IptvManager.getChanelList();
-                Toast.makeText(getBaseContext(), "正在初始化iptv数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "正在初始化iptv数据",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
             intent = new Intent(this, IptvListActivity.class);
@@ -213,7 +214,8 @@ public class MainActivity extends BaseActivity {
             // 论坛
             if (!checkSectionData() || Favorite.mFavorite == null) {
                 initFavorite();
-                Toast.makeText(getBaseContext(), "正在初始化论坛数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "正在初始化论坛数据",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
             intent = new Intent(this, BBSListActivity.class);
@@ -221,7 +223,8 @@ public class MainActivity extends BaseActivity {
         } else if (nId == R.id.map) {
             // 地图
             if (MapHelper.getMapDatas() == null) {
-                Toast.makeText(getBaseContext(), "地图数据尚未完成初始化", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "地图数据尚未完成初始化",
+                        Toast.LENGTH_SHORT).show();
                 MapHelper.initMapDatas(getApplicationContext());
                 return;
             }
@@ -231,8 +234,7 @@ public class MainActivity extends BaseActivity {
         } else if (nId == R.id.set) {
             // 设置
             intent = null;
-            ActivityFunc.startActivity(this, SetActivity.class, null,
-                    true);
+            ActivityFunc.startActivity(this, SetActivity.class, null, true);
             return;
         }
         // 如果这个activity已经启动了，就不产生新的activity，而只是把这个activity实例加到栈顶来就可以了。
@@ -241,20 +243,19 @@ public class MainActivity extends BaseActivity {
                 || Build.VERSION.SDK_INT < 14) {
             ActivityFunc.startActivity(this, intent);
         } else {
-            ActivitySplitAnimationUtil.startActivity(this, intent,
-                    dPercent);
+            ActivitySplitAnimationUtil.startActivity(this, intent, dPercent);
         }
     }
-    
+
     public void onQuery(View v) {
         int nId = v.getId();
         Intent intent = null;
-        if(nId == R.id.tv_electricity) {
+        if (nId == R.id.tv_electricity) {
             intent = new Intent(this, ElectricityActivity.class);
-        } else if(nId == R.id.tv_ecard) {
+        } else if (nId == R.id.tv_ecard) {
             intent = new Intent(this, EcardActivity.class);
         }
-        if(intent != null) {
+        if (intent != null) {
             ActivityFunc.startActivity(this, intent);
         }
     }
@@ -293,8 +294,10 @@ public class MainActivity extends BaseActivity {
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String strJson = Favorite.getFavorite(AiYouApplication.getInstance(), 0);
-                if (!TextUtils.isEmpty(strJson) && JsonHelper.checkError(strJson) == null) {
+                String strJson = Favorite.getFavorite(
+                        AiYouApplication.getInstance(), 0);
+                if (!TextUtils.isEmpty(strJson)
+                        && JsonHelper.checkError(strJson) == null) {
                     Favorite.mFavorite = new Favorite(strJson);
                 }
             }
@@ -332,6 +335,12 @@ public class MainActivity extends BaseActivity {
     private void showSplash() {
         // 显示闪屏页面
         mSplashView.setVisibility(View.VISIBLE);
+        TextView mNameVersion = (TextView) findViewById(R.id.tv_name_version);
+        mNameVersion.setText(getString(R.string.version, AiYouManager
+                .getInstance(getApplicationContext()).getAppName(),
+                AiYouManager.getInstance(getApplicationContext())
+                        .getAppVersionName()));
+
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             Toast.makeText(getBaseContext(), "    网络不可用    \n联网后加载页面",
                     Toast.LENGTH_LONG).show();
@@ -363,10 +372,12 @@ public class MainActivity extends BaseActivity {
     private void getUMParams() {
         // 友盟在线参数
         // MobclickAgent.updateOnlineConfig(this);
-        mIUTitle = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "main_iu_title");
-        mIUContent = MobclickAgent.getConfigParams(AiYouApplication.getInstance(),
-                "main_iu_content");
-        mIUUrl = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "main_iu_url");
+        mIUTitle = MobclickAgent.getConfigParams(
+                AiYouApplication.getInstance(), "main_iu_title");
+        mIUContent = MobclickAgent.getConfigParams(
+                AiYouApplication.getInstance(), "main_iu_content");
+        mIUUrl = MobclickAgent.getConfigParams(AiYouApplication.getInstance(),
+                "main_iu_url");
     }
 
     private void getBlessList(final int page) {
@@ -376,7 +387,8 @@ public class MainActivity extends BaseActivity {
         }
         ThreadUtils.execute(new Runnable() {
             public void run() {
-                String strJson = Board.getBoard(MainActivity.this, BOARD_BLESS, page);
+                String strJson = Board.getBoard(MainActivity.this, BOARD_BLESS,
+                        page);
                 if (TextUtils.isEmpty(strJson)) {
                     return;
                 }
@@ -415,7 +427,8 @@ public class MainActivity extends BaseActivity {
     private void getBlessContent(final int id) {
         ThreadUtils.execute(new Runnable() {
             public void run() {
-                String strJson = Article.getArticle(MainActivity.this, BOARD_BLESS, id);
+                String strJson = Article.getArticle(MainActivity.this,
+                        BOARD_BLESS, id);
                 if (TextUtils.isEmpty(strJson)) {
                     return;
                 }
@@ -437,8 +450,7 @@ public class MainActivity extends BaseActivity {
                     }
                     // 去除多余的尾巴
                     while (content.endsWith("-") || content.endsWith("\n")) {
-                        content = content
-                                .substring(0, content.length() - 1);
+                        content = content.substring(0, content.length() - 1);
                     }
                 }
                 mBlessWidget.setTag(article);
@@ -674,6 +686,7 @@ public class MainActivity extends BaseActivity {
         mPendingIntent = PendingIntent.getService(this, 0, new Intent(this,
                 BBSService.class), Intent.FLAG_ACTIVITY_NEW_TASK);
         long now = System.currentTimeMillis();
-        mAlarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, INTERVAL, mPendingIntent);
+        mAlarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, INTERVAL,
+                mPendingIntent);
     }
 }

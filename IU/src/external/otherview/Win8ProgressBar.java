@@ -58,11 +58,11 @@ public class Win8ProgressBar extends View {
         if (mWidth > 0) {
             // 根据view宽度定义小球的半径
             if (mWidth < 50) {
-                mRadius = 2;
-            } else if (mWidth < 80) {
                 mRadius = 3;
-            } else {
+            } else if (mWidth < 80) {
                 mRadius = 4;
+            } else {
+                mRadius = 5;
             }
             // radius = width<80?2:4;
             mR = mWidth / 2 - mRadius * 2;

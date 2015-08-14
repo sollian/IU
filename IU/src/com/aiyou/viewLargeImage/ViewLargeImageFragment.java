@@ -5,6 +5,7 @@ import com.aiyou.R;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.viewLargeImage.GetLargeImgTask.ProgressListener;
+
 import external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx;
 import external.otherview.MagicImageView;
 import external.otherview.SinkingView;
@@ -40,10 +41,6 @@ public class ViewLargeImageFragment extends Fragment implements
     private FrameLayout mMIVFLayout;
     private MagicImageView mMagicImageView;
     private ImageViewEx mImageViewEx;
-
-    public ViewLargeImageFragment(String url) {
-        mUrl = url;
-    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -102,7 +99,6 @@ public class ViewLargeImageFragment extends Fragment implements
 
     public void setUrl(String url) {
         mUrl = url;
-        loadLargeImage();
     }
 
     public void showStill() {

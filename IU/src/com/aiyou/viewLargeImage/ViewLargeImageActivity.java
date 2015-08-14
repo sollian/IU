@@ -27,7 +27,8 @@ import android.widget.TextView;
  * 
  * @author sollian
  */
-public class ViewLargeImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class ViewLargeImageActivity extends BaseActivity implements
+        ViewPager.OnPageChangeListener {
     public static final String KEY_NEWS = "news";
     public static final String KEY_CUR_SEL = "current_selected";
     public static final String KEY_URL_LIST = "url_list";
@@ -44,10 +45,10 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
     // 进度条
     private FrameLayout mProgressFLayout;
     private Win8ProgressBar mProgressBar;
-    
+
     private TextView mTitleTV;
     private Button mDynamicBtn;
-    
+
     private ViewPager mViewPager;
     private MyPagerAdapter mAdapter;
 
@@ -62,7 +63,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
             this.setTheme(R.style.ThemeDay);
         }
         setContentView(R.layout.activity_view_large_image);
-        
+
         int curSel = 0;
 
         if (null == savedInstanceState) {
@@ -70,7 +71,7 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
             @SuppressWarnings("unchecked")
             List<String> tempList = (ArrayList<String>) intent
                     .getSerializableExtra(KEY_URL_LIST);
-            if(tempList == null || tempList.isEmpty()) {
+            if (tempList == null || tempList.isEmpty()) {
                 selfFinish(null);
             }
             mUrlList.clear();
@@ -85,7 +86,8 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
             String arr[] = list.split(",");
             mUrlList.clear();
             mUrlList.addAll(Arrays.asList(arr));
-            curSel = Integer.parseInt(savedInstanceState.getString(KEY_CUR_SEL));
+            curSel = Integer
+                    .parseInt(savedInstanceState.getString(KEY_CUR_SEL));
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mTitleFL.setVisibility(View.GONE);
                 ((FrameLayout.LayoutParams) mViewPager.getLayoutParams()).topMargin = 0;
@@ -93,13 +95,14 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
                 mTitleFL.setVisibility(View.VISIBLE);
             }
         }
-        if(curSel < 0 || curSel >= mUrlList.size()) {
+        if (curSel < 0 || curSel >= mUrlList.size()) {
             selfFinish(null);
         }
+        setSelTitle(curSel + 1);
+        final int cs = curSel;
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(), mUrlList);
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setCurrentItem(curSel);
-        setSelTitle(curSel + 1);
+        mViewPager.setCurrentItem(cs);
     }
 
     private void init(boolean flag) {
@@ -111,8 +114,8 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
         mProgressBar = (Win8ProgressBar) findViewById(R.id.progress_bar);
         mTitleTV = (TextView) findViewById(R.id.activity_view_large_image_tv_title);
         mDynamicBtn = (Button) findViewById(R.id.activity_view_large_image_bt);
-        
-        mViewPager = (ViewPager)findViewById(R.id.activity_view_large_image_vp);
+
+        mViewPager = (ViewPager) findViewById(R.id.activity_view_large_image_vp);
         mViewPager.setOnPageChangeListener(this);
 
         if (flag
@@ -127,7 +130,9 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
     public void onClick(View view) {
         if (view == mDynamicBtn) {
             // 查看大图->动图|静图切换
-            if (mDynamicBtn.getText().equals(getBaseContext().getResources().getString(R.string.dynamic_bmp))) {
+            if (mDynamicBtn.getText().equals(
+                    getBaseContext().getResources().getString(
+                            R.string.dynamic_bmp))) {
                 mDynamicBtn.setText("返回");
                 mAdapter.showDynamic();
             } else {
@@ -183,42 +188,26 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
         mUrlList = null;
     }
 
-//    /**
-//     * 旋转动画
-//     * 
-//     * @param view
-//     * @param toDegree
-//     * @param fromDegree
-//     */
-//    public void rotate(View view, int toDegree, int fromDegree) {
-//        view.clearAnimation();
-//        RotateAnimation anim = new RotateAnimation(fromDegree, toDegree,
-//                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-//                0.5f);
-//        anim.setDuration(500);
-//        anim.setFillAfter(true);
-//        view.startAnimation(anim);
-//    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {// 记录旧状态
         super.onSaveInstanceState(outState);
         // 保存tag
         outState.putString(KEY_CUR_SEL, mViewPager.getCurrentItem() + "");
         // 保存list
-        String list = "";
+        StringBuffer sb = new StringBuffer();
         int size = mUrlList.size();
         for (int i = 0; i < size; i++) {
             if (i < size - 1) {
-                list += mUrlList.get(i) + ",";
+                sb.append(mUrlList.get(i)).append(",");
             } else {
-                list += mUrlList.get(i);
+                sb.append(mUrlList.get(i));
             }
         }
-        outState.putString(KEY_URL_LIST, list);
+        outState.putString(KEY_URL_LIST, sb.toString());
         // 保存flag
         outState.putBoolean(KEY_NEWS, mFlag);
     }
+
     /**
      * 设置cpb_progress的状态和是否显示
      * 
@@ -233,11 +222,10 @@ public class ViewLargeImageActivity extends BaseActivity implements ViewPager.On
             mProgressBar.stop();
         }
     }
-    
+
     private void setSelTitle(int select) {
-        mTitleTV.setText("查看大图          " + select + "/" + mUrlList.size());
+        mTitleTV.setText("查看大图      " + select + "/" + mUrlList.size());
     }
-    
 
     @Override
     public void onPageScrolled(int position, float positionOffset,

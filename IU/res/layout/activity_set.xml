@@ -229,7 +229,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            android:text="@string/other_about"
             android:textColor="#000"
             android:textSize="17sp" />
     </FrameLayout>

@@ -1,4 +1,3 @@
-
 package com.aiyou.utils;
 
 import java.util.regex.Matcher;
@@ -9,6 +8,8 @@ import com.aiyou.utils.logcat.Logcat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -93,7 +94,8 @@ public class AiYouManager {
      * 将sp值转换为px值，保证文字大小不变
      * 
      * @param spValue
-     * @param fontScale （DisplayMetrics类中属性scaledDensity）
+     * @param fontScale
+     *            （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public int sp2px(float spValue) {
@@ -104,7 +106,8 @@ public class AiYouManager {
     /**
      * 震动
      * 
-     * @param duration 持续时间
+     * @param duration
+     *            持续时间
      */
     public void vibrate(long duration) {
         Vibrator vibrator = (Vibrator) mContext
@@ -118,8 +121,10 @@ public class AiYouManager {
     /**
      * 去除字符串中的空格、回车、换行符、制表符、问号 和非法字符（非Asccll码）
      * 
-     * @param str 要处理的字符串
-     * @param strReplace 用该字符替换
+     * @param str
+     *            要处理的字符串
+     * @param strReplace
+     *            用该字符替换
      * @return 处理过的字符串
      */
     public static String getTxtWithoutNTSRElement(String str, String strReplace) {
@@ -138,7 +143,8 @@ public class AiYouManager {
      * 显示|隐藏输入法
      * 
      * @param activity
-     * @param state 要设置的状态
+     * @param state
+     *            要设置的状态
      * @param view
      */
     public static void viewInputMethod(Activity activity, boolean state,
@@ -201,4 +207,30 @@ public class AiYouManager {
         view.setDrawingCacheEnabled(false);
         return b;
     }
+
+    public String getAppVersionName() {
+        String versionName = "";
+        try {
+            PackageInfo packageInfo = mContext.getPackageManager()
+                    .getPackageInfo(mContext.getPackageName(), 0);
+            versionName = packageInfo.versionName;
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
+    public String getAppName() {
+        String appName = "";
+        try {
+            PackageInfo packageInfo = mContext.getPackageManager()
+                    .getPackageInfo(mContext.getPackageName(), 0);
+            appName = packageInfo.applicationInfo.loadLabel(
+                    mContext.getPackageManager()).toString();
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appName;
+    }
+
 }

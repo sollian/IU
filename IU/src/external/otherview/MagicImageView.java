@@ -475,7 +475,7 @@ public class MagicImageView extends DarkImageView {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (!mIsTranslate && !mIsRotate && !mIsScale) {
-                if (mNormalizedScale == 1) {
+                if (mNormalizedScale == 1 || getImageSize().getWidth() <= mViewWidth) {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 } else {
                     getParent().requestDisallowInterceptTouchEvent(true);

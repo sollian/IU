@@ -60,7 +60,7 @@ public class EcardActivity extends BaseActivity implements
 
     private static final String KEY_DATA = "data";
 
-    private Map<String, String> mCookies = null;
+    private Map<String, String> mCookies = new HashMap<String, String>();
     private Map<String, String> mConsumeParams = new HashMap<String, String>();
     private BasicInfo mBasicInfo = null;
 
@@ -326,6 +326,7 @@ public class EcardActivity extends BaseActivity implements
         mStatusTV.setText("");
         mDepartmentTV.setText("");
         clearList();
+        mCookies.clear();
     }
 
     private void clearList() {

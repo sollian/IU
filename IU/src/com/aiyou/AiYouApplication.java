@@ -2,12 +2,7 @@
 package com.aiyou;
 
 import android.app.Application;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -68,10 +63,6 @@ public class AiYouApplication extends Application {
             Toast.makeText(getBaseContext(), "SD卡未安装或空间不足", Toast.LENGTH_SHORT).show();
         }
 
-        if (SwitchManager.getInstance(this).isFirstRun() && !hasShortcut()) {
-            createShortCut(this);
-        }
-
         try {
             // 百度地图初始化
             SDKInitializer.initialize(this);
@@ -107,52 +98,6 @@ public class AiYouApplication extends Application {
         
         initSections();
         initFavorite();
-    }
-
-    /**
-     * 创建快捷方式
-     * 
-     * @param act
-     */
-    private void createShortCut(Context act) {
-        Intent shortcutintent = new Intent(
-                "com.android.launcher.action.INSTALL_SHORTCUT");
-        // 不允许重复创建
-        shortcutintent.putExtra("duplicate", false);
-        // 需要显示的名称
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME,
-                act.getString(R.string.app_name));
-        // 快捷图片
-        Parcelable icon = Intent.ShortcutIconResource.fromContext(
-                act.getApplicationContext(), R.drawable.ic_launcher);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-        // 点击快捷图片，运行的程序主入口
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,
-                new Intent(act.getApplicationContext(), MainActivity.class));
-        // 发送广播
-        act.sendBroadcast(shortcutintent);
-    }
-
-    /**
-     * 是否已经创建快捷方式
-     * 
-     * @return
-     */
-    private boolean hasShortcut() {
-        boolean isInstallShortcut = false;
-        final ContentResolver cr = getContentResolver();
-        final String AUTHORITY = "com.android.launcher.settings";
-        final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/favorites?notify=true");
-        Cursor c = cr.query(CONTENT_URI, new String[] {
-                "title", "iconResource"
-        }, "title=?",
-                new String[] {
-                    getString(R.string.app_name).trim()
-                }, null);
-        if (c != null && c.getCount() > 0) {
-            isInstallShortcut = true;
-        }
-        return isInstallShortcut;
     }
 
     /**

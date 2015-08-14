@@ -1,4 +1,3 @@
-
 package com.aiyou;
 
 import com.aiyou.bbs.BBSLoginActivity;
@@ -39,8 +38,8 @@ public class SetActivity extends BaseActivity implements
     /**
      * 控件
      */
-    private SwitchPreferences mFacePref,
-            mLargeImgPref, mSimpleModePref, mShakeSharePref, mUpdatePref;
+    private SwitchPreferences mFacePref, mLargeImgPref, mSimpleModePref,
+            mShakeSharePref, mUpdatePref;
     private Spinner mSpinner;
     // 关于
     private FrameLayout mAboutFLayout;
@@ -49,8 +48,7 @@ public class SetActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (ActivitySplitAnimationUtil.canPlay()
-                && Build.VERSION.SDK_INT >= 14) {
+        if (ActivitySplitAnimationUtil.canPlay() && Build.VERSION.SDK_INT >= 14) {
             // 中心打开动画
             ActivitySplitAnimationUtil.prepareAnimation(this);
             ActivitySplitAnimationUtil.animate(this, 1000);
@@ -68,7 +66,8 @@ public class SetActivity extends BaseActivity implements
          */
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_set_fl);
         // 设置背景
-        Bitmap bmp = (Bitmap) (getIntent().getParcelableExtra(ActivityFunc.KEY_BACKGROUND));
+        Bitmap bmp = (Bitmap) (getIntent()
+                .getParcelableExtra(ActivityFunc.KEY_BACKGROUND));
         if (null != bmp) {
             Drawable drawable = new BitmapDrawable(bmp);
             frameLayout.setBackgroundDrawable(drawable);
@@ -106,20 +105,25 @@ public class SetActivity extends BaseActivity implements
          */
         mAboutFLayout = (FrameLayout) findViewById(R.id.activity_set_fl_about);
         mAboutTV = (TextView) findViewById(R.id.activity_set_tv_about);
+        mAboutTV.setText(getString(R.string.other_about, AiYouManager
+                .getInstance(getApplicationContext()).getAppName(),
+                AiYouManager.getInstance(getApplicationContext())
+                        .getAppVersionName()));
     }
 
     public void onClick(View v) {
         int nId = v.getId();
         if (R.id.activity_set_ll_account == nId) {
             // 账号设置
-            ActivityFunc.startActivity(this, BBSLoginActivity.class, null, false);
+            ActivityFunc.startActivity(this, BBSLoginActivity.class, null,
+                    false);
         } else if (R.id.activity_set_tv_clear_cache == nId) {
             // 清空缓存
             clearCache();
         } else if (R.id.activity_set_tv_advice == nId) {
             // 意见或建议
-//             writeAdavice();
-             mFeedbackAgent.startFeedbackActivity();
+            // writeAdavice();
+            mFeedbackAgent.startFeedbackActivity();
         } else if (R.id.activity_set_tv_set_about == nId) {
             // 关于
             showAbout(true);
@@ -171,7 +175,6 @@ public class SetActivity extends BaseActivity implements
                 }
             }
             mAboutFLayout.setVisibility(View.VISIBLE);
-            mAboutTV.setText(R.string.other_about);
         } else {
             mAboutFLayout.setVisibility(View.GONE);
         }
@@ -182,32 +185,32 @@ public class SetActivity extends BaseActivity implements
      */
     private void clearCache() {
         final CustomDialog dialog = new CustomDialog(this);
-        dialog.setMessage("确定清空缓存吗？")
-                .setCancelButton(null)
+        dialog.setMessage("确定清空缓存吗？").setCancelButton(null)
                 .setOKButton(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.startProgress();
                         // 清理缓存
-                        ClearCacheTask task = new ClearCacheTask(new ClearCacheListener() {
-                            @Override
-                            public void onStartClear() {
-                                dialog.setMessage("正在准备……");
-                            }
+                        ClearCacheTask task = new ClearCacheTask(
+                                new ClearCacheListener() {
+                                    @Override
+                                    public void onStartClear() {
+                                        dialog.setMessage("正在准备……");
+                                    }
 
-                            @Override
-                            public void onProgressUpdate(String progress) {
-                                dialog.setMessage(progress);
-                            }
+                                    @Override
+                                    public void onProgressUpdate(String progress) {
+                                        dialog.setMessage(progress);
+                                    }
 
-                            @Override
-                            public void onEndClear(int fileCount) {
-                                dialog.dismiss();
-                                Toast.makeText(getBaseContext(),
-                                        "共清理" + fileCount + "个文件", Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        });
+                                    @Override
+                                    public void onEndClear(int fileCount) {
+                                        dialog.dismiss();
+                                        Toast.makeText(getBaseContext(),
+                                                "共清理" + fileCount + "个文件",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                         task.execute();
                     }
                 }).show();
@@ -282,7 +285,8 @@ public class SetActivity extends BaseActivity implements
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+            long id) {
         mSwitchMgr.setSwipeOut(position);
         initSwipeOut();
     }
