@@ -7,7 +7,7 @@ import android.widget.ScrollView;
 
 /**
  * 可以获取滚动距离的scrollView
- * 
+ *
  * @author sollian
  */
 public class GetScrollDistanceScrollView extends ScrollView {
@@ -44,15 +44,14 @@ public class GetScrollDistanceScrollView extends ScrollView {
 
     /**
      * 滚动的回调接口
-     * 
+     *
      * @author sollian
      */
     public interface OnScrollListener {
         /**
          * 回调方法，返回scrollview滑动的Y方向距离
-         * 
-         * @param scrollY
+         *
          */
-        public void onScroll(int y, int oldY);
+        void onScroll(int y, int oldY);
     }
 }

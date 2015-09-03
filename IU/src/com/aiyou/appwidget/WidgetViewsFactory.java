@@ -38,7 +38,7 @@ public class WidgetViewsFactory implements
     private static final String TAG = WidgetViewsFactory.class.getSimpleName();
     private static final String KEY_MSG = "msg";
 
-    private ArrayList<Article> mArticleList = new ArrayList<Article>();
+    private ArrayList<Article> mArticleList = new ArrayList<>();
     private Context mContext;
     private Widget mWidget;
     @SuppressWarnings("unused")

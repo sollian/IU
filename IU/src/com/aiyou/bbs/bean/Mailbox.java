@@ -13,7 +13,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 用户信箱元数据
- * 
+ *
  * @author sollian
  */
 public class Mailbox {
@@ -24,7 +24,7 @@ public class Mailbox {
 
         private String mType;
 
-        private MailboxType(String type) {
+        MailboxType(String type) {
             mType = type;
         }
 
@@ -32,7 +32,7 @@ public class Mailbox {
         public String toString() {
             return mType;
         }
-    };
+    }
 
     // 是否有新邮件
     public boolean new_mail = false;
@@ -79,12 +79,13 @@ public class Mailbox {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取指定信箱信息
-     * 
+     *
      * @param box
      * @return
      */
@@ -94,7 +95,7 @@ public class Mailbox {
 
     /**
      * 获取指定信箱信息
-     * 
+     *
      * @param box
      * @param page 信箱的页数
      * @return
@@ -107,7 +108,7 @@ public class Mailbox {
 
     /**
      * 信箱属性信息，包括是否有新邮件
-     * 
+     *
      * @return Mailbox元数据的json数据
      */
     public static String getMailBoxInfo(Context context) {

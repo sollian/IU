@@ -8,11 +8,11 @@ import android.os.SystemClock;
 
 /**
  * 清理文件的异步线程类
- * 
+ *
  * @author sollian
  */
 public class ClearCacheTask extends AsyncTask<Void, String, Integer> {
-    private String[] directory = new String[] {
+    private String[] directory = new String[]{
             FileManager.DIR_CAMERA,
             FileManager.DIR_FILE, FileManager.DIR_IMG,
             FileManager.DIR_LARGEIMG, FileManager.DIR_SNAPSHOT,
@@ -36,7 +36,7 @@ public class ClearCacheTask extends AsyncTask<Void, String, Integer> {
         String strProgress;
         String dirPath;
         int fileCount = 0;
-        int nInterval = 100;
+        int nInterval;
         for (String direc : directory) {
             dirPath = FileManager.getDirectory(direc);
             if (dirPath == null) {
@@ -82,10 +82,10 @@ public class ClearCacheTask extends AsyncTask<Void, String, Integer> {
     }
 
     public interface ClearCacheListener {
-        public void onStartClear();
+        void onStartClear();
 
-        public void onProgressUpdate(String progress);
+        void onProgressUpdate(String progress);
 
-        public void onEndClear(int fileCount);
+        void onEndClear(int fileCount);
     }
 }

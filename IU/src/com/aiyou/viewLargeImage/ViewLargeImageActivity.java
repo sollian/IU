@@ -11,6 +11,7 @@ import com.aiyou.utils.share.ShareTask;
 import com.aiyou.utils.share.ShareTask.ShareListener;
 
 import external.otherview.Win8ProgressBar;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 
 /**
  * 查看大图
- * 
+ *
  * @author sollian
  */
 public class ViewLargeImageActivity extends BaseActivity implements
@@ -37,7 +38,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
     /**
      * 保存图片地址的list，用户展示大图时能够切换
      */
-    private List<String> mUrlList = new ArrayList<String>();
+    private List<String> mUrlList = new ArrayList<>();
     /**
      * 控件
      */
@@ -64,7 +65,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
         }
         setContentView(R.layout.activity_view_large_image);
 
-        int curSel = 0;
+        int curSel;
 
         if (null == savedInstanceState) {
             Intent intent = getIntent();
@@ -73,6 +74,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
                     .getSerializableExtra(KEY_URL_LIST);
             if (tempList == null || tempList.isEmpty()) {
                 selfFinish(null);
+                return;
             }
             mUrlList.clear();
             mUrlList.addAll(tempList);
@@ -83,7 +85,10 @@ public class ViewLargeImageActivity extends BaseActivity implements
             mFlag = savedInstanceState.getBoolean(KEY_NEWS, false);
             init(mFlag);
             String list = savedInstanceState.getString(KEY_URL_LIST);
-            String arr[] = list.split(",");
+            String arr[] = new String[0];
+            if (list != null) {
+                arr = list.split(",");
+            }
             mUrlList.clear();
             mUrlList.addAll(Arrays.asList(arr));
             curSel = Integer
@@ -120,7 +125,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
 
         if (flag
                 && !SwitchManager.getInstance(getBaseContext())
-                        .isNightModeEnabled()) {
+                .isNightModeEnabled()) {
             mTitleTV.setBackgroundColor(Color.parseColor("#aae46600"));
             mDynamicBtn
                     .setBackgroundResource(R.drawable.background_large_image_orange);
@@ -194,7 +199,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
         // 保存tag
         outState.putString(KEY_CUR_SEL, mViewPager.getCurrentItem() + "");
         // 保存list
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int size = mUrlList.size();
         for (int i = 0; i < size; i++) {
             if (i < size - 1) {
@@ -210,7 +215,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -229,7 +234,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {
+                               int positionOffsetPixels) {
     }
 
     @Override

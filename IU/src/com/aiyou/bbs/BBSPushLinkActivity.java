@@ -10,7 +10,7 @@ import com.aiyou.utils.ActivityFunc;
 
 /**
  * 该Activity为连接友盟推送与BBSContentActivity的桥梁
- * 
+ *
  * @author 守宪
  */
 public class BBSPushLinkActivity extends BaseActivity {
@@ -24,10 +24,8 @@ public class BBSPushLinkActivity extends BaseActivity {
         article.group_id = Integer.parseInt(intent.getStringExtra("group"));
         intent = new Intent(this, BBSContentActivity.class);
         intent.putExtra(BBSContentActivity.KEY_ARTICLE, article);
-        if (null != intent) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            ActivityFunc.startActivity(BBSPushLinkActivity.this, intent);
-        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        ActivityFunc.startActivity(BBSPushLinkActivity.this, intent);
         finish();
     }
 }

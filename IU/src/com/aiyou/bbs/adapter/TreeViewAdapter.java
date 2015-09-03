@@ -220,6 +220,6 @@ public class TreeViewAdapter extends BaseAdapter {
     }
 
     public interface SelectFavoriteListener {
-        public void onSelectFavorite(Board board);
+        void onSelectFavorite(Board board);
     }
 }

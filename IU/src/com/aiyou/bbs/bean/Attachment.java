@@ -26,14 +26,14 @@ import com.aiyou.utils.logcat.Logcat;
 
 /**
  * 附件元数据
- * 
+ *
  * @author sollian
  */
 public class Attachment implements Serializable {
     private static final String TAG = Attachment.class.getSimpleName();
     /**
-	 * 
-	 */
+     *
+     */
     private static final long serialVersionUID = 11117L;
 
     // 附件
@@ -60,22 +60,23 @@ public class Attachment implements Serializable {
                 int length = jsonArray.length();
                 files = new File[length];
 
-                JSONObject fileObj = null;
+                JSONObject fileObj;
                 for (int i = 0; i < length; i++) {
                     fileObj = (JSONObject) jsonArray.opt(i);
                     files[i] = new File(fileObj.toString());
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 上传附件
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
-     * @param file 文件
+     * @param id    文章或主题id
+     * @param file  文件
      * @return 附件信息
      */
     public static String sendAttachment(Context context, String board, int id, java.io.File file) {
@@ -91,9 +92,9 @@ public class Attachment implements Serializable {
 
     /**
      * 获取附件信息
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
+     * @param id    文章或主题id
      * @return 用户空间/文章附件元数据
      */
     public static String getAttachments(Context context, String board, int id) {
@@ -103,15 +104,15 @@ public class Attachment implements Serializable {
 
     /**
      * 删除附件
-     * 
-     * @param board 合法的版面名称
-     * @param id 文章或主题id
+     *
+     * @param board      合法的版面名称
+     * @param id         文章或主题id
      * @param attachName 附件名
      * @return
      */
     public static String deleteAttachment(Context context, String board, int id,
-            String attachName) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+                                          String attachName) {
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("name", attachName));
 
@@ -128,13 +129,13 @@ public class Attachment implements Serializable {
 
     /**
      * 附件中包含的文件类
-     * 
+     *
      * @author 守宪
      */
     public class File implements Serializable {
         /**
-		 * 
-		 */
+         *
+         */
         private static final long serialVersionUID = 11118L;
 
         // 文件名
@@ -169,6 +170,7 @@ public class Attachment implements Serializable {
                             "api.byr.cn/attachment", "bbs.byr.cn/att");
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

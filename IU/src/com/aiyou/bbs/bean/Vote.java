@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -22,13 +23,13 @@ import com.aiyou.utils.logcat.Logcat;
 
 /**
  * 投票元数据
- * 
+ *
  * @author sollian
  */
 public class Vote implements Serializable, AdapterInterface {
     private static final String TAG = Vote.class.getSimpleName();
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 11115L;
 
@@ -114,13 +115,14 @@ public class Vote implements Serializable, AdapterInterface {
             } else {
                 voted = null;
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取投票信息
-     * 
+     *
      * @param vid 投票vid
      * @return 投票元数据
      */
@@ -132,14 +134,14 @@ public class Vote implements Serializable, AdapterInterface {
 
     /**
      * 投票操作
-     * 
+     *
      * @param context
      * @param vote
      * @return
      */
     public static String sendVote(Context context, Vote vote) {
         // 封装请求的参数集合
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
         if (vote.type == 0) {
             // 单选
             for (int i = 0; i < vote.options.length; i++) {
@@ -206,7 +208,7 @@ public class Vote implements Serializable, AdapterInterface {
 
     /**
      * 投票选项元数据
-     * 
+     *
      * @author sollian
      */
     public class Option {
@@ -232,15 +234,16 @@ public class Vote implements Serializable, AdapterInterface {
                 viid = JsonHelper.getInt(jsonObject, "viid");
                 label = JsonHelper.getString(jsonObject, "label");
                 num = JsonHelper.getInt(jsonObject, "num");
-            } catch (Exception e) {
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }
 
     public class Voted implements Serializable {
         /**
-    	 * 
-    	 */
+         *
+         */
         private static final long serialVersionUID = 11116L;
 
         // 所投选项的viid数组
@@ -265,6 +268,7 @@ public class Vote implements Serializable, AdapterInterface {
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

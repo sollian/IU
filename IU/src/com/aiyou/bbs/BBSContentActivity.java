@@ -46,6 +46,7 @@ import external.otherview.CircleImageView;
 import external.otherview.SizeAdjustingTextView;
 import external.otherview.Win8ProgressBar;
 import external.smartimageview.SmartImageView;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -89,7 +90,7 @@ import android.widget.ImageView.ScaleType;
 
 /**
  * 查看文章内容
- * 
+ *
  * @author sollian
  */
 @SuppressWarnings("deprecation")
@@ -115,11 +116,11 @@ public class BBSContentActivity extends BaseActivity implements
      */
     private Threads mThreads = null;
     // 保存上一页内容
-    private List<Threads> mHistoryList = new ArrayList<Threads>();
+    private List<Threads> mHistoryList = new ArrayList<>();
     /**
      * 存放含有音频的webview
      */
-    private Set<WebView> mWebViewSet = new HashSet<WebView>();
+    private Set<WebView> mWebViewSet = new HashSet<>();
     /**
      * 只看此ID存放的用户ID
      */
@@ -132,11 +133,11 @@ public class BBSContentActivity extends BaseActivity implements
      * 动态表情相关
      */
     private int mVPLoc[] = new int[2];
-    private List<HashMap<String, String>> mDynamicFaceList = new ArrayList<HashMap<String, String>>();
+    private List<HashMap<String, String>> mDynamicFaceList = new ArrayList<>();
     /**
      * 保存图片地址的list，用户展示大图时能够切换
      */
-    private ArrayList<String> mImgUrlList = new ArrayList<String>();
+    private ArrayList<String> mImgUrlList = new ArrayList<>();
     private int mImgId = 0;
     /**
      * 转载文章
@@ -162,15 +163,11 @@ public class BBSContentActivity extends BaseActivity implements
     private ImageView mHandleIV;
     private ListView mPageLV;
     private PageListAdapter mPageAdapter;
-    private ArrayList<String> mPageList = new ArrayList<String>();
+    private ArrayList<String> mPageList = new ArrayList<>();
     // 回复
     private LinearLayout mReplyLLayout;
     private LinearLayout mFaceLLayout;
     private ControlScrollViewPager mReplyVP;
-    private ImageView mCursorIV;
-    private TextView mClassicTV, mOnionTV, mTuzkiTV, mYociTV;
-    private GridView gv_classic, gv_onion, gv_tuzki, gv_yoci;
-    private ImageView mFaceIV;
     private EditText mReplyET;
     private ImageView mSendReplyIV;
     /*
@@ -302,9 +299,9 @@ public class BBSContentActivity extends BaseActivity implements
         mImgId = 0;
         mCurWrapTime = System.currentTimeMillis();
 
-        Article article = null;
-        ViewHolder holder = null;
-        View convertView = null;
+        Article article;
+        ViewHolder holder;
+        View convertView;
 
         LayoutInflater inflater = LayoutInflater.from(this);
         for (int position = 0; position < mThreads.articles.length; position++) {
@@ -382,9 +379,11 @@ public class BBSContentActivity extends BaseActivity implements
                 holder.tv_author.setText(article.user.id);
             }
             if (!mIsRefer) {
-                if (article.user.id.equals(mThreads.user.id)) {
-                    // 楼主名字显示为红色
-                    holder.tv_author.setTextColor(Color.parseColor("#cc0000"));
+                if (article.user != null) {
+                    if (article.user.id.equals(mThreads.user.id)) {
+                        // 楼主名字显示为红色
+                        holder.tv_author.setTextColor(Color.parseColor("#cc0000"));
+                    }
                 }
             }
             /**
@@ -479,17 +478,17 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 显示内容
-     * 
+     *
      * @param ll
      * @param html
      */
     private void processContent(LinearLayout ll, String[] html, Article article) {
         String[] array = html[0].split("<image");
         int length = array.length;
-        String str = null;
-        int index = 0;
-        String strImg = null;
-        String strHtml = null;
+        String str;
+        int index;
+        String strImg;
+        String strHtml;
         for (int i = 0; i < length; i++) {
             str = array[i].trim();
             if (i != 0 && str.startsWith("=")) {
@@ -517,7 +516,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 显示图片
-     * 
+     *
      * @param ll
      * @param url
      */
@@ -557,7 +556,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 显示webview
-     * 
+     *
      * @param ll
      * @param html
      */
@@ -565,8 +564,8 @@ public class BBSContentActivity extends BaseActivity implements
     private void processWebView(LinearLayout ll, String html, Article article) {
         html = html.trim().replaceAll("\n", "<br/>");
         html = "<body "
-        // +
-        // "style=\"text-align:justify;text-justify:distribute-all-lines;"
+                // +
+                // "style=\"text-align:justify;text-justify:distribute-all-lines;"
                 + "\">" + html + "</body>";
         if (mSwitchMgr.isNightModeEnabled()) {
             html = "<style type=\"text/css\">body{color:#888888}a:link{color:#00aaaa}</style>"
@@ -769,12 +768,12 @@ public class BBSContentActivity extends BaseActivity implements
         mReplyLLayout = (LinearLayout) findViewById(R.id.reply_ll_reply);
         mFaceLLayout = (LinearLayout) findViewById(R.id.reply_ll_face);
         mReplyVP = (ControlScrollViewPager) findViewById(R.id.reply_vp);
-        mCursorIV = (ImageView) findViewById(R.id.reply_iv_cursor);
-        mClassicTV = (TextView) findViewById(R.id.reply_tv_classic);
-        mOnionTV = (TextView) findViewById(R.id.reply_tv_onion);
-        mTuzkiTV = (TextView) findViewById(R.id.reply_tv_tuzki);
-        mYociTV = (TextView) findViewById(R.id.reply_tv_yoci);
-        mFaceIV = (ImageView) findViewById(R.id.reply_iv_face);
+        ImageView mCursorIV = (ImageView) findViewById(R.id.reply_iv_cursor);
+        TextView mClassicTV = (TextView) findViewById(R.id.reply_tv_classic);
+        TextView mOnionTV = (TextView) findViewById(R.id.reply_tv_onion);
+        TextView mTuzkiTV = (TextView) findViewById(R.id.reply_tv_tuzki);
+        TextView mYociTV = (TextView) findViewById(R.id.reply_tv_yoci);
+        ImageView mFaceIV = (ImageView) findViewById(R.id.reply_iv_face);
         mReplyET = (EditText) findViewById(R.id.reply_et_reply);
         mSendReplyIV = (ImageView) findViewById(R.id.reply_iv_reply);
 
@@ -801,8 +800,6 @@ public class BBSContentActivity extends BaseActivity implements
             }
         });
 
-        mCursorIV = (ImageView) findViewById(R.id.reply_iv_cursor);
-
         // 动画图片的宽度
         int bmpW = BitmapFactory.decodeResource(getResources(),
                 R.drawable.face_cursor).getWidth();// 获取图片宽度
@@ -819,12 +816,12 @@ public class BBSContentActivity extends BaseActivity implements
         mYociTV.setOnClickListener(new FaceTypeListener(3));
         // viewpager
         // tag页面列表
-        ArrayList<View> tabList = new ArrayList<View>();
+        ArrayList<View> tabList = new ArrayList<>();
         LayoutInflater mInflater = getLayoutInflater();
-        gv_classic = (GridView) mInflater.inflate(R.layout.face_classic, null);
-        gv_onion = (GridView) mInflater.inflate(R.layout.face_onion, null);
-        gv_tuzki = (GridView) mInflater.inflate(R.layout.face_tuzki, null);
-        gv_yoci = (GridView) mInflater.inflate(R.layout.face_yoci, null);
+        GridView gv_classic = (GridView) mInflater.inflate(R.layout.face_classic, null);
+        GridView gv_onion = (GridView) mInflater.inflate(R.layout.face_onion, null);
+        GridView gv_tuzki = (GridView) mInflater.inflate(R.layout.face_tuzki, null);
+        GridView gv_yoci = (GridView) mInflater.inflate(R.layout.face_yoci, null);
         gv_classic.setAdapter(new FaceGridViewAdapter(getBaseContext(), 0));
         gv_onion.setAdapter(new FaceGridViewAdapter(getBaseContext(), 1));
         gv_tuzki.setAdapter(new FaceGridViewAdapter(getBaseContext(), 2));
@@ -872,18 +869,14 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 获取主题帖的方法
-     * 
-     * @param board
-     *            版面名称
-     * @param id
-     *            主题ID
-     * @param author
-     *            只看此author的帖子,null——查看全部
-     * @param page
-     *            页数
+     *
+     * @param board  版面名称
+     * @param id     主题ID
+     * @param author 只看此author的帖子,null——查看全部
+     * @param page   页数
      */
     private void startThread(final String board, final int id,
-            final String author, final int page) {
+                             final String author, final int page) {
         /**
          * 设置进度条状态
          */
@@ -893,11 +886,9 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 删帖的方法
-     * 
-     * @param board
-     *            版面名称
-     * @param id
-     *            文章ID
+     *
+     * @param board 版面名称
+     * @param id    文章ID
      */
     private void startOperationThread(final String board, final int id) {
         mHistoryList.clear();
@@ -907,7 +898,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 分享
-     * 
+     *
      * @param view
      */
     public void onShare(View view) {
@@ -915,23 +906,23 @@ public class BBSContentActivity extends BaseActivity implements
                 + mThreads.board_name + "/" + mThreads.group_id;
         ShareTask task = new ShareTask(BBSContentActivity.this, mThreads.title,
                 urlArticle, new ShareTask.ShareListener() {
-                    @Override
-                    public void onShareStart() {
-                        showProgress(true);
-                    }
+            @Override
+            public void onShareStart() {
+                showProgress(true);
+            }
 
-                    @Override
-                    public void onShareFinish(Boolean success) {
-                        showProgress(false);
-                    }
-                });
+            @Override
+            public void onShareFinish(Boolean success) {
+                showProgress(false);
+            }
+        });
         task.execute();
         mMenuFLayout.setVisibility(View.GONE);
     }
 
     /**
      * 网址复制
-     * 
+     *
      * @param view
      */
     public void onCopy(View view) {
@@ -1015,7 +1006,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 点击事件
-     * 
+     *
      * @param view
      */
     public void onClick(View view) {
@@ -1028,11 +1019,11 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 是否显示回复窗口
-     * 
+     *
      * @param flag
      */
     private void showReply(boolean flag) {
-        Animation anim = null;
+        Animation anim;
         if (!flag) {
             anim = AnimationUtils.loadAnimation(this, R.anim.search_exit);
             mReplyLLayout.startAnimation(anim);
@@ -1086,7 +1077,7 @@ public class BBSContentActivity extends BaseActivity implements
                     String board = mForwardArticle.board_name;
                     int id = mForwardArticle.id;
                     // 分区列表返回的结果
-                    String target = (String) data
+                    String target = data
                             .getStringExtra(BBSSectionActivity.KEY_NAME);
                     // 开启转载文章线程
                     threadForwardCross(board, id, target, true);
@@ -1100,7 +1091,7 @@ public class BBSContentActivity extends BaseActivity implements
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         startThread(mThreads.board_name, mThreads.group_id, mThisID,
                 position + 1);
     }
@@ -1144,7 +1135,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -1159,7 +1150,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 页面缩放按钮点击事件
-     * 
+     *
      * @param view
      */
     public void onZoomClick(View view) {
@@ -1198,18 +1189,14 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 转载|转寄文章的线程
-     * 
-     * @param board
-     *            文章所在版面
-     * @param id
-     *            文章id
-     * @param target
-     *            目标
-     * @param isCross
-     *            是否是转载
+     *
+     * @param board   文章所在版面
+     * @param id      文章id
+     * @param target  目标
+     * @param isCross 是否是转载
      */
     private void threadForwardCross(final String board, final int id,
-            final String target, final boolean isCross) {
+                                    final String target, final boolean isCross) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             if (null != mHandler) {
                 mHandler.sendEmptyMessage(MSG_ERROR);
@@ -1219,7 +1206,7 @@ public class BBSContentActivity extends BaseActivity implements
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String strJson = null;
+                String strJson;
                 if (isCross) {
                     // 转载文章
                     strJson = Article.crossArticle(BBSContentActivity.this,
@@ -1247,7 +1234,7 @@ public class BBSContentActivity extends BaseActivity implements
                     }
                     return;
                 }
-                String info = null;
+                String info;
                 // 转载|转寄成功
                 if (isCross) {
                     info = "转载成功";
@@ -1266,18 +1253,14 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 获取主题帖的线程 由 {@link #startThread(String, int, String, int)} 启动
-     * 
-     * @param board
-     *            版面名称
-     * @param id
-     *            主题ID
-     * @param author
-     *            只看此author的帖子
-     * @param page
-     *            页数
+     *
+     * @param board  版面名称
+     * @param id     主题ID
+     * @param author 只看此author的帖子
+     * @param page   页数
      */
     private void threadGetThreads(final String board, final int id,
-            final String author, final int page) {
+                                  final String author, final int page) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             if (null != mHandler) {
                 mHandler.sendEmptyMessage(MSG_ERROR);
@@ -1287,7 +1270,7 @@ public class BBSContentActivity extends BaseActivity implements
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String strJson = null;
+                String strJson;
                 if (!mIsRefer) {
                     if (-1 == page) {
                         if (null == author) {
@@ -1344,7 +1327,7 @@ public class BBSContentActivity extends BaseActivity implements
                                     // listThreadsPre最大长度为15
                                     mHistoryList.remove(0);
                                 }
-                                ArrayList<Threads> listTemp = new ArrayList<Threads>();
+                                ArrayList<Threads> listTemp = new ArrayList<>();
                                 for (Threads temp : mHistoryList) {
                                     if (null != temp.pagination) {
                                         if (-1 != temp.pagination.page_current_count) {
@@ -1373,11 +1356,9 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 删帖的线程 由 {@link #startOperationThread(String, int)} 启动
-     * 
-     * @param board
-     *            版面名称
-     * @param id
-     *            主题ID
+     *
+     * @param board 版面名称
+     * @param id    主题ID
      */
     private void threadDeleteArticle(final String board, final int id) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -1418,14 +1399,14 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 回复线程
-     * 
+     *
      * @param board
      * @param title
      * @param content
      * @param reid
      */
     private void threadReplyArticle(final String board, final String title,
-            final String content, final String reid) {
+                                    final String content, final String reid) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             if (null != mHandler) {
                 mHandler.sendEmptyMessage(MSG_ERROR);
@@ -1464,8 +1445,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 下拉时，显示刷新还是上一页
-     * 
-     * @param flag
+     *
      */
     private void setHeaderFooter() {
         mPTRScrollView.setPullLabel("上一页", Mode.PULL_FROM_START);
@@ -1528,7 +1508,7 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 切换Article|Refer模式
-     * 
+     *
      * @param isReferMode
      */
     private void changeReferMode(boolean isReferMode) {
@@ -1548,7 +1528,7 @@ public class BBSContentActivity extends BaseActivity implements
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view,
-            int position, long id) {
+                                   int position, long id) {
         // 禁用滑动结束Activity
         getSwipeBackLayout().setEnableGesture(false);
         // 震动
@@ -1561,9 +1541,9 @@ public class BBSContentActivity extends BaseActivity implements
         int start = parent.getFirstVisiblePosition();
         int end = parent.getLastVisiblePosition();
 
-        View v = null;
+        View v;
         for (int i = 0; i <= end - start; i++) {
-            HashMap<String, String> map = new HashMap<String, String>();
+            HashMap<String, String> map = new HashMap<>();
             v = parent.getChildAt(i);
             int location[] = new int[2];
             if (null == v) {
@@ -1599,45 +1579,44 @@ public class BBSContentActivity extends BaseActivity implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
-        case MotionEvent.ACTION_MOVE:
-            if (mReplyVP.getScrollable()) {
-                return false;
-            }
-            // 获取触摸点相对于屏幕的坐标，不包含顶部的通知栏
-            float eventX = mVPLoc[0] + event.getX();
-            float eventY = mVPLoc[1] + event.getY();
-
-            int x = 0,
-            y = 0;
-            HashMap<String, String> map = null;
-            String imgName = null;
-            for (int i = 0; i < mDynamicFaceList.size(); i++) {
-                map = mDynamicFaceList.get(i);
-                x = Integer.parseInt(map.get("x"));
-                y = Integer.parseInt(map.get("y"));
-                if (eventX >= x && eventX <= x + mIUMgr.dip2px(40)
-                        && eventY >= y && eventY <= y + mIUMgr.dip2px(40)) {
-                    if (i == mDynamicFaceIVE.getId()) {
-                        // 如果是正在播放的gif则返回
-                        return false;
-                    }
-                    // 更新显示的gif
-                    imgName = map.get("imgName").toString();
-                    mDynamicFaceIVE.setSource(Converters.assetToByteArray(
-                            getAssets(), "face/" + imgName));
-                    mDynamicFaceIVE.setId(i);
-                    mDynamicFaceLLayout.setX(x - mIUMgr.dip2px(10));
-                    mDynamicFaceLLayout.setY(y - mIUMgr.dip2px(120));
-                    break;
+            case MotionEvent.ACTION_MOVE:
+                if (mReplyVP.getScrollable()) {
+                    return false;
                 }
-            }
-            break;
-        case MotionEvent.ACTION_UP:
-            // 重新初始化滑动结束Activity
-            initSwipeOut();
-            mReplyVP.setScrollable(true);
-            mDynamicFaceLLayout.setVisibility(View.GONE);
-            break;
+                // 获取触摸点相对于屏幕的坐标，不包含顶部的通知栏
+                float eventX = mVPLoc[0] + event.getX();
+                float eventY = mVPLoc[1] + event.getY();
+
+                int x, y;
+                HashMap<String, String> map;
+                String imgName;
+                for (int i = 0; i < mDynamicFaceList.size(); i++) {
+                    map = mDynamicFaceList.get(i);
+                    x = Integer.parseInt(map.get("x"));
+                    y = Integer.parseInt(map.get("y"));
+                    if (eventX >= x && eventX <= x + mIUMgr.dip2px(40)
+                            && eventY >= y && eventY <= y + mIUMgr.dip2px(40)) {
+                        if (i == mDynamicFaceIVE.getId()) {
+                            // 如果是正在播放的gif则返回
+                            return false;
+                        }
+                        // 更新显示的gif
+                        imgName = map.get("imgName");
+                        mDynamicFaceIVE.setSource(Converters.assetToByteArray(
+                                getAssets(), "face/" + imgName));
+                        mDynamicFaceIVE.setId(i);
+                        mDynamicFaceLLayout.setX(x - mIUMgr.dip2px(10));
+                        mDynamicFaceLLayout.setY(y - mIUMgr.dip2px(120));
+                        break;
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                // 重新初始化滑动结束Activity
+                initSwipeOut();
+                mReplyVP.setScrollable(true);
+                mDynamicFaceLLayout.setVisibility(View.GONE);
+                break;
         }
         return false;
     }
@@ -1664,11 +1643,11 @@ public class BBSContentActivity extends BaseActivity implements
 
     /**
      * 是否显示标题栏
-     * 
+     *
      * @param flag
      */
     private void showTitle(final boolean flag) {
-        Animation anim = null;
+        Animation anim;
         mTitleLLayout.setTag("anim");
         if (flag) {
             anim = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_top);
@@ -1730,7 +1709,7 @@ public class BBSContentActivity extends BaseActivity implements
         Article article = (Article) mSendReplyIV.getTag();
         String reid = article.id + "";
         String title = "Re:" + article.title;
-        String strContent = "";
+        String strContent;
         if (article.id != article.group_id) {
             String[] arr = JsonHelper.toHtml(article, true);
             String strReply = arr[1];

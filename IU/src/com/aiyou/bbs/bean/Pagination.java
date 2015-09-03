@@ -10,13 +10,10 @@ import com.aiyou.utils.JsonHelper;
 
 /**
  * 分页元数据
- * 
+ *
  * @author sollian
  */
 public class Pagination implements Serializable {
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 11120L;
 
     // 总页数
@@ -36,6 +33,7 @@ public class Pagination implements Serializable {
             item_page_count = JsonHelper.getInt(jsonObject, "item_page_count");
             item_all_count = JsonHelper.getInt(jsonObject, "item_all_count");
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

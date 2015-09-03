@@ -60,8 +60,8 @@ public class EcardActivity extends BaseActivity implements
 
     private static final String KEY_DATA = "data";
 
-    private Map<String, String> mCookies = new HashMap<String, String>();
-    private Map<String, String> mConsumeParams = new HashMap<String, String>();
+    private Map<String, String> mCookies = new HashMap<>();
+    private Map<String, String> mConsumeParams = new HashMap<>();
     private BasicInfo mBasicInfo = null;
 
     private EditText mIdET, mPasswordET;
@@ -78,8 +78,7 @@ public class EcardActivity extends BaseActivity implements
 
     private EditText mFromET, mToET;
     private TextView mQueryConsumeTV;
-    private PullToRefreshListView mPTRLV;
-    private List<ConsumeInfo> mList = new ArrayList<ConsumeInfo>();
+    private List<ConsumeInfo> mList = new ArrayList<>();
     private MyListAdapter mAdapter;
     private int mYear1, mYear2, mMonth1, mMonth2, mDay1, mDay2;
 
@@ -143,7 +142,7 @@ public class EcardActivity extends BaseActivity implements
                 cookie += key + "=" + mCookies.get(key) + ";";
             }
         }
-        Map<String, String> header = new HashMap<String, String>();
+        Map<String, String> header = new HashMap<>();
         header.put("Cookie", cookie);
         mFaceSIV.setImageUrl(info.face_url, header);
         mSexTV.setText("性    别：" + info.sex);
@@ -170,11 +169,11 @@ public class EcardActivity extends BaseActivity implements
         mPasswordET.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 switch (actionId) {
-                case EditorInfo.IME_ACTION_DONE:
-                    onQuery(null);
-                    break;
+                    case EditorInfo.IME_ACTION_DONE:
+                        onQuery(null);
+                        break;
                 }
                 return true;
             }
@@ -186,7 +185,7 @@ public class EcardActivity extends BaseActivity implements
         mTag2TV = (TextView) findViewById(R.id.tv_tag2);
         mViewPager = (ViewPager) findViewById(R.id.vp);
 
-        List<View> viewList = new ArrayList<View>();
+        List<View> viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
         View view1 = inflater.inflate(R.layout.ecard_vp_page1, null);
         View view2 = inflater.inflate(R.layout.ecard_vp_page2, null);
@@ -206,7 +205,7 @@ public class EcardActivity extends BaseActivity implements
         mToET = (EditText) view2.findViewById(R.id.et_to);
         mQueryConsumeTV = (TextView) view2.findViewById(R.id.tv_seek);
         mQueryConsumeTV.setOnClickListener(this);
-        mPTRLV = (PullToRefreshListView) view2.findViewById(R.id.ptrlv);
+        PullToRefreshListView mPTRLV = (PullToRefreshListView) view2.findViewById(R.id.ptrlv);
         mPTRLV.setShowIndicator(false);
         mAdapter = new MyListAdapter(getBaseContext(), mList);
         mPTRLV.setAdapter(mAdapter);
@@ -259,7 +258,7 @@ public class EcardActivity extends BaseActivity implements
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year,
-                                int monthOfYear, int dayOfMonth) {
+                                              int monthOfYear, int dayOfMonth) {
                             if (year * 10000L + monthOfYear * 100 + dayOfMonth >= mYear2
                                     * 10000 + mMonth2 * 100 + mDay2) {
                                 Toast.makeText(EcardActivity.this,
@@ -274,13 +273,12 @@ public class EcardActivity extends BaseActivity implements
                             clearList();
                         }
                     }, mYear1, mMonth1, mDay1).show();
-            ;
         } else if (nId == R.id.et_to) {
             new DatePickerDialog(EcardActivity.this,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year,
-                                int monthOfYear, int dayOfMonth) {
+                                              int monthOfYear, int dayOfMonth) {
                             if (mYear1 * 10000L + mMonth1 * 100 + mDay1 >= year
                                     * 10000 + monthOfYear * 100 + dayOfMonth) {
                                 Toast.makeText(EcardActivity.this,
@@ -295,7 +293,6 @@ public class EcardActivity extends BaseActivity implements
                             clearList();
                         }
                     }, mYear2, mMonth2, mDay2).show();
-            ;
         }
     }
 
@@ -346,7 +343,7 @@ public class EcardActivity extends BaseActivity implements
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                String error = null;
+                String error;
                 // 登录
                 error = login(id, password);
                 if (error != null) {
@@ -389,7 +386,7 @@ public class EcardActivity extends BaseActivity implements
     }
 
     private String login(final String id, final String password) {
-        Document doc = null;
+        Document doc;
         /**
          * 访问登录页面，获取需要的键值对
          */
@@ -410,7 +407,7 @@ public class EcardActivity extends BaseActivity implements
         String param6 = doc.select("input#__EVENTVALIDATION").get(0)
                 .attr("value");
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("__LASTFOCUS", param1);
         params.put("__EVENTTARGET", param2);
         params.put("__EVENTARGUMENT", param3);
@@ -442,7 +439,7 @@ public class EcardActivity extends BaseActivity implements
     }
 
     private String queryBasicInfo() {
-        Document doc = null;
+        Document doc;
         try {
             doc = Jsoup.connect(URL_BASIC_INFO).timeout(10000)
                     .cookies(mCookies).get();
@@ -481,7 +478,7 @@ public class EcardActivity extends BaseActivity implements
     }
 
     private String prepareConsumeInfo() {
-        Document doc = null;
+        Document doc;
         try {
             doc = Jsoup.connect(URL_CONSUME_INFO).timeout(10000)
                     .cookies(mCookies).get();
@@ -514,7 +511,7 @@ public class EcardActivity extends BaseActivity implements
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                Document doc = null;
+                Document doc;
                 try {
                     doc = Jsoup.connect(URL_CONSUME_INFO).data(data)
                             .timeout(10000).cookies(mCookies).post();
@@ -563,9 +560,9 @@ public class EcardActivity extends BaseActivity implements
         Elements tr = doc.select("table#ContentPlaceHolder1_gridView").select(
                 "tr");
         tr.remove(0);
-        ConsumeInfo info = null;
-        Elements td = null;
-        String time = null;
+        ConsumeInfo info;
+        Elements td;
+        String time;
         for (Element ele : tr) {
             td = ele.select("td");
             if (td.size() < 7) {
@@ -604,7 +601,7 @@ public class EcardActivity extends BaseActivity implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {
+                               int positionOffsetPixels) {
     }
 
     @Override

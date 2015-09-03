@@ -13,7 +13,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 主题帖元数据
- * 
+ *
  * @author sollian
  */
 public class Threads {
@@ -87,14 +87,15 @@ public class Threads {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取指定主题的信息
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
+     * @param id    文章或主题id
      * @return
      */
     public static String getThreads(Context context, String board, int id) {
@@ -103,10 +104,10 @@ public class Threads {
 
     /**
      * 获取指定主题的信息
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
-     * @param page 主题文章的页数
+     * @param id    文章或主题id
+     * @param page  主题文章的页数
      * @return
      */
     public static String getThreads(Context context, String board, int id, int page) {
@@ -116,10 +117,10 @@ public class Threads {
 
     /**
      * 获取指定主题的信息
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
-     * @param au 只显示该主题中某一用户的文章，au为该用户的用户名，大小写敏感
+     * @param id    文章或主题id
+     * @param au    只显示该主题中某一用户的文章，au为该用户的用户名，大小写敏感
      * @return
      */
     public static String getThreads(Context context, String board, int id, String au) {
@@ -128,11 +129,11 @@ public class Threads {
 
     /**
      * 获取指定主题的信息
-     * 
+     *
      * @param board 合法的版面名称
-     * @param id 文章或主题id
-     * @param au 只显示该主题中某一用户的文章，au为该用户的用户名，大小写敏感
-     * @param page 主题文章的页数
+     * @param id    文章或主题id
+     * @param au    只显示该主题中某一用户的文章，au为该用户的用户名，大小写敏感
+     * @param page  主题文章的页数
      * @return
      */
     public static String getThreads(Context context, String board, int id, String au, int page) {

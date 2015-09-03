@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.aiyou.BaseActivity;
 import com.aiyou.R;
@@ -38,6 +39,7 @@ import external.colorpicker.ColorPickerDialog;
 import external.colorpicker.ColorPickerPreference;
 import external.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import external.otherview.Win8ProgressBar;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -79,7 +81,7 @@ import android.widget.ImageView.ScaleType;
 
 /**
  * 发表文章、回复、写信
- * 
+ *
  * @author sollian
  */
 public class BBSWriteActivity extends BaseActivity implements OnClickListener,
@@ -127,14 +129,14 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
     /**
      * viewpager相关
      */
-    private ArrayList<View> mTabList = new ArrayList<View>(); // Tab页面列表
+    private ArrayList<View> mTabList = new ArrayList<>(); // Tab页面列表
     /**
      * 附件相关
      */
     // 文件选择对话框
     private DirectoryChooserView mDirChooserView;
     // 存储附件的列表
-    private ArrayList<String> mAttachList = new ArrayList<String>();
+    private ArrayList<String> mAttachList = new ArrayList<>();
     /**
      * 拖动附件显示的图片
      */
@@ -149,7 +151,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
      * 动态表情相关
      */
     private int vpLocation[] = new int[2];
-    private ArrayList<HashMap<String, String>> mDynamicFaceList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<Map<String, String>> mDynamicFaceList = new ArrayList<>();
     /**
      * 控件
      */
@@ -164,11 +166,6 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
     // 表情相关
     private LinearLayout mFaceLLayout;
     private ControlScrollViewPager mViewPager;
-    private ImageView mCursorIV;
-    private TextView mClassicTV, mOnionTV, mTuzkiTV,
-            mYociTV;
-    private GridView mClassicGV, mOnionGV, mTuzkiGV,
-            mYociGV;
     /*
      * 查看动态表情的view
      */
@@ -329,11 +326,11 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
         mFaceLLayout = (LinearLayout) findViewById(R.id.activity_bbswrite_ll_face);
         mViewPager = (ControlScrollViewPager) findViewById(R.id.activity_bbswrite_vp);
-        mCursorIV = (ImageView) findViewById(R.id.activity_bbswrite_iv_cursor);
-        mClassicTV = (TextView) findViewById(R.id.activity_bbswrite_tv_classic);
-        mOnionTV = (TextView) findViewById(R.id.activity_bbswrite_tv_onion);
-        mTuzkiTV = (TextView) findViewById(R.id.activity_bbswrite_tv_tuzki);
-        mYociTV = (TextView) findViewById(R.id.activity_bbswrite_tv_yoci);
+        ImageView mCursorIV = (ImageView) findViewById(R.id.activity_bbswrite_iv_cursor);
+        TextView mClassicTV = (TextView) findViewById(R.id.activity_bbswrite_tv_classic);
+        TextView mOnionTV = (TextView) findViewById(R.id.activity_bbswrite_tv_onion);
+        TextView mTuzkiTV = (TextView) findViewById(R.id.activity_bbswrite_tv_tuzki);
+        TextView mYociTV = (TextView) findViewById(R.id.activity_bbswrite_tv_yoci);
 
         mAttachLLayout = (LinearLayout) findViewById(R.id.activity_bbswrite_ll_attach);
 
@@ -373,10 +370,10 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         mYociTV.setOnClickListener(new FaceTypeListener(3));
         // viewpager
         LayoutInflater mInflater = getLayoutInflater();
-        mClassicGV = (GridView) mInflater.inflate(R.layout.face_classic, null);
-        mOnionGV = (GridView) mInflater.inflate(R.layout.face_onion, null);
-        mTuzkiGV = (GridView) mInflater.inflate(R.layout.face_tuzki, null);
-        mYociGV = (GridView) mInflater.inflate(R.layout.face_yoci, null);
+        GridView mClassicGV = (GridView) mInflater.inflate(R.layout.face_classic, null);
+        GridView mOnionGV = (GridView) mInflater.inflate(R.layout.face_onion, null);
+        GridView mTuzkiGV = (GridView) mInflater.inflate(R.layout.face_tuzki, null);
+        GridView mYociGV = (GridView) mInflater.inflate(R.layout.face_yoci, null);
         mClassicGV.setAdapter(new FaceGridViewAdapter(getBaseContext(), 0));
         mOnionGV.setAdapter(new FaceGridViewAdapter(getBaseContext(), 1));
         mTuzkiGV.setAdapter(new FaceGridViewAdapter(getBaseContext(), 2));
@@ -593,7 +590,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 发送
-     * 
+     *
      * @param view
      */
     public void onSend(View view) {
@@ -631,12 +628,12 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         }
         if (ARTICLE == mMode || MAIL == mMode) {
             // 回复
-            String strContent = "";
+            String strContent;
             if (ARTICLE == mMode) {
                 String[] arr = JsonHelper.toHtml(mArticle, true);
                 String strReply = arr[1];
                 strContent = mArticle.content.replace(strReply, "").trim();
-            } else if (MAIL == mMode) {
+            } else {
                 String[] arr = JsonHelper.toHtml(mMail, false);
                 String strReply = arr[1];
                 strContent = mMail.content.replace(strReply, "").trim();
@@ -687,7 +684,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
     }
 
     private void threadSendArticle(final String subject, final String content,
-            final String strTo) {
+                                   final String strTo) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             if (null != mHandler) {
                 mHandler.sendEmptyMessage(MSG_ERROR);
@@ -738,7 +735,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                 }
                 if (mAttachList.size() > 0) {
                     Article arti = new Article(strJson);
-                    File file = null;
+                    File file;
                     for (int i = 0; i < mAttachList.size(); i++) {
                         file = new File(mAttachList.get(i));
                         strError = Attachment.sendAttachment(BBSWriteActivity.this,
@@ -765,7 +762,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 结束
-     * 
+     *
      * @param view
      */
     public void selfFinish(View view) {
@@ -865,10 +862,17 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                 };
                 Cursor cursor = getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                picturePath = cursor.getString(columnIndex);
-                cursor.close();
+                if (cursor != null) {
+                    try {
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        picturePath = cursor.getString(columnIndex);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        cursor.close();
+                    }
+                }
             } else if (requestCode == RESULT_TAKE_PHOTO) {
                 picturePath = Environment.getExternalStorageDirectory()
                         .getAbsolutePath()
@@ -940,7 +944,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 附件的OnTouchListener
-     * 
+     *
      * @author sollian
      */
     private class MyTouchListener implements OnTouchListener {
@@ -990,8 +994,8 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                                 edit.delete(start, start + delStr.length());
                             }
                             if (position < mAttachList.size()) {
-                                String oldName = null;
-                                String newName = null;
+                                String oldName;
+                                String newName;
                                 for (; position < mAttachList.size(); position++) {
                                     mDragBmp = ((BitmapDrawable) ((ImageView) mAttachLLayout
                                             .getChildAt(2 * position + 1))
@@ -1020,7 +1024,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                                     }
                                 }
                             }
-                            TextView tv = null;
+                            TextView tv;
                             for (int i = 0; i < mAttachLLayout.getChildCount(); i++) {
                                 if (i % 2 == 0) {
                                     tv = (TextView) mAttachLLayout.getChildAt(i);
@@ -1052,15 +1056,15 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         double size = 0;
 
         FileInputStream fis = null;
-        File file = null;
+        File file;
         for (int i = 0; i < mAttachList.size(); i++) {
             file = new File(mAttachList.get(i));
             if (file.exists()) {
                 try {
                     fis = new FileInputStream(file);
                     size += fis.available();
-                } catch (Exception e) {
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else {
                 Toast.makeText(getBaseContext(), "第" + i + "个文件不存在，请检查",
@@ -1070,11 +1074,11 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         if (fis != null) {
             try {
                 fis.close();
-                fis = null;
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        String message = null;
+        String message;
         if (size < 1024) {
             message = "附件大小：" + size + "B";
         } else if (size / 1024 < 1024) {
@@ -1109,7 +1113,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -1146,7 +1150,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view,
-            int position, long id) {
+                                   int position, long id) {
         // 禁用滑动结束Activity
         getSwipeBackLayout().setEnableGesture(false);
         // 震动
@@ -1160,7 +1164,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
         int end = parent.getLastVisiblePosition();
         View v = null;
         for (int i = 0; i <= end - start; i++) {
-            HashMap<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<>();
             v = parent.getChildAt(i);
             int location[] = new int[2];
             if (null == v) {
@@ -1205,11 +1209,10 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                 float eventX = vpLocation[0] + event.getX();
                 float eventY = vpLocation[1] + event.getY();
 
-                int x = 0,
-                y = 0;
-                String imgName = null;
+                int x, y;
+                String imgName;
                 for (int i = 0; i < mDynamicFaceList.size(); i++) {
-                    HashMap<String, String> map = mDynamicFaceList.get(i);
+                    Map<String, String> map = mDynamicFaceList.get(i);
                     x = Integer.parseInt(map.get("x"));
                     y = Integer.parseInt(map.get("y"));
                     if (eventX >= x && eventX <= x + mIUMgr.dip2px(40) && eventY >= y
@@ -1219,7 +1222,7 @@ public class BBSWriteActivity extends BaseActivity implements OnClickListener,
                             return false;
                         }
                         // 更新显示的gif
-                        imgName = map.get("imgName").toString();
+                        imgName = map.get("imgName");
                         mDynamicFaceIVE.setSource(Converters.assetToByteArray(
                                 getAssets(), "face/" + imgName));
                         mDynamicFaceIVE.setId(i);

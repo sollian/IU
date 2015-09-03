@@ -16,12 +16,12 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 分区元数据
- * 
+ *
  * @author sollian
  */
 public class Section implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 11133L;
 
@@ -88,12 +88,13 @@ public class Section implements Serializable {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取所有根分区信息
-     * 
+     *
      * @param context
      * @return
      */
@@ -109,7 +110,7 @@ public class Section implements Serializable {
 
     /**
      * 更新根分区信息
-     * 
+     *
      * @param context
      */
     public static void updateRootSection(Context context) {
@@ -124,7 +125,7 @@ public class Section implements Serializable {
 
     /**
      * 获取指定分区的信息
-     * 
+     *
      * @param section 合法的分区名称
      * @return 分区元数据
      */

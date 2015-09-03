@@ -9,6 +9,7 @@ import com.aiyou.view.DarkImageView;
 import com.aiyou.view.ScrollTextView;
 
 import external.otherview.Win8ProgressBar;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +18,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public class FavoriteAdapter extends BaseAdapter {
-    private Context mContext;
     private List<Board> mList;
     private LayoutInflater mInflater;
     private DeleteFavoriteListener mListener;
 
     public FavoriteAdapter(Context context, List<Board> list, DeleteFavoriteListener listener) {
-        mContext = context;
         mList = list;
         mListener = listener;
-        mInflater = LayoutInflater.from(mContext);
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -88,6 +87,6 @@ public class FavoriteAdapter extends BaseAdapter {
     }
 
     public interface DeleteFavoriteListener {
-        public void onDelete(Board board);
+        void onDelete(Board board);
     }
 }

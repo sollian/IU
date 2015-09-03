@@ -10,6 +10,7 @@ import external.GifImageViewEx.net.frakbot.imageviewex.ImageViewEx;
 import external.otherview.MagicImageView;
 import external.otherview.SinkingView;
 import external.smartimageview.SmartImageView;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -45,9 +46,8 @@ public class ViewLargeImageFragment extends Fragment implements
     @SuppressLint("InflateParams")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_large_image, null);
-        return view;
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_view_large_image, null);
     }
 
     @Override
@@ -158,14 +158,14 @@ public class ViewLargeImageFragment extends Fragment implements
 
         if (null != mTask) {
             switch (mTask.getStatus()) {
-            case RUNNING:
-                mTask.cancel(true);
-                break;
-            case PENDING:
-                mTask.cancel(false);
-                break;
-            default:
-                break;
+                case RUNNING:
+                    mTask.cancel(true);
+                    break;
+                case PENDING:
+                    mTask.cancel(false);
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -202,15 +202,14 @@ public class ViewLargeImageFragment extends Fragment implements
         try {
             mImageViewEx.setSource(result);
         } catch (OutOfMemoryError e) {
+            e.printStackTrace();
         }
         mImageViewEx.pause();
         if (mImageViewEx.getVisibility() == View.VISIBLE
                 && mImageViewEx.canPlay()) {
             mImageViewEx.play();
         }
-        if (null != result) {
-            mMIVFLayout.setVisibility(View.VISIBLE);
-        }
+        mMIVFLayout.setVisibility(View.VISIBLE);
         Animation animIn = AnimationUtils.loadAnimation(
                 AiYouApplication.getInstance(), android.R.anim.fade_in);
         Animation animOut = AnimationUtils.loadAnimation(

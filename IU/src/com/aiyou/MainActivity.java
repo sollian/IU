@@ -33,6 +33,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 
 import external.otherview.ActivitySplitAnimationUtil;
+
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -173,7 +174,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     String arr[] = mIUUrl.split("<url>");
                     if (3 == arr.length) {
-                        Intent intent = null;
+                        Intent intent;
                         // 链接到bbs
                         Article article = new Article();
                         article.title = arr[0];
@@ -231,17 +232,18 @@ public class MainActivity extends BaseActivity {
             dPercent = 0.7;
         } else if (nId == R.id.set) {
             // 设置
-            intent = null;
             ActivityFunc.startActivity(this, SetActivity.class, null, true);
             return;
         }
         // 如果这个activity已经启动了，就不产生新的activity，而只是把这个activity实例加到栈顶来就可以了。
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        if (SwitchManager.getInstance(this).isSimpleModeEnabled()
-                || Build.VERSION.SDK_INT < 14) {
-            ActivityFunc.startActivity(this, intent);
-        } else {
-            ActivitySplitAnimationUtil.startActivity(this, intent, dPercent);
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            if (SwitchManager.getInstance(this).isSimpleModeEnabled()
+                    || Build.VERSION.SDK_INT < 14) {
+                ActivityFunc.startActivity(this, intent);
+            } else {
+                ActivitySplitAnimationUtil.startActivity(this, intent, dPercent);
+            }
         }
     }
 
@@ -335,7 +337,7 @@ public class MainActivity extends BaseActivity {
         mSplashView.setVisibility(View.VISIBLE);
         TextView mNameVersion = (TextView) findViewById(R.id.tv_name_version);
         mNameVersion.setText(getString(R.string.version, AiYouManager
-                .getInstance(getApplicationContext()).getAppName(),
+                        .getInstance(getApplicationContext()).getAppName(),
                 AiYouManager.getInstance(getApplicationContext())
                         .getAppVersionName()));
 
@@ -487,7 +489,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 透明度动画
-     * 
+     *
      * @param view
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -682,7 +684,7 @@ public class MainActivity extends BaseActivity {
          */
         mAlarmMgr = (AlarmManager) getSystemService(ALARM_SERVICE);
         mPendingIntent = PendingIntent.getService(this, 0, new Intent(this,
-                BBSService.class), Intent.FLAG_ACTIVITY_NEW_TASK);
+                BBSService.class), PendingIntent.FLAG_UPDATE_CURRENT);
         long now = System.currentTimeMillis();
         mAlarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, INTERVAL,
                 mPendingIntent);

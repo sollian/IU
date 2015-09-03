@@ -127,6 +127,7 @@ public class Article implements Serializable, AdapterInterface {
                 attachment = new Attachment(attachmentObj.toString());
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -170,7 +171,7 @@ public class Article implements Serializable, AdapterInterface {
      */
     public static String sendArticle(Context context, String board, String title,
             String content, String reid) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("content", content));
@@ -199,7 +200,7 @@ public class Article implements Serializable, AdapterInterface {
      * @return 转载的文章元数据
      */
     public static String crossArticle(Context context, String board, int id, String target) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("target", target));
 
@@ -224,7 +225,7 @@ public class Article implements Serializable, AdapterInterface {
      * @return 转载的文章元数据
      */
     public static String forwardArticle(Context context, String board, int id, String target) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("target", target));
 
@@ -251,7 +252,7 @@ public class Article implements Serializable, AdapterInterface {
      */
     public static String updateArticle(Context context, String board, int id, String title,
             String content) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("content", content));

@@ -19,12 +19,11 @@ import com.baidu.lbsapi.BMapManager;
 
 /**
  * 查看全景图
- * 
+ *
  * @author sollian
  */
 public class PanoramaActivity extends BaseActivity {
     private PanoramaView mPanoView;
-    private Spinner mSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +36,13 @@ public class PanoramaActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_panorama);
 
-        mSpinner = (Spinner) findViewById(R.id.activity_panorama_sp);
+        Spinner mSpinner = (Spinner) findViewById(R.id.activity_panorama_sp);
         mPanoView = (PanoramaView) findViewById(R.id.activity_panorama_pv);
         mPanoView.setShowTopoLink(true);
         mPanoView.setZoomGestureEnabled(false);
         mPanoView.setRotateGestureEnabled(true);
 
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("西门");
         list.add("东门");
         list.add("3号教学楼");
@@ -57,7 +56,7 @@ public class PanoramaActivity extends BaseActivity {
         mSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v,
-                    int position, long id) {
+                                       int position, long id) {
                 switch (position) {
                     case 0:
                         mPanoView.setPanorama(116.361672, 39.966862);

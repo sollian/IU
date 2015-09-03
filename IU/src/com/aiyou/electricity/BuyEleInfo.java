@@ -31,16 +31,16 @@ class BuyEleInfo {
             return 0;
         }
         if (list == null) {
-            list = new ArrayList<BuyEleInfo>();
+            list = new ArrayList<>();
         }
         Elements table = doc.select("table#GridView2").select("tr");
         int size = table.size();
         if (size < 2) {
             return 0;
         }
-        Element tr = null;
-        Elements td2 = null;
-        BuyEleInfo info = null;
+        Element tr;
+        Elements td2;
+        BuyEleInfo info;
         for (int i = 1; i < size - 1; i++) {
             tr = table.get(i);
             td2 = tr.children();

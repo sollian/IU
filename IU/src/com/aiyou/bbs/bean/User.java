@@ -14,7 +14,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * User元数据
- * 
+ *
  * @author sollian
  */
 public class User implements Serializable {
@@ -96,6 +96,7 @@ public class User implements Serializable {
             last_login_time = JsonHelper.getLong(jsonObject, "last_login_time");
             login_count = JsonHelper.getLong(jsonObject, "login_count");
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

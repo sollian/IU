@@ -25,6 +25,7 @@ import com.aiyou.view.ScrollTextView;
 
 import external.otherview.CircleImageView;
 import external.otherview.Win8ProgressBar;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -48,7 +49,7 @@ import android.widget.Toast;
 
 /**
  * 投票内容
- * 
+ *
  * @author sollian
  */
 public class BBSVoteActivity extends BaseActivity {
@@ -137,7 +138,7 @@ public class BBSVoteActivity extends BaseActivity {
 
     /**
      * 开启线程的方法
-     * 
+     *
      * @param flagSend true——投票；false——获取vote内容
      */
     private void startThread(boolean flagSend) {
@@ -236,7 +237,8 @@ public class BBSVoteActivity extends BaseActivity {
         mContentLLayout.invalidate();
     }
 
-    @SuppressLint("InflateParams") private void processContent() {
+    @SuppressLint("InflateParams")
+    private void processContent() {
         int length = mVote.options.length;
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -318,12 +320,12 @@ public class BBSVoteActivity extends BaseActivity {
                 /**
                  * 计算百分比
                  */
-                if(mVote.options[position].num <= 0 || mVote.vote_count <= 0) {
+                if (mVote.options[position].num <= 0 || mVote.vote_count <= 0) {
                     tv_progress.setText("0%");
                 } else {
-                tv_progress.setText(String.format("%.2f", ((double) 100
-                        * mVote.options[position].num / mVote.vote_count))
-                        + "%");
+                    tv_progress.setText(String.format("%.2f", ((double) 100
+                            * mVote.options[position].num / mVote.vote_count))
+                            + "%");
                 }
                 anim = AnimationUtils.loadAnimation(this, R.anim.vote_tv);
                 tv_progress.startAnimation(anim);
@@ -342,7 +344,7 @@ public class BBSVoteActivity extends BaseActivity {
 
     /**
      * 点击投票按钮
-     * 
+     *
      * @param view
      */
     public void onVote(View view) {
@@ -501,10 +503,9 @@ public class BBSVoteActivity extends BaseActivity {
                 Pattern p = Pattern.compile("\n描述:([^\n]*)");
                 Matcher m = p.matcher(content);
                 String str = null;
-                while (m.find()) {
+                if (m.find()) {
                     MatchResult mr = m.toMatchResult();
                     str = mr.group(1);
-                    break;
                 }
                 if (TextUtils.isEmpty(str)) {
                     mDescription = null;
@@ -520,7 +521,7 @@ public class BBSVoteActivity extends BaseActivity {
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -606,11 +607,7 @@ public class BBSVoteActivity extends BaseActivity {
         private int multiChoiceLimit;
 
         public lLayoutClickListener(int type, final int multiChoiceLimit) {
-            if (type == 0) {
-                this.isSingleChoice = true;
-            } else {
-                this.isSingleChoice = false;
-            }
+            this.isSingleChoice = type == 0;
 
             this.multiChoiceLimit = multiChoiceLimit;
         }
@@ -621,7 +618,7 @@ public class BBSVoteActivity extends BaseActivity {
             if (isSingleChoice) {
                 for (int i = 0; i < mVote.options.length; i++) {
                     mVote.options[i].isChecked = false;
-                    ((LinearLayout) mContentLLayout.getChildAt(i))
+                    mContentLLayout.getChildAt(i)
                             .setBackgroundColor(Color.TRANSPARENT);
                 }
                 mVote.options[position].isChecked = true;

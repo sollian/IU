@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 /**
  * 表情ViewPager监听器
- * 
+ *
  * @author sollian
  */
 public class MyOnPageChangeListener implements OnPageChangeListener {
@@ -21,7 +21,7 @@ public class MyOnPageChangeListener implements OnPageChangeListener {
     ImageView mImageView;
 
     public MyOnPageChangeListener(ImageView iv, int offset, int bmpW,
-            int currIndex) {
+                                  int currIndex) {
         mImageView = iv;
         mOffset = offset;
         mOne = offset * 3 + bmpW;// 页卡1 -> 页卡2 偏移量
@@ -72,9 +72,11 @@ public class MyOnPageChangeListener implements OnPageChangeListener {
                 break;
         }
         mCurIndex = arg0;
-        animation.setFillAfter(true);// True:图片停在动画结束位置
-        animation.setDuration(300);
-        mImageView.startAnimation(animation);
+        if (animation != null) {
+            animation.setFillAfter(true);// True:图片停在动画结束位置
+            animation.setDuration(300);
+            mImageView.startAnimation(animation);
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 /**
  * 图像处理类
- * 
+ *
  * @author sollian
  */
 public class ImageFactory {
@@ -17,7 +17,7 @@ public class ImageFactory {
 
     /**
      * 获取保证不发生OOM的最大图片
-     * 
+     *
      * @param data
      * @param remainAlpha 是否保留Alpha通道
      * @return
@@ -58,7 +58,7 @@ public class ImageFactory {
         }
         return bitmap;
     }
-    
+
     @SuppressWarnings("deprecation")
     public static Bitmap getFixedBmp(String filePath, float width, float height, boolean remainAlpha) {
         if (TextUtils.isEmpty(filePath)) {
@@ -74,7 +74,7 @@ public class ImageFactory {
         options.inInputShareable = true;
         // 读取图片时内存不足自动回收本bitmap
         options.inPurgeable = true;
-        
+
         BitmapFactory.decodeFile(filePath, options);
         int scalew = (int) (options.outWidth / width);
         int scaleh = (int) (options.outHeight / height);
@@ -149,7 +149,7 @@ public class ImageFactory {
 
     /**
      * 模糊图像
-     * 
+     *
      * @param sentBitmap
      * @param radius
      * @param canReuseInBitmap
@@ -157,7 +157,7 @@ public class ImageFactory {
      */
 
     public static Bitmap doBlur(Bitmap sentBitmap, int radius,
-            boolean canReuseInBitmap) {
+                                boolean canReuseInBitmap) {
         Bitmap bitmap;
         if (canReuseInBitmap) {
             bitmap = sentBitmap;

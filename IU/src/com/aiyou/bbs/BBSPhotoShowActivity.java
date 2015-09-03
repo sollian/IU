@@ -29,6 +29,7 @@ import external.foldablelist.lib.UnfoldableView.OnFoldingListener;
 import external.foldablelist.lib.shading.GlanceFoldShading;
 import external.otherview.CircleImageView;
 import external.otherview.Win8ProgressBar;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -54,7 +55,7 @@ import android.widget.Toast;
 
 /**
  * 贴图秀
- * 
+ *
  * @author sollian
  */
 public class BBSPhotoShowActivity extends BaseActivity implements
@@ -74,14 +75,14 @@ public class BBSPhotoShowActivity extends BaseActivity implements
     private boolean mFlagLoad = true;
     private boolean mFlagFolded = true;
     /**
-     * 
+     *
      */
-    private ArrayList<ImageViewEx> mIVEList = new ArrayList<ImageViewEx>();
+    private ArrayList<ImageViewEx> mIVEList = new ArrayList<>();
     /**
      * adapter
      */
     private PaintingsAdapter mAdapter;
-    private ArrayList<Painting> mList = new ArrayList<Painting>();
+    private ArrayList<Painting> mList = new ArrayList<>();
     private Board mBoard;
     /**
      * 控件
@@ -91,7 +92,6 @@ public class BBSPhotoShowActivity extends BaseActivity implements
     private LinearLayout mDetailsLLayout;
 
     private PullToRefreshListView mPTRLV;
-    private ListView mListView;
     // 进度条
     private Win8ProgressBar mProgressBar;
     // 帮助
@@ -152,9 +152,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 获取贴图列表的线程
-     * 
-     * @param page
-     *            页数
+     *
+     * @param page 页数
      */
     private void threadGetList(final int page) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -214,12 +213,18 @@ public class BBSPhotoShowActivity extends BaseActivity implements
          * 控件
          */
         mUnfoldableView = (UnfoldableView) findViewById(R.id.activity_bbs_photoshow_uv);
-        Bitmap glance = ((BitmapDrawable) getResources().getDrawable(
-                R.drawable.foldable_unfold_glance)).getBitmap();
-        mUnfoldableView.setFoldShading(new GlanceFoldShading(this, glance));
+        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(
+                R.drawable.foldable_unfold_glance);
+        Bitmap glance = null;
+        if (drawable != null) {
+            glance = drawable.getBitmap();
+        }
+        if (glance != null) {
+            mUnfoldableView.setFoldShading(new GlanceFoldShading(this, glance));
+        }
         mUnfoldableView.setOnFoldingListener(this);
 
-        mView = (View) findViewById(R.id.activity_bbs_photoshow_view);
+        mView = findViewById(R.id.activity_bbs_photoshow_view);
         mView.setClickable(false);
 
         mDetailsLLayout = (LinearLayout) findViewById(R.id.activity_bbs_photoshow_ll_details);
@@ -228,7 +233,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
         mPTRLV = (PullToRefreshListView) findViewById(R.id.activity_bbs_photoshow_lv);
         mPTRLV.setOnRefreshListener(this);
         mPTRLV.setShowIndicator(false);
-        mListView = mPTRLV.getRefreshableView();
+        ListView mListView = mPTRLV.getRefreshableView();
         mAdapter = new PaintingsAdapter(this, mList, this);
         mListView.setAdapter(mAdapter);
         // 进度条
@@ -249,7 +254,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 查看帖子内容
-     * 
+     *
      * @param coverView
      * @param painting
      */
@@ -285,7 +290,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 装载内容
-     * 
+     *
      * @param painting
      */
     private void loadContent(Painting painting) {
@@ -322,20 +327,19 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 显示内容
-     * 
+     *
      * @param ll
      * @param html
      */
     private void processContent(LinearLayout ll, String[] html) {
         String[] array = html[0].split("<image");
-        int length = array.length;
 
-        String str = null;
-        int index = 0;
-        String strImg = null;
-        String strHtml = null;
-        for (int i = 0; i < length; i++) {
-            str = array[i].trim();
+        String str;
+        int index;
+        String strImg;
+        String strHtml;
+        for (String anArray : array) {
+            str = anArray.trim();
             if (str.startsWith("=")) {
                 index = str.indexOf(">");
                 if (index > 0) {
@@ -361,7 +365,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 显示图片
-     * 
+     *
      * @param ll
      * @param url
      */
@@ -378,7 +382,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 显示webview
-     * 
+     *
      * @param ll
      * @param html
      */
@@ -416,7 +420,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
     public void onBackPressed() {
         if (mUnfoldableView != null
                 && (mUnfoldableView.isUnfolded() || mUnfoldableView
-                        .isUnfolding())) {
+                .isUnfolding())) {
             mUnfoldableView.foldBack();
             return;
         }
@@ -525,7 +529,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 获取帖子内容的任务类
-     * 
+     *
      * @author sollian
      */
     class GetContentTask implements Runnable {
@@ -570,7 +574,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
     /**
      * 获取大图片的异步线程类
-     * 
+     *
      * @author sollian
      */
     class GetImageTask extends AsyncTask<Void, Integer, byte[]> {
@@ -591,7 +595,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
         @Override
         protected byte[] doInBackground(Void... params) {
-            byte[] data = null;
+            byte[] data;
             try {
                 // 判断是否是论坛图片
                 String strUrl = url;
@@ -633,7 +637,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
                 }
                 Options option = new Options();
                 option.inJustDecodeBounds = true;
-                Bitmap bmp = BitmapFactory.decodeByteArray(result, 0,
+                Bitmap bmp;
+                BitmapFactory.decodeByteArray(result, 0,
                         result.length, option);
                 int height = option.outHeight;
                 int width = option.outWidth;
@@ -663,11 +668,13 @@ public class BBSPhotoShowActivity extends BaseActivity implements
                     ll.removeAllViews();
                     ll.addView(ive);
                 } catch (OutOfMemoryError e) {
+                    e.printStackTrace();
                     try {
                         bmp = BitmapFactory.decodeByteArray(result, 0,
                                 result.length, option);
                         iv.setImageBitmap(bmp);
                     } catch (OutOfMemoryError e1) {
+                        e1.printStackTrace();
                     }
                 }
             } else {
@@ -680,7 +687,7 @@ public class BBSPhotoShowActivity extends BaseActivity implements
 
         /**
          * 获取图片的方法
-         * 
+         *
          * @param url
          * @return
          * @throws Exception
@@ -690,9 +697,8 @@ public class BBSPhotoShowActivity extends BaseActivity implements
             if (url.contains(BBSManager.API_HEAD)) {
                 url += BBSManager.FORMAT + "?appkey=" + BBSManager.APPKEY;
             }
-            byte[] data = HttpManager.getInstance(getBaseContext())
+            return HttpManager.getInstance(getBaseContext())
                     .getHttpByte(getBaseContext(), url);
-            return data;
         }
     }
 

@@ -19,24 +19,24 @@ class ConsumeInfo {
     public String remain;
 
     public static int parseHtml(List<ConsumeInfo> list, Document doc) {
-        if(doc == null) {
+        if (doc == null) {
             return 0;
         }
-        if(list == null) {
-            list = new ArrayList<ConsumeInfo>();
+        if (list == null) {
+            list = new ArrayList<>();
         }
         Elements table = doc.select("table#GridView1").select("tr");
         int size = table.size();
-        if(size < 2) {
+        if (size < 2) {
             return 0;
         }
-        Element tr = null;
-        Elements td2 = null;
-        ConsumeInfo info = null;
-        for(int i = 1; i < size - 1; i++) {
+        Element tr;
+        Elements td2;
+        ConsumeInfo info;
+        for (int i = 1; i < size - 1; i++) {
             tr = table.get(i);
             td2 = tr.children();
-            if(td2.size() != 3) {
+            if (td2.size() != 3) {
                 continue;
             }
             info = new ConsumeInfo();

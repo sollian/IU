@@ -31,8 +31,6 @@ import external.otherview.ActivitySplitAnimationUtil;
 public class IptvListActivity extends BaseActivity implements OnItemClickListener {
 
     private ChanelAdapter mAdapter;
-    private PullToRefreshListView mPTRLV;
-    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +59,13 @@ public class IptvListActivity extends BaseActivity implements OnItemClickListene
 
     @SuppressWarnings("deprecation")
     private void init() {
-        mPTRLV = (PullToRefreshListView) findViewById(R.id.ptrlv);
+        PullToRefreshListView mPTRLV = (PullToRefreshListView) findViewById(R.id.ptrlv);
         mPTRLV.setShowIndicator(false);
         mPTRLV.setPullLabel("", Mode.BOTH);
         mPTRLV.setRefreshingLabel("", Mode.BOTH);
         mPTRLV.setReleaseLabel("", Mode.BOTH);
         mPTRLV.setLoadingDrawable(null, Mode.BOTH);
-        mListView = mPTRLV.getRefreshableView();
+        ListView mListView = mPTRLV.getRefreshableView();
 
         Collections.sort(IptvManager.mChanelList, new Comparator<Chanel>() {
             @Override
@@ -91,7 +89,7 @@ public class IptvListActivity extends BaseActivity implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Chanel chanel = IptvManager.mChanelList.get(position - 1);
-        
+
         chanel.frequency++;
         IptvManager.getInstance(getBaseContext()).saveChanelFrequency(chanel);
 
@@ -99,7 +97,7 @@ public class IptvListActivity extends BaseActivity implements OnItemClickListene
         intent.putExtra(IptvViewBufferActivity.KEY_CHANEL, chanel);
         ActivityFunc.startActivity(IptvListActivity.this, intent);
     }
-    
+
     public void selfFinish(View view) {
         if (Build.VERSION.SDK_INT >= 14) {
             ActivitySplitAnimationUtil.finish(this);
@@ -107,7 +105,7 @@ public class IptvListActivity extends BaseActivity implements OnItemClickListene
             scrollToFinishActivity();
         }
     }
-    
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // 按下键盘上返回按钮
@@ -117,7 +115,7 @@ public class IptvListActivity extends BaseActivity implements OnItemClickListene
         }
         return super.onKeyDown(keyCode, event);
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();

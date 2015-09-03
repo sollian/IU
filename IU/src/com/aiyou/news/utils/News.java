@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class News implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 0x1211;
     public static final String IS_FILE = "is_file";

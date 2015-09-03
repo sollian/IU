@@ -18,7 +18,7 @@ import android.os.Message;
 
 /**
  * 检查是否有新邮件、新回复、新@的服务
- * 
+ *
  * @author sollian
  */
 public class BBSService extends Service {

@@ -4,6 +4,7 @@ package com.aiyou.bbs.bean;
 import java.io.Serializable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -18,13 +19,10 @@ import com.aiyou.utils.time.TimeUtils;
 
 /**
  * 提醒元数据
- * 
+ *
  * @author sollian
  */
 public class Refer implements Serializable, AdapterInterface {
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 11113L;
 
     private static final String API_REFER = BBSManager.API_HEAD + "/refer/";
@@ -35,7 +33,7 @@ public class Refer implements Serializable, AdapterInterface {
 
         private String mType;
 
-        private ReferType(String type) {
+        ReferType(String type) {
             mType = type;
         }
 
@@ -43,7 +41,7 @@ public class Refer implements Serializable, AdapterInterface {
         public String toString() {
             return mType;
         }
-    };
+    }
 
     // 提醒编号，此编号用于提醒的相关操作
     public int index = -1;
@@ -109,9 +107,11 @@ public class Refer implements Serializable, AdapterInterface {
             if ("null".equals(user.id)) {
                 user.id = "原帖已删除";
             }
-
-            pagination = new Pagination(JsonHelper.getJSONObject(jsonObject,
-                    "pagination").toString());
+            JSONObject jsonObject1 = JsonHelper.getJSONObject(jsonObject,
+                    "pagination");
+            if (jsonObject1 != null) {
+                pagination = new Pagination(jsonObject1.toString());
+            }
             JSONArray jsonArray = JsonHelper.getJSONArray(jsonObject, "article");
             if (null != jsonArray) {
                 int length = jsonArray.length();
@@ -120,13 +120,14 @@ public class Refer implements Serializable, AdapterInterface {
                     refers[i] = new Refer(jsonArray.opt(i).toString());
                 }
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取指定提醒类型列表
-     * 
+     *
      * @param type
      * @return
      */
@@ -136,7 +137,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 获取指定提醒类型列表
-     * 
+     *
      * @param type
      * @param page 提醒列表的页数
      * @return
@@ -150,7 +151,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 获取指定类型提醒的属性信息
-     * 
+     *
      * @param type
      * @return
      */
@@ -162,7 +163,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 设置所有提醒为已读
-     * 
+     *
      * @param type
      * @return
      */
@@ -173,7 +174,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 设置指定提醒为已读
-     * 
+     *
      * @param type
      * @param index 提醒的索引，为提醒元数据中的index值。如果此参数不存在则设置此类型的所有提醒已读
      * @return
@@ -186,7 +187,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 删除指定提醒
-     * 
+     *
      * @param type
      * @return
      * @throws Exception
@@ -198,7 +199,7 @@ public class Refer implements Serializable, AdapterInterface {
 
     /**
      * 删除指定提醒
-     * 
+     *
      * @param type
      * @param index 提醒的索引，为提醒元数据中的index值。如果此参数不存在则删除此类型的所有提醒
      * @return

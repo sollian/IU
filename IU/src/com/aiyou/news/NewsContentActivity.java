@@ -24,6 +24,7 @@ import com.aiyou.viewLargeImage.ViewLargeImageActivity;
 import external.otherview.BounceScrollView;
 import external.otherview.Win8ProgressBar;
 import external.smartimageview.SmartImageView;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +47,7 @@ import android.widget.ImageView.ScaleType;
 
 /**
  * 显示信息门户、北邮要闻、论坛RSS内容的Activity
- * 
+ *
  * @author sollian
  */
 @SuppressWarnings("deprecation")
@@ -60,7 +61,7 @@ public class NewsContentActivity extends BaseActivity implements
 
     private News mNews;
 
-    private ArrayList<String> mImgUrlList = new ArrayList<String>();
+    private ArrayList<String> mImgUrlList = new ArrayList<>();
 
     private int mImgId = 0;
 
@@ -72,8 +73,6 @@ public class NewsContentActivity extends BaseActivity implements
     // 标题
     private LinearLayout mTitleLLayout;
     private ScrollTextView mTitleSTV;
-    // 滚动布局
-    private BounceScrollView mBounceSV;
     // 内容
     private LinearLayout mContentLLayout;
     // 进度条
@@ -108,23 +107,23 @@ public class NewsContentActivity extends BaseActivity implements
         // 分享
         ShareTask task = new ShareTask(NewsContentActivity.this, mNews.title,
                 mNews.url, new ShareTask.ShareListener() {
-                    @Override
-                    public void onShareStart() {
-                        showProgress(true);
-                    }
+            @Override
+            public void onShareStart() {
+                showProgress(true);
+            }
 
-                    @Override
-                    public void onShareFinish(Boolean success) {
-                        showProgress(false);
-                    }
-                });
+            @Override
+            public void onShareFinish(Boolean success) {
+                showProgress(false);
+            }
+        });
         task.execute();
         mMenuFLayout.setVisibility(View.GONE);
     }
 
     /**
      * 网址复制
-     * 
+     *
      * @param view
      */
     public void onCopy(View view) {
@@ -187,9 +186,8 @@ public class NewsContentActivity extends BaseActivity implements
 
     /**
      * 处理WebView显示内容的方法
-     * 
-     * @param wvContent
-     *            要处理得内容
+     *
+     * @param wvContent 要处理得内容
      */
     private void processWebView(String wvContent) {
         String tableArr[];
@@ -213,7 +211,7 @@ public class NewsContentActivity extends BaseActivity implements
             outerHtml = doc.outerHtml();
             text = doc.text();
             text = AiYouManager.getTxtWithoutNTSRElement(text, "");// 去掉非显示字符
-            if (text != "") {
+            if (!"".equals(text)) {
                 WebView wv = new WebView(NewsContentActivity.this);
                 // 取消硬件加速，否则会闪屏——奇怪的是该设置导致文字显示不出来，不知为甚
                 // wv.setLayerType(WebView.LAYER_TYPE_SOFTWARE, paint);
@@ -263,9 +261,8 @@ public class NewsContentActivity extends BaseActivity implements
 
     /**
      * 显示图片的方法
-     * 
-     * @param imgSrc
-     *            图片路径
+     *
+     * @param imgSrc 图片路径
      */
     private void processImage(String imgSrc) {
         SmartImageView siv = new SmartImageView(NewsContentActivity.this);
@@ -307,7 +304,7 @@ public class NewsContentActivity extends BaseActivity implements
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -369,11 +366,11 @@ public class NewsContentActivity extends BaseActivity implements
 
     /**
      * 是否显示标题栏
-     * 
+     *
      * @param flag
      */
     private void showTitle(final boolean flag) {
-        Animation anim = null;
+        Animation anim;
         mTitleLLayout.setTag("anim");
         if (flag) {
             anim = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_top);
@@ -416,7 +413,7 @@ public class NewsContentActivity extends BaseActivity implements
         mTitleLLayout = (LinearLayout) findViewById(R.id.content_ll_custom_head);
         mTitleSTV = (ScrollTextView) findViewById(R.id.activity_newscontent_stv_title);
 
-        mBounceSV = (BounceScrollView) findViewById(R.id.activity_newscontent_sv);
+        BounceScrollView mBounceSV = (BounceScrollView) findViewById(R.id.activity_newscontent_sv);
         mBounceSV.setOnScrollListener(this);
         mContentLLayout = (LinearLayout) findViewById(R.id.activity_newscontent_ll_content);
         /**

@@ -46,6 +46,7 @@ class BasicInfo {
      * 部门
      */
     public String department;
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

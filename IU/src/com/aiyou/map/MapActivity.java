@@ -85,9 +85,9 @@ public class MapActivity extends BaseActivity implements
     private BaiduMap mBaiduMap;
     private String mSearchType = "全部";
 
-    private Set<Marker> mMarkerSet = new HashSet<Marker>();
+    private Set<Marker> mMarkerSet = new HashSet<>();
 
-    private Set<BitmapDescriptor> mBmpDescSet = new HashSet<BitmapDescriptor>();
+    private Set<BitmapDescriptor> mBmpDescSet = new HashSet<>();
     private BitmapDescriptor mBdGround = BitmapDescriptorFactory
             .fromResource(R.drawable.map_ground_overlay);
 
@@ -106,10 +106,6 @@ public class MapActivity extends BaseActivity implements
     private LatLng mCurPosition;
     private boolean mFlagUpdateCurPos = false;
     private Marker mMarkerDst;
-    /**
-     * 控件
-     */
-    private Spinner mSpinner;
     private TextView mClearTV;
     // MapView 是地图主控件
     private MapView mMapView;
@@ -278,27 +274,27 @@ public class MapActivity extends BaseActivity implements
             public void onClick(View v) {
                 // 设置定位模式
                 switch (mCurrentMode) {
-                case NORMAL:
-                    ((TextView) v).setText("跟随");
-                    mCurrentMode = LocationMode.FOLLOWING;
-                    mBaiduMap
-                            .setMyLocationConfigeration(new MyLocationConfiguration(
-                                    mCurrentMode, true, null));
-                    break;
-                case COMPASS:
-                    ((TextView) v).setText("普通");
-                    mCurrentMode = LocationMode.NORMAL;
-                    mBaiduMap
-                            .setMyLocationConfigeration(new MyLocationConfiguration(
-                                    mCurrentMode, true, null));
-                    break;
-                case FOLLOWING:
-                    ((TextView) v).setText("罗盘");
-                    mCurrentMode = LocationMode.COMPASS;
-                    mBaiduMap
-                            .setMyLocationConfigeration(new MyLocationConfiguration(
-                                    mCurrentMode, true, null));
-                    break;
+                    case NORMAL:
+                        ((TextView) v).setText("跟随");
+                        mCurrentMode = LocationMode.FOLLOWING;
+                        mBaiduMap
+                                .setMyLocationConfigeration(new MyLocationConfiguration(
+                                        mCurrentMode, true, null));
+                        break;
+                    case COMPASS:
+                        ((TextView) v).setText("普通");
+                        mCurrentMode = LocationMode.NORMAL;
+                        mBaiduMap
+                                .setMyLocationConfigeration(new MyLocationConfiguration(
+                                        mCurrentMode, true, null));
+                        break;
+                    case FOLLOWING:
+                        ((TextView) v).setText("罗盘");
+                        mCurrentMode = LocationMode.COMPASS;
+                        mBaiduMap
+                                .setMyLocationConfigeration(new MyLocationConfiguration(
+                                        mCurrentMode, true, null));
+                        break;
                 }
             }
         };
@@ -318,10 +314,10 @@ public class MapActivity extends BaseActivity implements
 
     private void initOverlay() {
         MapData[] datas = MapHelper.getMapDatas();
-        Marker marker = null;
-        Bundle bundle = null;
+        Marker marker;
+        Bundle bundle;
         mMarkerSet.clear();
-        BitmapDescriptor descriptor = null;
+        BitmapDescriptor descriptor;
         for (MapData data : datas) {
             descriptor = BitmapDescriptorFactory.fromResource(data.getDescId());
             mBmpDescSet.add(descriptor);
@@ -352,7 +348,7 @@ public class MapActivity extends BaseActivity implements
     }
 
     private void updateOverlay() {
-        String type = null;
+        String type;
         for (Marker marker : mMarkerSet) {
             type = marker.getExtraInfo().getString("type");
             if (mSearchType.equals("全部") || mSearchType.equals(type)) {
@@ -381,12 +377,15 @@ public class MapActivity extends BaseActivity implements
     }
 
     private void initSpinner() {
-        mSpinner = (Spinner) findViewById(R.id.activity_map_sp);
+        /*
+      控件
+     */
+        Spinner mSpinner = (Spinner) findViewById(R.id.activity_map_sp);
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("全部");
         DataType[] dataTypes = DataType.values();
-        String strType = null;
+        String strType;
         for (DataType type : dataTypes) {
             strType = type.getType();
             if (!list.contains(strType)) {
@@ -399,7 +398,7 @@ public class MapActivity extends BaseActivity implements
         mSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v,
-                    int position, long id) {
+                                       int position, long id) {
                 mBaiduMap.hideInfoWindow();
                 mSearchType = parent.getItemAtPosition(position).toString();
                 if (mClearTV.getVisibility() == View.VISIBLE) {
@@ -416,7 +415,7 @@ public class MapActivity extends BaseActivity implements
 
     /**
      * 重新添加Overlay
-     * 
+     *
      * @param view
      */
     public void resetOverlay(View view) {
@@ -426,7 +425,7 @@ public class MapActivity extends BaseActivity implements
 
     /**
      * 清除所有Overlay
-     * 
+     *
      * @param view
      */
     public void clearOverlay(View view) {
@@ -440,7 +439,7 @@ public class MapActivity extends BaseActivity implements
 
     /**
      * 发起路线规划搜索示例
-     * 
+     *
      * @param v
      */
     public void SearchButtonProcess(View v) {
@@ -457,7 +456,7 @@ public class MapActivity extends BaseActivity implements
 
     /**
      * 节点浏览示例
-     * 
+     *
      * @param v
      */
     @SuppressLint("InflateParams")
@@ -516,6 +515,7 @@ public class MapActivity extends BaseActivity implements
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             Toast.makeText(getBaseContext(), "抱歉，未找到结果", Toast.LENGTH_SHORT)
                     .show();
+            return;
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
@@ -544,6 +544,7 @@ public class MapActivity extends BaseActivity implements
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             Toast.makeText(getBaseContext(), "抱歉，未找到结果", Toast.LENGTH_SHORT)
                     .show();
+            return;
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
@@ -571,6 +572,7 @@ public class MapActivity extends BaseActivity implements
         if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
             Toast.makeText(getBaseContext(), "抱歉，未找到结果", Toast.LENGTH_SHORT)
                     .show();
+            return;
         }
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
@@ -606,7 +608,7 @@ public class MapActivity extends BaseActivity implements
 
     /**
      * 查看全景图
-     * 
+     *
      * @param view
      */
     public void panoramaView(View view) {
@@ -627,7 +629,7 @@ public class MapActivity extends BaseActivity implements
                 return;
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
-                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                            // 此处设置开发者获取到的方向信息，顺时针0-360
                     .direction(100).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);

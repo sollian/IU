@@ -14,6 +14,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.view.ViewHelper;
 
 import external.otherview.CircleImageView;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -266,15 +267,15 @@ public class UserInfoLayout extends ScrollView {
         int startR = (startInt >> 16) & 0xff;
         int startG = (startInt >> 8) & 0xff;
         int startB = startInt & 0xff;
-        int endInt = (Integer) endValue;
+        int endInt = endValue;
         int endA = (endInt >> 24) & 0xff;
         int endR = (endInt >> 16) & 0xff;
         int endG = (endInt >> 8) & 0xff;
         int endB = endInt & 0xff;
-        return (int) ((startA + (int) (fraction * (endA - startA))) << 24)
-                | (int) ((startR + (int) (fraction * (endR - startR))) << 16)
-                | (int) ((startG + (int) (fraction * (endG - startG))) << 8)
-                | (int) ((startB + (int) (fraction * (endB - startB))));
+        return (startA + (int) (fraction * (endA - startA))) << 24
+                | (startR + (int) (fraction * (endR - startR))) << 16
+                | (startG + (int) (fraction * (endG - startG))) << 8
+                | (startB + (int) (fraction * (endB - startB)));
     }
 
     public void setT(int t) {
@@ -437,7 +438,7 @@ public class UserInfoLayout extends ScrollView {
             mLevelTV.setText(user.level);
         }
         // 是否在线
-        if (false == user.is_online) {
+        if (!user.is_online) {
             mOnlineTV.setText("否");
         } else {
             mOnlineTV.setText("是");
@@ -472,8 +473,7 @@ public class UserInfoLayout extends ScrollView {
         timeStamp *= 1000;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                 Locale.CHINA);
-        String date = sdf.format(timeStamp);
-        return date;
+        return sdf.format(timeStamp);
     }
 
     private void init() {

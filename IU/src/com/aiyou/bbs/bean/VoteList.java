@@ -13,7 +13,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 投票列表
- * 
+ *
  * @author sollian
  */
 public class VoteList {
@@ -27,7 +27,7 @@ public class VoteList {
 
         private String mType;
 
-        private VoteType(String type) {
+        VoteType(String type) {
             mType = type;
         }
 
@@ -35,7 +35,7 @@ public class VoteList {
         public String toString() {
             return mType;
         }
-    };
+    }
 
     // 所查询的投票列表的投票元数据构成的数组
     public Vote[] votes;
@@ -60,12 +60,13 @@ public class VoteList {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取投票列表
-     * 
+     *
      * @param type
      * @return
      */
@@ -75,7 +76,7 @@ public class VoteList {
 
     /**
      * 获取投票列表
-     * 
+     *
      * @param type
      * @param page
      * @return

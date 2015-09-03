@@ -14,7 +14,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 查询元数据
- * 
+ *
  * @author sollian
  */
 public class Search {
@@ -43,14 +43,15 @@ public class Search {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 搜索单个版面的主题
-     * 
-     * @param board 单个合法版面
-     * @param str 文章标题/作者包含此关键词
+     *
+     * @param board   单个合法版面
+     * @param str     文章标题/作者包含此关键词
      * @param isTitle true：标题；false：作者
      * @return
      */
@@ -60,16 +61,16 @@ public class Search {
 
     /**
      * 搜索单个版面的主题
-     * 
-     * @param board 单个合法版面
-     * @param str 文章标题/作者包含此关键词
+     *
+     * @param board   单个合法版面
+     * @param str     文章标题/作者包含此关键词
      * @param isTitle true：标题；false：作者
-     * @param page 文章的页数
+     * @param page    文章的页数
      * @return
      */
     public static String getSearch(Context context, String board, String str, boolean isTitle,
-            int page) {
-        String url = null;
+                                   int page) {
+        String url;
         str = AiYouManager.getTxtWithoutNTSRElement(str, "");
         if (isTitle) {
             url = API_SEARCH + "?appkey="

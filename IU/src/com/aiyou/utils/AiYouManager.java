@@ -70,7 +70,7 @@ public class AiYouManager {
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     * 
+     *
      * @param dpValue
      * @return
      */
@@ -81,7 +81,7 @@ public class AiYouManager {
 
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     * 
+     *
      * @param pxValue
      * @return
      */
@@ -92,10 +92,8 @@ public class AiYouManager {
 
     /**
      * 将sp值转换为px值，保证文字大小不变
-     * 
+     *
      * @param spValue
-     * @param fontScale
-     *            （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public int sp2px(float spValue) {
@@ -105,9 +103,8 @@ public class AiYouManager {
 
     /**
      * 震动
-     * 
-     * @param duration
-     *            持续时间
+     *
+     * @param duration 持续时间
      */
     public void vibrate(long duration) {
         Vibrator vibrator = (Vibrator) mContext
@@ -120,11 +117,9 @@ public class AiYouManager {
 
     /**
      * 去除字符串中的空格、回车、换行符、制表符、问号 和非法字符（非Asccll码）
-     * 
-     * @param str
-     *            要处理的字符串
-     * @param strReplace
-     *            用该字符替换
+     *
+     * @param str        要处理的字符串
+     * @param strReplace 用该字符替换
      * @return 处理过的字符串
      */
     public static String getTxtWithoutNTSRElement(String str, String strReplace) {
@@ -141,14 +136,13 @@ public class AiYouManager {
 
     /**
      * 显示|隐藏输入法
-     * 
+     *
      * @param activity
-     * @param state
-     *            要设置的状态
+     * @param state    要设置的状态
      * @param view
      */
     public static void viewInputMethod(Activity activity, boolean state,
-            View view) {
+                                       View view) {
         InputMethodManager inputManager = (InputMethodManager) activity
                 .getApplication()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -163,7 +157,7 @@ public class AiYouManager {
 
     /**
      * 获取模糊图像
-     * 
+     *
      * @param activity
      * @return
      */
@@ -179,7 +173,7 @@ public class AiYouManager {
 
     /**
      * 获取屏幕快照
-     * 
+     *
      * @param activity
      * @return
      */

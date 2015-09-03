@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 
 /**
  * 获取大图片的异步线程类
- * 
+ *
  * @author sollian
  */
 public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
@@ -31,12 +31,12 @@ public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
         if (mListener != null) {
             mListener.onStartProgress();
         }
-        publishProgress(1);
     }
 
     @Override
     protected byte[] doInBackground(Void... params) {
-        byte[] data = null;
+        publishProgress(1);
+        byte[] data;
         if (isCancelled()) {
             return null;
         }
@@ -94,7 +94,7 @@ public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
 
     /**
      * 发送进度信息
-     * 
+     *
      * @param start
      * @param end
      * @return
@@ -116,13 +116,13 @@ public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
 
     /**
      * 获取图片的方法
-     * 
+     *
      * @param url
      * @return
      * @throws Exception
      */
     public byte[] getBmpByUrl(String url) {
-        byte[] data = null;
+        byte[] data;
         if (url.contains(BBSManager.API_HEAD)) {
             // 论坛图片
             url += BBSManager.FORMAT + "?appkey=" + BBSManager.APPKEY;
@@ -132,10 +132,10 @@ public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
     }
 
     public interface ProgressListener {
-        public void onStartProgress();
+        void onStartProgress();
 
-        public void onProgress(int progress);
+        void onProgress(int progress);
 
-        public void onFinishProgress(byte[] result);
+        void onFinishProgress(byte[] result);
     }
 }

@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 /**
  * 信息门户、北邮要闻的adapter类
- * 
+ *
  * @author sollian
  */
 public class NewsListAdapter extends BaseAdapter {
@@ -32,7 +32,7 @@ public class NewsListAdapter extends BaseAdapter {
 
     // 构造函数
     public NewsListAdapter(Context context,
-            List<News> list) {
+                           List<News> list) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mList = list;

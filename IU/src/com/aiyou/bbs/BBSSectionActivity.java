@@ -25,6 +25,7 @@ import external.PullToRefresh.PullToRefreshBase.Mode;
 import external.PullToRefresh.PullToRefreshBase.OnRefreshListener2;
 import external.shimmer.Shimmer;
 import external.shimmer.ShimmerTextView;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,12 +45,12 @@ import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 分区列表
- * 
+ *
  * @author sollian
  */
 public class BBSSectionActivity extends BaseActivity implements
         OnItemClickListener, OnRefreshListener2<ListView>, SelectFavoriteListener {
-    public static List<TreeElement> mTreeListElements = new ArrayList<TreeElement>();
+    public static List<TreeElement> mTreeListElements = new ArrayList<>();
 
     public static final String KEY_NAME = "name";
     public static final String KEY_DESC = "desc";
@@ -135,7 +136,7 @@ public class BBSSectionActivity extends BaseActivity implements
          * 设置背景
          */
         LinearLayout ll = (LinearLayout) findViewById(R.id.activity_bbssection_ll_section);
-        Bitmap bmp = (Bitmap) (getIntent().getParcelableExtra(ActivityFunc.KEY_BACKGROUND));
+        Bitmap bmp = getIntent().getParcelableExtra(ActivityFunc.KEY_BACKGROUND);
         if (null != bmp) {
             Drawable drawable = new BitmapDrawable(bmp);
             ll.setBackgroundDrawable(drawable);
@@ -170,7 +171,7 @@ public class BBSSectionActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         if (!mTreeListElements.get(position - 1).mIsSection) {
             /**
              * 选择一个版面浏览后禁用lv，防止逻辑混乱
@@ -197,7 +198,7 @@ public class BBSSectionActivity extends BaseActivity implements
         if (mTreeListElements.get(position).mIsExpanded) {
             mTreeListElements.get(position).mIsExpanded = false;
             TreeElement element = mTreeListElements.get(position);
-            ArrayList<TreeElement> temp = new ArrayList<TreeElement>();
+            ArrayList<TreeElement> temp = new ArrayList<>();
             int len = mTreeListElements.size();
             for (int i = position + 1; i < len; i++) {
                 if (element.mLevel >= mTreeListElements.get(i).mLevel) {
@@ -269,7 +270,7 @@ public class BBSSectionActivity extends BaseActivity implements
                 }
                 // 不是 错误信息
                 Section section = new Section(strJson);
-                if (section != null && null != mHandler) {
+                if (null != mHandler) {
                     Message msg = mHandler.obtainMessage(MSG_GET_SECTION);
                     Bundle data = msg.getData();
                     data.putSerializable(KEY_DATA, section);
@@ -281,8 +282,7 @@ public class BBSSectionActivity extends BaseActivity implements
 
     /**
      * 更新treeListElements,调用之前应该先更新nSectionPostion
-     * 
-     * @param position
+     *
      */
     private void updateTreeElements(Section section) {
         TreeElement tempElement = mTreeListElements.get(mSectionPostion);
@@ -310,7 +310,7 @@ public class BBSSectionActivity extends BaseActivity implements
         if (tempElement.mLevel == 0) {
             // 折叠所有项
             boolean flag = true;
-            ArrayList<TreeElement> tempList = new ArrayList<TreeElement>();
+            ArrayList<TreeElement> tempList = new ArrayList<>();
             for (TreeElement element : mTreeListElements) {
                 if (element.mName.equals(tempElement.mName)) {
                     flag = false;
@@ -327,7 +327,6 @@ public class BBSSectionActivity extends BaseActivity implements
             }
             mTreeListElements.removeAll(tempList);
             tempList.clear();
-            tempList = null;
         }
         // 显示展开项
         int position = mSectionPostion;

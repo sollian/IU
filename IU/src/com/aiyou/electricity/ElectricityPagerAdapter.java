@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 class ElectricityPagerAdapter extends PagerAdapter {
     private List<View> mList;
-    
+
     public ElectricityPagerAdapter(Context context, List<View> list) {
         mList = list;
     }
@@ -23,23 +23,23 @@ class ElectricityPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
-    
-    @Override  
-    public void destroyItem(ViewGroup container, int position,  
-            Object object) {  
-        container.removeView(mList.get(position));  
-    }  
 
-    @Override  
-    public int getItemPosition(Object object) {  
+    @Override
+    public void destroyItem(ViewGroup container, int position,
+                            Object object) {
+        container.removeView(mList.get(position));
+    }
 
-        return super.getItemPosition(object);  
-    }  
+    @Override
+    public int getItemPosition(Object object) {
 
-    @Override  
-    public Object instantiateItem(ViewGroup container, int position) {  
-        container.addView(mList.get(position));  
-        return mList.get(position);  
-    }  
+        return super.getItemPosition(object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        container.addView(mList.get(position));
+        return mList.get(position);
+    }
 
 }

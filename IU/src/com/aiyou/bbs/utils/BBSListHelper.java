@@ -18,13 +18,13 @@ import com.aiyou.bbs.bean.Widget;
 
 /**
  * BBSListActivity的辅助类，
- * 
+ *
  * @author sollian
  */
 public class BBSListHelper {
     public enum BeanType {
         WIDGET, BOARD, REFER, SEARCH, VOTELIST, MAILBOX, COLLECT;
-    };
+    }
 
     /**
      * 版面名称
@@ -141,7 +141,7 @@ public class BBSListHelper {
 
     /**
      * 获取列表
-     * 
+     *
      * @return
      */
     @SuppressWarnings("rawtypes")
@@ -188,7 +188,7 @@ public class BBSListHelper {
 
     /**
      * 获取标题
-     * 
+     *
      * @return
      */
     public String getTitle() {
@@ -228,7 +228,7 @@ public class BBSListHelper {
 
     /**
      * 获取总页数
-     * 
+     *
      * @return
      */
     public int getPageTotal() {
@@ -271,7 +271,7 @@ public class BBSListHelper {
 
     /**
      * 获取当前页数
-     * 
+     *
      * @return
      */
     public int getPageCurrent() {

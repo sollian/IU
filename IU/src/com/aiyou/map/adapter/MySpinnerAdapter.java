@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 /**
  * 地图显示不同地点的spinner的adapter
- * 
+ *
  * @author sollian
  */
 public class MySpinnerAdapter extends BaseAdapter {
@@ -25,7 +25,7 @@ public class MySpinnerAdapter extends BaseAdapter {
     private String mColor;
 
     public MySpinnerAdapter(Context context, List<String> list,
-            String color) {
+                            String color) {
         this.mList = list;
         this.mInflater = LayoutInflater.from(context);
         this.mColor = color;

@@ -11,7 +11,7 @@ import android.webkit.WebSettings.PluginState;
 
 /**
  * 版本更新与功能介绍
- * 
+ *
  * @author sollian
  */
 public class HelpActivity extends BaseActivity {
@@ -28,7 +28,8 @@ public class HelpActivity extends BaseActivity {
         init();
     }
 
-    @SuppressLint("SetJavaScriptEnabled") @SuppressWarnings("deprecation")
+    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressWarnings("deprecation")
     private void init() {
         mWebView = (WebView) findViewById(R.id.wv);
         WebSettings setting = mWebView.getSettings();
@@ -43,7 +44,7 @@ public class HelpActivity extends BaseActivity {
 
     /**
      * 按左上角返回键调用的方法
-     * 
+     *
      * @param view
      */
     public void selfFinish(View view) {
@@ -63,5 +64,6 @@ public class HelpActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mWebView.destroy();
     }
 }

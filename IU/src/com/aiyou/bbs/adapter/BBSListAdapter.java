@@ -276,6 +276,6 @@ public class BBSListAdapter extends BaseAdapter {
     }
 
     public interface OnRayMenuClickListener {
-        public void onRayMenuClick(int position);
+        void onRayMenuClick(int position);
     }
 }

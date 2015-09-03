@@ -36,15 +36,15 @@ public class NetWorkManager {
         NETTYPE_CMWAP,
         // net链接
         NETTYPE_CMNET,
-    };
+    }
 
     private NetStatus NETWORKSTATUS = NetStatus.NOTHING;
 
     public interface NetStatsChangeListener {
-        public void onNetStatsChange();
+        void onNetStatsChange();
     }
 
-    private ConcurrentHashSet<NetStatsChangeListener> mListenerSet = new ConcurrentHashSet<NetStatsChangeListener>();
+    private ConcurrentHashSet<NetStatsChangeListener> mListenerSet = new ConcurrentHashSet<>();
 
     private BroadcastReceiver mConnectionReceiver = new BroadcastReceiver() {
         @Override
@@ -106,7 +106,7 @@ public class NetWorkManager {
 
     /**
      * 获取当前网络类型
-     * 
+     *
      * @return
      */
     public NetStatus getNetworkType() {
@@ -115,7 +115,7 @@ public class NetWorkManager {
 
     /**
      * 获取当前网络类型
-     * 
+     *
      * @return
      */
     public NetStatus getNetworkType(Context context) {
@@ -127,8 +127,7 @@ public class NetWorkManager {
 
     /**
      * 设置网络类型
-     * 
-     * @param status
+     *
      */
     public void setNetworkType() {
         NETWORKSTATUS = updateNetworkType(mContext);

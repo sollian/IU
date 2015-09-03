@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * BBS分区列表用到的bean
- * 
+ *
  * @author sollian
  */
 public class TreeElement {
@@ -15,11 +15,11 @@ public class TreeElement {
     public boolean mHasChild = false;
     public boolean mIsExpanded = false;
     public int mLevel = 0;
-    public ArrayList<TreeElement> mChildList = new ArrayList<TreeElement>();
+    public ArrayList<TreeElement> mChildList = new ArrayList<>();
 
     /**
      * 添加子分区
-     * 
+     *
      * @param c
      */
     public void addChild(TreeElement c) {

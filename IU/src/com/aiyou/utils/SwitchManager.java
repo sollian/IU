@@ -35,7 +35,7 @@ public class SwitchManager {
     static {
         KEY_SHOW_WELCOME = "show_welcome_"
                 + AiYouManager.getInstance(AiYouApplication.getInstance())
-                        .getAppVersionName();
+                .getAppVersionName();
     }
 
     private SwitchManager(Context context) {
@@ -56,7 +56,7 @@ public class SwitchManager {
 
     /**
      * 是否显示欢迎页
-     * 
+     *
      * @return
      */
     public boolean isFirstRun() {
@@ -74,7 +74,7 @@ public class SwitchManager {
 
     /**
      * 是否开启简约模式
-     * 
+     *
      * @param flag
      */
     public void enableSimpleMode(boolean flag) {
@@ -85,7 +85,7 @@ public class SwitchManager {
 
     /**
      * 查询简约模式是否开启
-     * 
+     *
      * @return
      */
     public boolean isSimpleModeEnabled() {
@@ -94,7 +94,7 @@ public class SwitchManager {
 
     /**
      * 是否开启摇一摇分享
-     * 
+     *
      * @return
      */
     public boolean isShakeShareEnabled() {
@@ -103,7 +103,7 @@ public class SwitchManager {
 
     /**
      * 设置是否开启摇一摇分享
-     * 
+     *
      * @param flag
      */
     public void enableShakeShare(boolean flag) {
@@ -114,7 +114,7 @@ public class SwitchManager {
 
     /**
      * 是否显示face_help
-     * 
+     *
      * @return
      */
     public boolean needShowFaceHelp() {
@@ -132,7 +132,7 @@ public class SwitchManager {
 
     /**
      * 是否显示iptv_help
-     * 
+     *
      * @return
      */
     public boolean needShowIptvHelp() {
@@ -150,7 +150,7 @@ public class SwitchManager {
 
     /**
      * 是否显示page_help
-     * 
+     *
      * @return
      */
     public boolean needShowPageHelp() {
@@ -168,7 +168,7 @@ public class SwitchManager {
 
     /**
      * 是否显示贴图秀的帮助
-     * 
+     *
      * @return
      */
     public boolean needShowPhotoShowHelp() {
@@ -186,7 +186,7 @@ public class SwitchManager {
 
     /**
      * 设置夜间模式
-     * 
+     *
      * @param flag
      */
     public void enableNightMode(boolean flag) {
@@ -197,7 +197,7 @@ public class SwitchManager {
 
     /**
      * 查询夜间模式是否开启
-     * 
+     *
      * @return
      */
     public boolean isNightModeEnabled() {
@@ -206,7 +206,7 @@ public class SwitchManager {
 
     /**
      * 设置用户头像是否显示
-     * 
+     *
      * @param flag
      */
     public void enableFace(boolean flag) {
@@ -217,7 +217,7 @@ public class SwitchManager {
 
     /**
      * 查询用户头像是否显示
-     * 
+     *
      * @return
      */
     public boolean isFaceEnabled() {
@@ -226,7 +226,7 @@ public class SwitchManager {
 
     /**
      * 设置图片是否显示
-     * 
+     *
      * @param flag
      */
     public void enableLargeImage(boolean flag) {
@@ -237,7 +237,7 @@ public class SwitchManager {
 
     /**
      * 查询图片是否显示
-     * 
+     *
      * @return
      */
     public boolean isLargeImageEnabled() {
@@ -246,7 +246,7 @@ public class SwitchManager {
 
     /**
      * 设置滑动结束当前Activity
-     * 
+     *
      * @param edge
      */
     public void setSwipeOut(int edge) {
@@ -262,7 +262,6 @@ public class SwitchManager {
     }
 
     /**
-     * 
      * @return
      */
     public int getSwipeOut() {
@@ -271,7 +270,7 @@ public class SwitchManager {
 
     /**
      * 设置仅wifi下更新
-     * 
+     *
      * @param flag
      */
     public void setUpdateOnlyWifi(boolean flag) {

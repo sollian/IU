@@ -10,10 +10,18 @@ apply plugin: 'android'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
+    compile 'com.android.support:support-v4:23.0.0'
+    compile files('libs/BaiduLBS_Android.jar')
 }
 
 android {
     signingConfigs {
+        config {
+            keyAlias 'sollian'
+            keyPassword '123456'
+            storeFile file('D:/android sdk/aiyou.keystore')
+            storePassword '123456'
+        }
     }
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
@@ -26,6 +34,7 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
         }
 
         // Move the tests to tests/java, tests/res, etc...

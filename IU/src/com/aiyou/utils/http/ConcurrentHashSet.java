@@ -1,6 +1,8 @@
 
 package com.aiyou.utils.http;
 
+import android.support.annotation.NonNull;
+
 import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,7 +15,7 @@ public class ConcurrentHashSet<E> extends AbstractSet<E> implements Set<E> {
     private static final Object dummy = new Object();
 
     public ConcurrentHashSet() {
-        theMap = new ConcurrentHashMap<E, Object>();
+        theMap = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -21,6 +23,7 @@ public class ConcurrentHashSet<E> extends AbstractSet<E> implements Set<E> {
         return theMap.size();
     }
 
+    @NonNull
     @Override
     public Iterator<E> iterator() {
         return theMap.keySet().iterator();

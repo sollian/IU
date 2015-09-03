@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 /**
  * BBS工具类 API文档—— https://github.com/xw2423/nForum/wiki/nForum-API
- * 
+ *
  * @author sollian
  */
 public class BBSManager {
@@ -70,16 +70,14 @@ public class BBSManager {
     private SharedPreferences mSharedPref;
 
     private static BBSManager mInstance;
-    private Context mContext;
 
     private String mAppTail;
 
     @SuppressWarnings("deprecation")
     private BBSManager(Context context) {
-        mContext = context;
-        mSharedPref = mContext.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
+        mSharedPref = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
         WebView wv = new WebView(context);
-        mDefaultWvScale = (int)(wv.getScale() * 100);
+        mDefaultWvScale = (int) (wv.getScale() * 100);
     }
 
     public static BBSManager getInstance(Context context) {
@@ -103,7 +101,7 @@ public class BBSManager {
 
     /**
      * 设置webview的scalesize
-     * 
+     *
      * @param size
      */
     public void setWebViewScaleSize(int size) {
@@ -115,7 +113,7 @@ public class BBSManager {
 
     /**
      * 获取webview的scalesize
-     * 
+     *
      * @return
      */
     public int getWebViewScaleSize() {
@@ -127,7 +125,7 @@ public class BBSManager {
 
     /**
      * 设置用户ID和密码
-     * 
+     *
      * @param strId
      * @param strPassword
      */
@@ -156,7 +154,7 @@ public class BBSManager {
 
     /**
      * 获取用户ID
-     * 
+     *
      * @return
      */
     public String getUserId() {
@@ -168,7 +166,7 @@ public class BBSManager {
 
     /**
      * 获取用户密码
-     * 
+     *
      * @return
      */
     public String getUserPassword() {
@@ -180,7 +178,7 @@ public class BBSManager {
 
     /**
      * 设置版面是否允许附件
-     * 
+     *
      * @param board
      * @param flag
      */
@@ -192,7 +190,7 @@ public class BBSManager {
 
     /**
      * 查询版面是否允许附件
-     * 
+     *
      * @param board
      * @return
      */
@@ -202,11 +200,11 @@ public class BBSManager {
 
     /**
      * 获取收藏的文章
-     * 
+     *
      * @return 收藏的文章数组
      */
     public static Article[] getArticleCollect() {
-        Article[] article = null;
+        Article[] article;
         SharedPreferences database = AiYouApplication.getInstance().getSharedPreferences(
                 SP_BBS_COLLECT, Context.MODE_PRIVATE);
         @SuppressWarnings("unchecked")
@@ -233,8 +231,7 @@ public class BBSManager {
 
     /**
      * 删除某一条收藏
-     * 
-     * @param key
+     *
      */
     public static void deleteArticleCollect(Article article) {
         SharedPreferences database = AiYouApplication.getInstance().getSharedPreferences(
@@ -249,7 +246,7 @@ public class BBSManager {
 
     /**
      * 将article加入收藏
-     * 
+     *
      * @param article
      */
     public static void putArticleCollect(Article article) {
@@ -266,7 +263,7 @@ public class BBSManager {
 
     /**
      * 设置Refer消息
-     * 
+     *
      * @param type
      * @param count
      */
@@ -281,7 +278,7 @@ public class BBSManager {
 
     /**
      * 获取是否有Refer消息
-     * 
+     *
      * @param type
      * @return
      */
@@ -291,7 +288,7 @@ public class BBSManager {
 
     /**
      * 设置是否有新邮件
-     * 
+     *
      * @param flag
      */
     public void setBBSNotificationMail(boolean flag) {
@@ -302,7 +299,7 @@ public class BBSManager {
 
     /**
      * 获取是否有新邮件
-     * 
+     *
      * @return
      */
     public boolean getBBSNotificationMail() {
@@ -311,7 +308,7 @@ public class BBSManager {
 
     /**
      * 保存论坛根分区数据
-     * 
+     *
      * @param json
      */
     public void saveRootSec(String json) {
@@ -322,7 +319,7 @@ public class BBSManager {
 
     /**
      * 获取论坛根分区数据
-     * 
+     *
      * @return
      */
     public String getRootSec() {
@@ -333,11 +330,11 @@ public class BBSManager {
      * 动态初始化手机论坛各个板块
      */
     public static List<TreeElement> initTreeViewData(Context context,
-            List<TreeElement> treeElementList) {
+                                                     List<TreeElement> treeElementList) {
         Section sections = Section.getRootSection(context);
         if (sections != null && sections.sections != null) {
             if (treeElementList == null) {
-                treeElementList = new ArrayList<TreeElement>();
+                treeElementList = new ArrayList<>();
             } else {
                 treeElementList.clear();
             }
@@ -353,15 +350,15 @@ public class BBSManager {
 
     /**
      * 向EditText中添加表情图片的方法
-     * 
+     *
      * @param context
-     * @param et 目标EditText
-     * @param bitmap 要添加的图片
+     * @param et        目标EditText
+     * @param bitmap    要添加的图片
      * @param imageName 表示图片的String
-     * @param isSingle 图片是否只能包含一次
+     * @param isSingle  图片是否只能包含一次
      */
     public static void addPic(Context context, EditText et, Bitmap bitmap,
-            String imageName, boolean isSingle) {
+                              String imageName, boolean isSingle) {
         if (isSingle) {
             String tempStr = et.getText().toString();
             if (tempStr.contains(imageName)) {
@@ -381,16 +378,15 @@ public class BBSManager {
 
     /**
      * 关键字高亮显示
-     * 
+     *
      * @param target 需要高亮的关键字
      */
     public static SpannableStringBuilder highlight(String source, String target) {
-        String temp = source;
-        SpannableStringBuilder spannable = new SpannableStringBuilder(temp);
+        SpannableStringBuilder spannable = new SpannableStringBuilder(source);
         CharacterStyle span;
 
         Pattern p = Pattern.compile(target);
-        Matcher m = p.matcher(temp);
+        Matcher m = p.matcher(source);
         while (m.find()) {
             span = new ForegroundColorSpan(Color.RED);// 需要重复！
             spannable.setSpan(span, m.start(), m.end(),

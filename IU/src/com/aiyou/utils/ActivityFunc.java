@@ -4,6 +4,7 @@ package com.aiyou.utils;
 import com.aiyou.bbs.bean.User;
 
 import external.otherview.ActivitySplitAnimationUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +13,7 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Activity跳转函数类
- * 
+ *
  * @author sollian
  */
 public class ActivityFunc {
@@ -27,12 +28,12 @@ public class ActivityFunc {
 
     /**
      * @param activity
-     * @param cls 要打开的Activity
-     * @param user 用户
+     * @param cls      要打开的Activity
+     * @param user     用户
      * @param needAnim 是否需要中心打开动画
      */
     public static void startActivity(Activity activity, Class<?> cls,
-            User user, boolean needAnim) {
+                                     User user, boolean needAnim) {
         Intent intent = new Intent(activity, cls);
         if (!SwitchManager.getInstance(activity).isSimpleModeEnabled()) {
             Drawable drawable = AiYouManager.getBlurBg(activity);
@@ -56,14 +57,14 @@ public class ActivityFunc {
 
     /**
      * 启动新的Activity
-     * 
+     *
      * @param activity
-     * @param cls 要启动的Activity
-     * @param user 用户
+     * @param cls         要启动的Activity
+     * @param user        用户
      * @param requestCode
      */
     public static void startActivityForResult(Activity activity, Class<?> cls,
-            User user, int requestCode) {
+                                              User user, int requestCode) {
         Intent intent = new Intent(activity, cls);
         if (!SwitchManager.getInstance(activity).isSimpleModeEnabled()) {
             Drawable drawable = AiYouManager.getBlurBg(activity);

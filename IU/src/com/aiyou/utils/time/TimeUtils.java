@@ -7,12 +7,12 @@ import java.util.Locale;
 public class TimeUtils {
     /**
      * 对时间戳进行自定义格式化
-     * 
+     *
      * @param timeStamp 时间戳
      * @return
      */
     public static String formatTime(final long timeStamp) {
-        String strTime = null;
+        String strTime;
         final long timemillis = timeStamp * 1000;
         final long curTime = System.currentTimeMillis();
         final long tempTime = curTime - timemillis;
@@ -43,7 +43,7 @@ public class TimeUtils {
 
     /**
      * 获取时间
-     * 
+     *
      * @param timeStamp
      * @return
      */

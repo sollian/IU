@@ -16,7 +16,6 @@ import com.aiyou.utils.JsonHelper;
 import com.aiyou.utils.NetWorkManager;
 import com.aiyou.utils.SwitchManager;
 import com.aiyou.utils.filecache.FileManager;
-import com.aiyou.utils.logcat.Logcat;
 import com.aiyou.utils.thread.ThreadUtils;
 import com.baidu.lbsapi.BMapManager;
 import com.baidu.lbsapi.MKGeneralListener;
@@ -30,7 +29,6 @@ import com.umeng.update.UmengUpdateAgent;
  * @author sollian
  */
 public class AiYouApplication extends Application {
-    private static String TAG = AiYouApplication.class.getSimpleName();
 
     private static AiYouApplication mInstance;
     /**
@@ -68,9 +66,9 @@ public class AiYouApplication extends Application {
             SDKInitializer.initialize(this);
             initEngineManager(this);
         } catch (Exception e) {
-            Logcat.e(TAG, "百度地图初始化错误");
+            e.printStackTrace();
         }
-        
+
         /**
          * 友盟推送
          */
@@ -93,9 +91,9 @@ public class AiYouApplication extends Application {
         BBSManager.getInstance(this).setAppTail(MobclickAgent.getConfigParams(this, "app_tail"));
         //获取iptv频道列表
         IptvManager.getChanelList();
-        
+
         MapHelper.initMapDatas(this);
-        
+
         initSections();
         initFavorite();
     }
@@ -147,16 +145,11 @@ public class AiYouApplication extends Application {
         if (mBMapManager == null) {
             mBMapManager = new BMapManager(context);
         }
-        if (!mBMapManager.init(new MyGeneralListener())) {
-        }
     }
 
     public static class MyGeneralListener implements MKGeneralListener {
         @Override
         public void onGetPermissionState(int iError) {
-            if (iError != 0) {
-            } else {
-            }
         }
     }
 }

@@ -6,6 +6,7 @@ import com.aiyou.R;
 import com.aiyou.utils.SwitchManager;
 
 import external.otherview.Win8ProgressBar;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -135,6 +136,6 @@ public class CustomDialog extends Dialog {
     }
 
     public interface GetEditTextContentListener {
-        public void onClick(View view, String content);
+        void onClick(View view, String content);
     }
 }

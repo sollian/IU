@@ -13,6 +13,7 @@ import io.vov.vitamio.MediaPlayer.OnBufferingUpdateListener;
 import io.vov.vitamio.MediaPlayer.OnInfoListener;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
@@ -40,7 +41,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
     private MediaController mMediaController;
     private ProgressBar mProgressBar;
     private TextView mDownloadRateTV, mLoadRateTV, mIndicateTV;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +73,9 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
         mDownloadRateTV = (TextView) findViewById(R.id.download_rate);
         mLoadRateTV = (TextView) findViewById(R.id.load_rate);
         mIndicateTV = (TextView) findViewById(R.id.tv_indicate);
-        
-        if(SwitchManager.getInstance(getBaseContext()).needShowIptvHelp()) {
-            final LinearLayout ll_help = (LinearLayout)findViewById(R.id.ll_help);
+
+        if (SwitchManager.getInstance(getBaseContext()).needShowIptvHelp()) {
+            final LinearLayout ll_help = (LinearLayout) findViewById(R.id.ll_help);
             ll_help.setVisibility(View.VISIBLE);
             ll_help.setOnClickListener(new OnClickListener() {
                 @Override
@@ -154,7 +155,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -164,12 +165,12 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
             mProgressBar.setVisibility(View.GONE);
         }
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
         if (!mVideoView.isPlaying()) {
-            mVideoView.start();;
+            mVideoView.start();
         }
     }
 
@@ -215,7 +216,7 @@ public class IptvViewBufferActivity extends Activity implements OnInfoListener,
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 showIndicate(null);
-                if(Math.abs(mRawY - event.getY()) < 10) {
+                if (Math.abs(mRawY - event.getY()) < 10) {
                     mMediaController.show(2000);
                 }
                 break;

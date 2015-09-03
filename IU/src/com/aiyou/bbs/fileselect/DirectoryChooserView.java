@@ -45,7 +45,7 @@ public class DirectoryChooserView extends LinearLayout {
     private ArrayList<String> mSubDirsList;
     private ChosenDirectoryListener mChosenDirListener;
     private ArrayAdapter<String> mListAdapter;
-    
+
     private SwitchManager mSwitchMgr;
 
     public DirectoryChooserView(Context context) {
@@ -58,7 +58,7 @@ public class DirectoryChooserView extends LinearLayout {
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public DirectoryChooserView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
@@ -85,10 +85,10 @@ public class DirectoryChooserView extends LinearLayout {
         mListView.setAdapter(mListAdapter);
         updateDirectory();
     }
-    
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && getVisibility() == View.VISIBLE) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && getVisibility() == View.VISIBLE) {
             setVisibility(View.GONE);
             return true;
         }
@@ -106,10 +106,7 @@ public class DirectoryChooserView extends LinearLayout {
         mLastDirButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mDir.equals(mSDCardDir)) {
-                    // The very top level directory, do nothing
-                    return;
-                } else {
+                if (!mDir.equals(mSDCardDir)) {
                     // Navigate back to an upper directory
                     mDir = new File(mDir).getParent();
                     updateDirectory();
@@ -139,14 +136,14 @@ public class DirectoryChooserView extends LinearLayout {
     }
 
     private ArrayList<String> getDirectories(String dir) {
-        ArrayList<String> dirs = new ArrayList<String>();
+        ArrayList<String> dirs = new ArrayList<>();
         try {
             File dirFile = new File(dir);
             if (!dirFile.exists() || !dirFile.isDirectory()) {
                 return dirs;
             }
 
-            String fileName = null;
+            String fileName;
             for (File file : dirFile.listFiles()) {
                 fileName = file.getName();
                 if (!fileName.startsWith(".")) {// 不显示隐藏文件
@@ -154,6 +151,7 @@ public class DirectoryChooserView extends LinearLayout {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Collections.sort(dirs, new Comparator<String>() {
@@ -190,7 +188,7 @@ public class DirectoryChooserView extends LinearLayout {
                         tv.setTextColor(Color.BLACK);
                     }
                     String path = mDir + "/"
-                            + items.get(position).toString().toLowerCase();
+                            + items.get(position).toLowerCase();
                     File file = new File(path);
                     int id = R.drawable.file_folder;
                     if (!file.isDirectory()) {
@@ -240,9 +238,10 @@ public class DirectoryChooserView extends LinearLayout {
                     if (id == R.drawable.file_img) {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
-                        Bitmap bmp = BitmapFactory.decodeFile(path, options);
-                        int scalew = (int) ((float)options.outWidth / AiYouManager.getInstance(getContext()).dip2px(40));
-                        int scaleh = (int) ((float)options.outHeight / AiYouManager.getInstance(getContext()).dip2px(40));
+                        Bitmap bmp;
+                        BitmapFactory.decodeFile(path, options);
+                        int scalew = (int) ((float) options.outWidth / AiYouManager.getInstance(getContext()).dip2px(40));
+                        int scaleh = (int) ((float) options.outHeight / AiYouManager.getInstance(getContext()).dip2px(40));
                         options.inSampleSize = Math.max(scalew, scaleh) + 1;
                         // 获取图像
                         options.inJustDecodeBounds = false;
@@ -257,10 +256,12 @@ public class DirectoryChooserView extends LinearLayout {
                     if (drawable == null) {
                         drawable = mContext.getResources().getDrawable(id);
                     }
-                    drawable.setBounds(0, 0, AiYouManager.getInstance(getContext()).dip2px(40),
-                            AiYouManager.getInstance(getContext()).dip2px(40));
-                    if (mSwitchMgr.isNightModeEnabled()) {
-                        drawable.setColorFilter(Color.GRAY, Mode.MULTIPLY);
+                    if (drawable != null) {
+                        drawable.setBounds(0, 0, AiYouManager.getInstance(getContext()).dip2px(40),
+                                AiYouManager.getInstance(getContext()).dip2px(40));
+                        if (mSwitchMgr.isNightModeEnabled()) {
+                            drawable.setColorFilter(Color.GRAY, Mode.MULTIPLY);
+                        }
                     }
                     tv.setCompoundDrawables(drawable, null, null, null);
                     tv.setEllipsize(null);
@@ -271,7 +272,7 @@ public class DirectoryChooserView extends LinearLayout {
     }
 
     public interface ChosenDirectoryListener {
-        public void onChosenDir(String chosenDir);
+        void onChosenDir(String chosenDir);
     }
 
 }

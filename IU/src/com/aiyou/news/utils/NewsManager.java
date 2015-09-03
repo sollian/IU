@@ -28,13 +28,13 @@ public class NewsManager {
 
     /**
      * 匹配网页内容—信息息门户
-     * 
+     *
      * @param htmlSource 获取的html源码
      * @return 封装好的新闻标题列表
      */
     public static News getNewsTitle(String htmlSource) {
-        ArrayList<News> result = new ArrayList<News>();
-        News news = null;
+        ArrayList<News> result = new ArrayList<>();
+        News news;
 
         Pattern p = Pattern
                 .compile("href=\"(.*?)\" target=\"_blank\" title=\"(.*?)\"");
@@ -87,7 +87,7 @@ public class NewsManager {
 
     /**
      * 获取信息门户新闻、通告内容
-     * 
+     *
      * @param htmlSource
      * @return
      */
@@ -120,19 +120,19 @@ public class NewsManager {
 
     /**
      * 匹配网页内容—北邮要闻
-     * 
+     *
      * @param htmlSource 获取的html源码
      * @return 封装好的新闻标题列表
      */
     public static News getHeadlineTitle(String htmlSource) {
-        ArrayList<News> result = new ArrayList<News>();
-        News news = null;
+        ArrayList<News> result = new ArrayList<>();
+        News news;
         // 获取新闻主体
         String[] arr1 = htmlSource.split("<ul class=\"ovhi\">");
         if (arr1.length >= 2) {
             htmlSource = arr1[1];
         } else {
-            return news;
+            return null;
         }
         String[] arr2 = htmlSource.split("</ul>");
         htmlSource = arr2[0];
@@ -162,7 +162,7 @@ public class NewsManager {
 
     /**
      * 获取北邮要闻新闻内容
-     * 
+     *
      * @param htmlSource
      * @return
      */
@@ -194,7 +194,7 @@ public class NewsManager {
 
     /**
      * 将路径中的中文名进行编码，以获取正确的路径
-     * 
+     *
      * @param path
      * @return
      */
@@ -212,8 +212,8 @@ public class NewsManager {
 
     /**
      * 将图片的地址补全
-     * 
-     * @param html 图片的相对地址
+     *
+     * @param html    图片的相对地址
      * @param urlPath 要补充的前缀
      * @return 返回绝对地址
      */
@@ -233,8 +233,8 @@ public class NewsManager {
 
     /**
      * 将链接的地址补全
-     * 
-     * @param html 相对地址
+     *
+     * @param html    相对地址
      * @param urlPath 要添加的前缀
      * @return 绝对地址
      */

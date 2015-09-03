@@ -57,25 +57,22 @@ public class FileManager {
     // SD卡是否挂载
     private static boolean mSDMounted = false;
 
-    private String mFileName;
     private String mDirPath;
 
     public FileManager(String dir) {
-        mFileName = dir;
-        mDirPath = getDirectory(mFileName);
+        mDirPath = getDirectory(dir);
         if (mDirPath != null) {
             File file = new File(mDirPath);
             if (!file.exists()) {
                 // 若不存在，创建目录
                 file.mkdirs();
-                return;
             }
         }
     }
 
     /**
      * 从SD卡读取图片
-     * 
+     *
      * @param url 图片的网络地址，用于提取图片名称
      * @return 读取成功则返回图片，否则返回null
      */
@@ -100,8 +97,7 @@ public class FileManager {
 
     /**
      * 保存图片到SD卡
-     * 
-     * @param bm 需要保存的图片
+     *
      * @param url 图片的网络地址，用于提取图片名称
      * @return 保存成功返回true，否则false
      */
@@ -197,11 +193,13 @@ public class FileManager {
             writer.write("\n");
             writer.flush();
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             close(outStream);
@@ -217,16 +215,14 @@ public class FileManager {
         try {
             in = new FileInputStream(fileName);
             byte[] buf = new byte[1024];
-            int length = 0;
+            int length;
             while ((length = in.read(buf)) != -1) {
                 out.write(buf, 0, length);
             }
-        } catch (FileNotFoundException e) {
-            Logcat.e(TAG, "readFileByBytes FileNotFoundException");
         } catch (IOException e) {
-            Logcat.e(TAG, "readFileByBytes IOException");
+            e.printStackTrace();
         } catch (OutOfMemoryError e) {
-            Logcat.e(TAG, "readFileByBytes OOM");
+            e.printStackTrace();
             close(out);
             out = null;
         } finally {
@@ -241,7 +237,7 @@ public class FileManager {
 
     /**
      * 将url转成文件名
-     * 
+     *
      * @param url
      * @return
      */
@@ -250,7 +246,7 @@ public class FileManager {
         if (url.endsWith("middle") || url.endsWith("small")) {
             url = url.substring(0, url.lastIndexOf('/'));
         }
-        String fileName = null;
+        String fileName;
         String arr[] = getFileNameFromUrl(url).split("\\.");
         fileName = arr[0] + FILESUFFIX;
         return fileName;
@@ -258,7 +254,7 @@ public class FileManager {
 
     /**
      * 删除过期文件
-     * 
+     *
      * @param dirPath
      * @return 清理的文件个数,-1为找不到路径
      */
@@ -286,7 +282,7 @@ public class FileManager {
 
     /**
      * 修改文件的最后修改时间 这里需要考虑,是否将使用的图片日期改为当前日期
-     * 
+     *
      * @param path
      */
     public static void updateFileTime(String path) {
@@ -297,9 +293,9 @@ public class FileManager {
 
     /**
      * 获取路径
-     * 
+     *
      * @param dirName {@link #DIR_CAMERA}or{@link #DIR_FILE}or{@link #DIR_IMG}or
-     *            {@link #DIR_IMG}or{@link #DIR_LARGEIMG}or{@link #DIR_SNAPSHOT}
+     *                {@link #DIR_IMG}or{@link #DIR_LARGEIMG}or{@link #DIR_SNAPSHOT}
      * @return
      */
     public static String getDirectory(String dirName) {
@@ -313,19 +309,15 @@ public class FileManager {
 
     /**
      * 检查SD卡是否可用，该函数需启动时调用
-     * 
-     * @param context
+     *
      */
     public static boolean checkSDCard() {
-        if (!isSDMounted() || !isSDSpaceEnough()) {
-            return false;
-        }
-        return true;
+        return !(!isSDMounted() || !isSDSpaceEnough());
     }
 
     /**
      * 判断SD卡是否挂载
-     * 
+     *
      * @return
      */
     private static boolean isSDMounted() {
@@ -370,7 +362,7 @@ public class FileManager {
 
     /**
      * 检查是否是图像文件
-     * 
+     *
      * @param fileName
      * @return
      */
@@ -384,7 +376,7 @@ public class FileManager {
 
     /**
      * 检查是否是mp3文件
-     * 
+     *
      * @param fileName
      * @return
      */
@@ -396,7 +388,7 @@ public class FileManager {
 
     /**
      * 将图片的URL转换为图片名称
-     * 
+     *
      * @param url
      * @return
      */

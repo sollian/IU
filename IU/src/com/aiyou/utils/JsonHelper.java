@@ -20,7 +20,7 @@ import com.aiyou.utils.logcat.Logcat;
 
 /**
  * Json解析辅助类
- * 
+ *
  * @author sollian
  */
 public class JsonHelper {
@@ -66,7 +66,7 @@ public class JsonHelper {
 
     /**
      * 检查返回的是否是错误信息
-     * 
+     *
      * @param strJson
      * @return null——非错误信息
      */
@@ -74,7 +74,7 @@ public class JsonHelper {
         if (TextUtils.isEmpty(strJson)) {
             return null;
         }
-        String strResult = null;
+        String strResult;
         try {
             JSONObject jsonObject = new JSONObject(strJson);
             strResult = jsonObject.getString("msg");
@@ -87,18 +87,16 @@ public class JsonHelper {
 
     /**
      * 将content转换为html内容
-     * 
-     * @param obj
-     *            可选：Article|Mail
-     * @param isArticle
-     *            是否是Article
+     *
+     * @param obj       可选：Article|Mail
+     * @param isArticle 是否是Article
      * @return 字符串数组：[0]——文章内容；[1]——回复内容
      */
     @SuppressLint("DefaultLocale")
     public static String[] toHtml(Object obj, boolean isArticle) {
-        String strResult = null;
-        Attachment attachment = null;
-        boolean has_attachment = false;
+        String strResult;
+        Attachment attachment;
+        boolean has_attachment;
         if (isArticle) {
             Article article = (Article) obj;
             strResult = article.content;
@@ -110,11 +108,11 @@ public class JsonHelper {
             attachment = mail.attachment;
             has_attachment = mail.has_attachment;
         }
-        Pattern p = null;
-        Matcher m = null;
-        String temp = null;
-        String strReplace = null;
-        MatchResult mr = null;
+        Pattern p;
+        Matcher m;
+        String temp;
+        String strReplace;
+        MatchResult mr;
         // 去除多余的尾巴
         while (strResult.endsWith("-") || strResult.endsWith("\n")) {
             strResult = strResult.substring(0, strResult.length() - 1);
@@ -129,10 +127,9 @@ public class JsonHelper {
         p = Pattern.compile("【[^】]*?在[\\s\\S]*?的大作中提到:[^】]*?】");
         m = p.matcher(strResult);
         String strTemp = null;
-        while (m.find()) {
+        if (m.find()) {
             strTemp = m.group();
             strReply = m.group();
-            break;
         }
         if (null != strTemp) {
             int nIndex = strResult.indexOf(strTemp);
@@ -155,8 +152,8 @@ public class JsonHelper {
             strResult = str1 + str2;
         }
 
-        String url = null;
-        String text = null;
+        String url;
+        String text;
         // 链接
         if (strResult.contains("http")) {
             strResult = strResult.replaceAll("=http://", "\\[sollian\\]");
@@ -215,7 +212,7 @@ public class JsonHelper {
         if (strResult.contains("[face=")) {
             p = Pattern.compile("\\[face=([^\\]]*?)\\]([\\s\\S]*?)\\[/face\\]");
             m = p.matcher(strResult);
-            String face = null;
+            String face;
             while (m.find()) {
                 mr = m.toMatchResult();
                 face = mr.group(1);
@@ -229,7 +226,7 @@ public class JsonHelper {
             p = Pattern
                     .compile("\\[color=([^\\]]*?)\\]([\\s\\S]*?)\\[/color\\]");
             m = p.matcher(strResult);
-            String color = null;
+            String color;
             while (m.find()) {
                 mr = m.toMatchResult();
                 color = mr.group(1);
@@ -243,7 +240,7 @@ public class JsonHelper {
         if (strResult.contains("[size=")) {
             p = Pattern.compile("\\[size=([^\\]]*?)\\]([\\s\\S]*?)\\[/size\\]");
             m = p.matcher(strResult);
-            String size = null;
+            String size;
             while (m.find()) {
                 mr = m.toMatchResult();
                 size = mr.group(1);
@@ -319,7 +316,7 @@ public class JsonHelper {
         if (strResult.contains("[em")) {
             p = Pattern.compile("\\[(em[a|b|c]?\\d+)\\]");
             m = p.matcher(strResult);
-            String name = null;
+            String name;
             while (m.find()) {
                 mr = m.toMatchResult();
                 name = mr.group(1);
@@ -333,8 +330,8 @@ public class JsonHelper {
          * 附件
          */
         if (has_attachment) {
-            String fileName = null;
-            String strToReplace = null;
+            String fileName;
+            String strToReplace;
             int length = attachment.files.length;
             for (int i = 0; i < length; i++) {
                 strToReplace = "[upload=" + (i + 1) + "][/upload]";
@@ -376,8 +373,8 @@ public class JsonHelper {
 
             p = Pattern.compile("\\[ub\\]\\[(?:\\d+;)*(\\d+)[mM]([^\\[]*)");
             m = p.matcher(strResult);
-            String strColor = null;
-            int nFg = 0;
+            String strColor;
+            int nFg;
             while (m.find()) {
                 mr = m.toMatchResult();
                 nFg = Integer.parseInt(mr.group(1));
@@ -419,84 +416,84 @@ public class JsonHelper {
 
     /**
      * 获取颜色
-     * 
+     *
      * @param ng
      * @return
      */
     private static String getColor(int ng) {
-        String strColor = null;
+        String strColor;
         switch (ng) {
-        case 30:
-            strColor = "#000000";
-            break;
-        case 31:
-            strColor = "#e80000";
-            break;
-        case 32:
-            strColor = "#009600";
-            break;
-        case 33:
-            strColor = "#919600";
-            break;
-        case 34:
-            strColor = "#0000ff";
-            break;
-        case 35:
-            strColor = "#ff00ff";
-            break;
-        case 36:
-            strColor = "#00ffff";
-            break;
-        case 37:
-            strColor = "#888888";
-            break;
-        case 130:
-            strColor = "#cccccc";
-            break;
-        case 131:
-            strColor = "#ffe0e0";
-            break;
-        case 132:
-            strColor = "#90ee90";
-            break;
-        case 133:
-            strColor = "#ffff00";
-            break;
-        case 134:
-            strColor = "#add8e6";
-            break;
-        case 135:
-            strColor = "#ffe0ff";
-            break;
-        case 136:
-            strColor = "#e0ffff";
-            break;
-        case 137:
-            strColor = "#ffffff";
-            break;
-        case 500:
-            strColor = "#919600";
-            break;
-        default:
-            strColor = "#ffff00";
-            break;
+            case 30:
+                strColor = "#000000";
+                break;
+            case 31:
+                strColor = "#e80000";
+                break;
+            case 32:
+                strColor = "#009600";
+                break;
+            case 33:
+                strColor = "#919600";
+                break;
+            case 34:
+                strColor = "#0000ff";
+                break;
+            case 35:
+                strColor = "#ff00ff";
+                break;
+            case 36:
+                strColor = "#00ffff";
+                break;
+            case 37:
+                strColor = "#888888";
+                break;
+            case 130:
+                strColor = "#cccccc";
+                break;
+            case 131:
+                strColor = "#ffe0e0";
+                break;
+            case 132:
+                strColor = "#90ee90";
+                break;
+            case 133:
+                strColor = "#ffff00";
+                break;
+            case 134:
+                strColor = "#add8e6";
+                break;
+            case 135:
+                strColor = "#ffe0ff";
+                break;
+            case 136:
+                strColor = "#e0ffff";
+                break;
+            case 137:
+                strColor = "#ffffff";
+                break;
+            case 500:
+                strColor = "#919600";
+                break;
+            default:
+                strColor = "#ffff00";
+                break;
         }
         return strColor;
     }
 
     /**
      * 处理附件
-     * 
+     *
      * @param fileName
      * @param index
      * @return
      */
     private static String processAttachment(Attachment attachment,
-            String fileName, int index) {
+                                            String fileName, int index) {
         if (index < 0 || index >= attachment.files.length) {
             return "";
         }
-        String strReplace = "";
+        String strReplace;
         if (FileManager.isImage(fileName)) {
             if (SwitchManager.getInstance(AiYouApplication.getInstance())
                     .isLargeImageEnabled()) {

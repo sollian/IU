@@ -24,14 +24,14 @@ import com.aiyou.utils.time.TimeUtils;
 
 /**
  * 信件元数据
- * 
+ *
  * @author sollian
  */
 public class Mail implements Serializable, AdapterInterface {
     public static final String TAG = Mail.class.getSimpleName();
     /**
-	 * 
-	 */
+     *
+     */
     private static final long serialVersionUID = 11114L;
 
     protected static final String API_MAIL = BBSManager.API_HEAD + "/mail/";
@@ -92,12 +92,13 @@ public class Mail implements Serializable, AdapterInterface {
                 user.id = "原帖已删除";
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取指定信件信息
-     * 
+     *
      * @param box
      * @param index 信件在信箱的索引,为信箱信息的信件列表中每个信件对象的index值
      * @return 信件元数据的json数据
@@ -110,14 +111,14 @@ public class Mail implements Serializable, AdapterInterface {
 
     /**
      * 发送新信件
-     * 
+     *
      * @param subject 主题
      * @param content 内容
-     * @param strTo 收信人id
+     * @param strTo   收信人id
      * @return
      */
     public static String sendMail(Context context, String subject, String content, String strTo) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("title", subject));
         params.add(new BasicNameValuePair("content", content));
@@ -136,13 +137,13 @@ public class Mail implements Serializable, AdapterInterface {
 
     /**
      * 转寄邮件
-     * 
+     *
      * @param index
      * @param userId
      * @return
      */
     public static String forwardMail(Context context, int index, String userId) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("target", userId));
         // 封装请求参数的实体对象
         UrlEncodedFormEntity entity = null;
@@ -159,16 +160,16 @@ public class Mail implements Serializable, AdapterInterface {
 
     /**
      * 回复指定信箱中的邮件
-     * 
+     *
      * @param box
-     * @param index 信件在信箱的索引,为信箱信息的信件列表中每个信件对象的index值
+     * @param index   信件在信箱的索引,为信箱信息的信件列表中每个信件对象的index值
      * @param subject
      * @param content
      * @return
      */
     public static String replyMail(Context context, MailboxType box, int index, String subject,
-            String content) {
-        ArrayList<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+                                   String content) {
+        ArrayList<BasicNameValuePair> params = new ArrayList<>();
 
         params.add(new BasicNameValuePair("title", subject));
         params.add(new BasicNameValuePair("content", content));
@@ -188,7 +189,7 @@ public class Mail implements Serializable, AdapterInterface {
 
     /**
      * 删除指定信件
-     * 
+     *
      * @param box
      * @param index 信件在信箱的索引,为信箱信息的信件列表中每个信件对象的index值
      * @return

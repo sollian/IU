@@ -20,7 +20,7 @@ public class NotificationMgr {
         private int mId;
         private String mTag;
 
-        private NotifyType(int id, String tag) {
+        NotifyType(int id, String tag) {
             mId = id;
             mTag = tag;
         }

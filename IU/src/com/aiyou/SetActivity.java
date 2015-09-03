@@ -35,15 +35,8 @@ public class SetActivity extends BaseActivity implements
         SwitchPreferences.OnPrefChangeListener, OnItemSelectedListener {
 
     private SwitchManager mSwitchMgr;
-    /**
-     * 控件
-     */
-    private SwitchPreferences mFacePref, mLargeImgPref, mSimpleModePref,
-            mShakeSharePref, mUpdatePref;
-    private Spinner mSpinner;
     // 关于
     private FrameLayout mAboutFLayout;
-    private TextView mAboutTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +59,8 @@ public class SetActivity extends BaseActivity implements
          */
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_set_fl);
         // 设置背景
-        Bitmap bmp = (Bitmap) (getIntent()
-                .getParcelableExtra(ActivityFunc.KEY_BACKGROUND));
+        Bitmap bmp = getIntent()
+                .getParcelableExtra(ActivityFunc.KEY_BACKGROUND);
         if (null != bmp) {
             Drawable drawable = new BitmapDrawable(bmp);
             frameLayout.setBackgroundDrawable(drawable);
@@ -81,11 +74,14 @@ public class SetActivity extends BaseActivity implements
             }
         }
 
-        mFacePref = (SwitchPreferences) findViewById(R.id.face_pref);
-        mLargeImgPref = (SwitchPreferences) findViewById(R.id.large_image_pref);
-        mSimpleModePref = (SwitchPreferences) findViewById(R.id.simple_mode_pref);
-        mShakeSharePref = (SwitchPreferences) findViewById(R.id.shake_share_pref);
-        mUpdatePref = (SwitchPreferences) findViewById(R.id.update_pref);
+        /*
+      控件
+     */
+        SwitchPreferences mFacePref = (SwitchPreferences) findViewById(R.id.face_pref);
+        SwitchPreferences mLargeImgPref = (SwitchPreferences) findViewById(R.id.large_image_pref);
+        SwitchPreferences mSimpleModePref = (SwitchPreferences) findViewById(R.id.simple_mode_pref);
+        SwitchPreferences mShakeSharePref = (SwitchPreferences) findViewById(R.id.shake_share_pref);
+        SwitchPreferences mUpdatePref = (SwitchPreferences) findViewById(R.id.update_pref);
         mFacePref.setChecked(mSwitchMgr.isFaceEnabled());
         mLargeImgPref.setChecked(mSwitchMgr.isLargeImageEnabled());
         mSimpleModePref.setChecked(mSwitchMgr.isSimpleModeEnabled());
@@ -97,16 +93,16 @@ public class SetActivity extends BaseActivity implements
         mShakeSharePref.setOnPrefChangeListener(this);
         mUpdatePref.setOnPrefChangeListener(this);
 
-        mSpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner mSpinner = (Spinner) findViewById(R.id.spinner);
         mSpinner.setSelection(mSwitchMgr.getSwipeOut());
         mSpinner.setOnItemSelectedListener(this);
         /**
          * 关于
          */
         mAboutFLayout = (FrameLayout) findViewById(R.id.activity_set_fl_about);
-        mAboutTV = (TextView) findViewById(R.id.activity_set_tv_about);
+        TextView mAboutTV = (TextView) findViewById(R.id.activity_set_tv_about);
         mAboutTV.setText(getString(R.string.other_about, AiYouManager
-                .getInstance(getApplicationContext()).getAppName(),
+                        .getInstance(getApplicationContext()).getAppName(),
                 AiYouManager.getInstance(getApplicationContext())
                         .getAppVersionName()));
     }
@@ -161,7 +157,7 @@ public class SetActivity extends BaseActivity implements
     @SuppressWarnings("deprecation")
     private void showAbout(boolean flag) {
         if (flag) {
-            Drawable drawable = null;
+            Drawable drawable;
             if (!mSwitchMgr.isSimpleModeEnabled()
                     && (drawable = AiYouManager.getBlurBg(SetActivity.this)) != null) {
                 mAboutFLayout.setBackgroundDrawable(drawable);

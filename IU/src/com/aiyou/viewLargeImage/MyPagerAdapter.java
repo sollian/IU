@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    private List<ViewLargeImageFragment> mFragList = new ArrayList<ViewLargeImageFragment>();
+    private List<ViewLargeImageFragment> mFragList = new ArrayList<>();
     private FragmentManager mFragMgr;
 
     public MyPagerAdapter(FragmentManager fm, List<String> urlList) {
@@ -26,14 +26,18 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         if (urlList != null && !urlList.isEmpty()) {
             int size = urlList.size();
             for (int i = 0; i < size; i++) {
-                ViewLargeImageFragment fragment;
+                ViewLargeImageFragment fragment = null;
                 if (flsize > i) {
-                    fragment = (ViewLargeImageFragment) fragList.get(i);
+                    if (fragList != null) {
+                        fragment = (ViewLargeImageFragment) fragList.get(i);
+                    }
                 } else {
                     fragment = new ViewLargeImageFragment();
                 }
-                fragment.setUrl(urlList.get(i));
-                mFragList.add(fragment);
+                if (fragment != null) {
+                    fragment.setUrl(urlList.get(i));
+                    mFragList.add(fragment);
+                }
             }
         }
     }

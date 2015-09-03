@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 /**
  * 分享异步线程类
- * 
+ *
  * @author sollian
  */
 public class ShareTask extends AsyncTask<Void, String, Boolean> {
@@ -34,9 +34,8 @@ public class ShareTask extends AsyncTask<Void, String, Boolean> {
 
     /**
      * 分享图片
-     * 
-     * @param context
-     * @param url 图片地址
+     *
+     * @param url     图片地址
      */
     public ShareTask(Activity activity, String url, ShareListener listener) {
         mContext = activity;
@@ -50,8 +49,7 @@ public class ShareTask extends AsyncTask<Void, String, Boolean> {
 
     /**
      * 分享文本
-     * 
-     * @param context
+     *
      * @param subject 主题
      * @param content 内容
      */
@@ -143,8 +141,8 @@ public class ShareTask extends AsyncTask<Void, String, Boolean> {
     }
 
     public interface ShareListener {
-        public void onShareStart();
+        void onShareStart();
 
-        public void onShareFinish(Boolean success);
+        void onShareFinish(Boolean success);
     }
 }

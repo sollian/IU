@@ -4,13 +4,13 @@ package com.aiyou.bbs.bean.helper;
 import com.aiyou.bbs.bean.User;
 
 public interface AdapterInterface {
-    public String getTitle();
+    String getTitle();
 
-    public String getDate();
+    String getDate();
 
-    public User getUser();
+    User getUser();
 
-    public int getTitleColor();
+    int getTitleColor();
 
-    public int getCount();
+    int getCount();
 }

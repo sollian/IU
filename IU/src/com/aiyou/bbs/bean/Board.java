@@ -15,7 +15,7 @@ import com.aiyou.utils.http.HttpManager;
 
 /**
  * 版面元数据
- * 
+ *
  * @author sollian
  */
 public class Board implements Serializable {
@@ -24,7 +24,7 @@ public class Board implements Serializable {
     // 分区信息
     public static final String API_SECTION = BBSManager.API_HEAD + "/section/";
     private static final String API_BOARD = BBSManager.API_HEAD + "/board/";
-    
+
     public int favorite_level = -1;
     // 版面名称
     public String name;
@@ -78,12 +78,13 @@ public class Board implements Serializable {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取指定版面的信息
-     * 
+     *
      * @param name 合法的版面名称
      * @return 版面元数据
      */
@@ -93,7 +94,7 @@ public class Board implements Serializable {
 
     /**
      * 获取指定版面的信息
-     * 
+     *
      * @param name 合法的版面名称
      * @param page 文章的页数
      * @return 版面元数据

@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 表情GridView的监听器
- * 
+ *
  * @author sollian
  */
 public class MyGridViewListener implements OnItemClickListener {
@@ -31,7 +31,7 @@ public class MyGridViewListener implements OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         switch (mType) {
             case 0:
                 mImageId = "em" + (position + 1);
@@ -55,6 +55,7 @@ public class MyGridViewListener implements OnItemClickListener {
                     mContext);
             BBSManager.addPic(mContext, mEditText, bitmap, mImageName, false);
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -7,6 +7,7 @@ import com.aiyou.iptv.bean.Chanel;
 import com.aiyou.utils.SwitchManager;
 
 import external.smartimageview.SmartImageView;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;

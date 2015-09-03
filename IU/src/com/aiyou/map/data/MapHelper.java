@@ -9,12 +9,9 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.aiyou.utils.JsonHelper;
-import com.aiyou.utils.logcat.Logcat;
 import com.umeng.analytics.MobclickAgent;
 
 public class MapHelper {
-    private static final String TAG = MapHelper.class.getSimpleName();
-
     private static MapData[] mMapDatas;
 
     public static void initMapDatas(Context context) {
@@ -40,7 +37,7 @@ public class MapHelper {
             if (null != jsonArray) {
                 int length = jsonArray.length();
                 mMapDatas = new MapData[length];
-                JSONObject object = null;
+                JSONObject object;
                 for (int i = 0; i < length; i++) {
                     mMapDatas[i] = new MapData();
                     object = jsonArray.optJSONObject(i);
@@ -52,7 +49,7 @@ public class MapHelper {
             }
         } catch (JSONException e) {
             mMapDatas = null;
-            Logcat.e(TAG, "getMapDatas JSONException");
+            e.printStackTrace();
         }
     }
 }

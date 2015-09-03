@@ -32,7 +32,7 @@ public class MapData {
         private int mDescId;
         private String mType;
 
-        private DataType(int resId, int id, String type) {
+        DataType(int resId, int id, String type) {
             mDescId = resId;
             mType = type;
         }
@@ -44,7 +44,7 @@ public class MapData {
         public String getType() {
             return mType;
         }
-    };
+    }
 
     private double mLongitude = -1;
     private double mLatitude = -1;

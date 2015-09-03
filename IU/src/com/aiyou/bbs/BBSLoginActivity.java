@@ -20,6 +20,7 @@ import external.otherview.FloatLabeledEditText;
 import external.otherview.Win8ProgressBar;
 import external.shimmer.Shimmer;
 import external.shimmer.ShimmerTextView;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -42,7 +43,7 @@ import android.widget.Toast;
 
 /**
  * 用户登录页面
- * 
+ *
  * @author sollian
  */
 public class BBSLoginActivity extends BaseActivity implements OnClickListener {
@@ -66,8 +67,6 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
     private CircleImageView mFaceImageView;
     private ShimmerTextView mIdTextView;
     private TextView mNameTextView;
-    private String mId;
-    private String mPassword;
     /**
      * 用户id扫光特效
      */
@@ -144,12 +143,11 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
     private void login() {
         // 验证用户名、密码
-        mId = mIdEditText.getTextString().trim();
-        mPassword = mPasswordEditText.getTextString().trim();
+        String mId = mIdEditText.getTextString().trim();
+        String mPassword = mPasswordEditText.getTextString().trim();
         if ("".equals(mId) || "".equals(mPassword)) {
             Toast.makeText(getBaseContext(), "用户名或密码不能为空", Toast.LENGTH_SHORT)
                     .show();
-            return;
         } else {
             mBBSMgr.setUserInfo(mId, mPassword);
             AiYouManager.viewInputMethod(BBSLoginActivity.this, false, mPasswordEditText);
@@ -164,9 +162,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
     /**
      * 验证用户ID和密码
-     * 
-     * @param strId
-     * @param strPassword
+     *
      */
     private void verifyUserInfo() {
         threadUserVerify();
@@ -174,7 +170,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
     /**
      * 更新用户信息
-     * 
+     *
      * @param user
      */
     private void updateUserWindow(User user) {
@@ -205,9 +201,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
     /**
      * 验证用户信息的线程
-     * 
-     * @param strId
-     * @param strPassword
+     *
      */
     private void threadUserVerify() {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -257,7 +251,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
             }
         });
     }
-    
+
     private void initFavorite() {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
             return;
@@ -265,11 +259,11 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                    String strJson = Favorite.getFavorite(AiYouApplication.getInstance(), 0);
-                    if(!TextUtils.isEmpty(strJson) && JsonHelper.checkError(strJson) == null) {
-                        Favorite.mFavorite = new Favorite(strJson);
-                    }
+                String strJson = Favorite.getFavorite(AiYouApplication.getInstance(), 0);
+                if (!TextUtils.isEmpty(strJson) && JsonHelper.checkError(strJson) == null) {
+                    Favorite.mFavorite = new Favorite(strJson);
                 }
+            }
         });
     }
 
@@ -292,7 +286,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
         LinearLayout ll_user_info = (LinearLayout) findViewById(R.id.activity_bbslogin_ll_user_info);
         // 设置背景
-        Bitmap bmp = (Bitmap) (getIntent().getParcelableExtra(ActivityFunc.KEY_BACKGROUND));
+        Bitmap bmp = getIntent().getParcelableExtra(ActivityFunc.KEY_BACKGROUND);
         if (null != bmp) {
             Drawable drawable = new BitmapDrawable(bmp);
             ll_user_info.setBackgroundDrawable(drawable);
@@ -311,7 +305,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
         mPasswordEditText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 switch (actionId) {
                     case EditorInfo.IME_ACTION_DONE:
                         login();
@@ -332,7 +326,7 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
 
     /**
      * 注册新账号
-     * 
+     *
      * @param view
      */
     public void onRegister(View view) {

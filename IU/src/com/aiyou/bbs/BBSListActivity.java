@@ -56,6 +56,7 @@ import external.otherview.Win8ProgressBar;
 import external.residemenu.ResideMenu;
 import external.residemenu.ResideMenuItem;
 import external.residemenu.ResideMenu.OnMenuListener;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -95,7 +96,7 @@ import android.widget.Toast;
 
 /**
  * 呈现论坛文章列表的Activity
- * 
+ *
  * @author sollian
  */
 public class BBSListActivity extends BaseActivity implements OnClickListener,
@@ -142,7 +143,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
     /**
      * 存储item的list
      */
-    private List<AdapterInterface> mList = new ArrayList<AdapterInterface>();
+    private List<AdapterInterface> mList = new ArrayList<>();
     /**
      * BaseAdapter
      */
@@ -150,7 +151,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
     /**
      * 收藏版面（右滑菜单）
      */
-    private List<Board> mFavoriteList = new ArrayList<Board>();
+    private List<Board> mFavoriteList = new ArrayList<>();
     private BaseAdapter mFavoriteAdapter;
     /**
      * ResideMenu相关
@@ -228,7 +229,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                 /**
                  * 显示分区按钮
                  */
-                ((ImageView) findViewById(R.id.activity_bbslist_iv_section))
+                findViewById(R.id.activity_bbslist_iv_section)
                         .setVisibility(View.VISIBLE);
 
                 startThread(false, 1, true);
@@ -349,7 +350,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                     boolean flag = true;
                     if (-1 != index) {
                         flag = false;
-                        Mail mail = null;
+                        Mail mail;
                         for (Object obj : mList) {
                             mail = (Mail) obj;
                             if (index == mail.index) {
@@ -516,7 +517,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
             @Override
             public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 switch (actionId) {
                     case EditorInfo.IME_ACTION_SEARCH:
                         onSearchClick(null);
@@ -624,7 +625,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 点击右上角按钮，打开弹出菜单
-     * 
+     *
      * @param view
      */
     public void openPopmenu(View view) {
@@ -848,98 +849,116 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 弹出菜单的点击事件
-     * 
+     *
      * @param view
      */
     public void onMenuClick(View view) {
         int nId = view.getId();
-        if (R.id.activity_bbslist_fl_menu == nId) {
-            // 关闭menu
-        } else if (R.id.activity_bbslist_menu_iv_collect == nId) {
-            // 查看收藏
-            selectTag(BeanType.COLLECT, null);
-        } else if (R.id.activity_bbslist_menu_iv_write_article == nId) {
-            // 撰写文章
-            Intent intent = new Intent(BBSListActivity.this,
-                    BBSWriteActivity.class);
-            intent.putExtra(BBSWriteActivity.WRITE_ARTICLE, mMember.getBoard());
-            ActivityFunc.startActivity(BBSListActivity.this, intent);
-        } else if (R.id.activity_bbslist_menu_iv_search_title == nId) {
-            // 查主题
-            showSearch(true, true);
-        } else if (R.id.activity_bbslist_menu_iv_search_author == nId) {
-            // 查作者
-            showSearch(true, false);
-        } else if (R.id.activity_bbslist_menu_iv_delete_refer == nId) {
-            // 删除所有提醒
-            final CustomDialog dialog = new CustomDialog(this);
-            dialog.setMessage("确定删除所有提醒吗？")
-                    .setOKButton(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            showPopMenu(false);
-                            startOperationThread(-1, ACTION_DELETE);
-                        }
-                    }).setCancelButton(null).show();
-            return;
-        } else if (R.id.activity_bbslist_menu_bt_read == nId) {
-            // 所有提醒标为已读
-            startOperationThread(-1, ACTION_SET_READ);
-        } else if (R.id.activity_bbslist_menu_iv_delete_mail == nId) {
-            // 删除所有邮件
-            final CustomDialog dialog = new CustomDialog(this);
-            dialog.setMessage("确定删除当前所有邮件吗？")
-                    .setOKButton(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            showPopMenu(false);
-                            startOperationThread(-1, ACTION_DELETE);
-                        }
-                    }).setCancelButton(null).show();
-            return;
-        } else if (R.id.activity_bbslist_menu_iv_write_mail == nId) {
-            // 发邮件
-            Intent intent = new Intent(BBSListActivity.this,
-                    BBSWriteActivity.class);
-            ActivityFunc.startActivity(BBSListActivity.this, intent);
-        } else if (R.id.activity_bbslist_menu_bt_all == nId) {
-            // 所有投票
-            selectTag(BeanType.VOTELIST, VoteType.ALL);
-        } else if (R.id.activity_bbslist_menu_bt_new == nId) {
-            // 最新投票
-            selectTag(BeanType.VOTELIST, VoteType.NEW);
-        } else if (R.id.activity_bbslist_menu_bt_hot == nId) {
-            // 热门投票
-            selectTag(BeanType.VOTELIST, VoteType.HOT);
-        } else if (R.id.activity_bbslist_menu_bt_me == nId) {
-            // 我的投票
-            selectTag(BeanType.VOTELIST, VoteType.ME);
-        } else if (R.id.activity_bbslist_menu_bt_join == nId) {
-            // 我参与的投票
-            selectTag(BeanType.VOTELIST, VoteType.JOIN);
-        } else if (R.id.activity_bbslist_menu_iv_delete_collect == nId) {
-            // 删除收藏
-            final CustomDialog dialog = new CustomDialog(this);
-            dialog.setMessage("确定清空收藏吗？")
-                    .setOKButton(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            showPopMenu(false);
-                            BBSManager.clearArticleCollect();
-                            startThread(false, 1, true);
-                        }
-                    }).setCancelButton(null).show();
-            return;
+        switch (nId) {
+            case R.id.activity_bbslist_fl_menu:
+                // 关闭menu
+                break;
+            case R.id.activity_bbslist_menu_iv_collect:
+                // 查看收藏
+                selectTag(BeanType.COLLECT, null);
+                break;
+            case R.id.activity_bbslist_menu_iv_write_article: {
+                // 撰写文章
+                Intent intent = new Intent(BBSListActivity.this,
+                        BBSWriteActivity.class);
+                intent.putExtra(BBSWriteActivity.WRITE_ARTICLE, mMember.getBoard());
+                ActivityFunc.startActivity(BBSListActivity.this, intent);
+                break;
+            }
+            case R.id.activity_bbslist_menu_iv_search_title:
+                // 查主题
+                showSearch(true, true);
+                break;
+            case R.id.activity_bbslist_menu_iv_search_author:
+                // 查作者
+                showSearch(true, false);
+                break;
+            case R.id.activity_bbslist_menu_iv_delete_refer: {
+                // 删除所有提醒
+                final CustomDialog dialog = new CustomDialog(this);
+                dialog.setMessage("确定删除所有提醒吗？")
+                        .setOKButton(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                showPopMenu(false);
+                                startOperationThread(-1, ACTION_DELETE);
+                            }
+                        }).setCancelButton(null).show();
+                return;
+            }
+            case R.id.activity_bbslist_menu_bt_read:
+                // 所有提醒标为已读
+                startOperationThread(-1, ACTION_SET_READ);
+                break;
+            case R.id.activity_bbslist_menu_iv_delete_mail: {
+                // 删除所有邮件
+                final CustomDialog dialog = new CustomDialog(this);
+                dialog.setMessage("确定删除当前所有邮件吗？")
+                        .setOKButton(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                showPopMenu(false);
+                                startOperationThread(-1, ACTION_DELETE);
+                            }
+                        }).setCancelButton(null).show();
+                return;
+            }
+            case R.id.activity_bbslist_menu_iv_write_mail: {
+                // 发邮件
+                Intent intent = new Intent(BBSListActivity.this,
+                        BBSWriteActivity.class);
+                ActivityFunc.startActivity(BBSListActivity.this, intent);
+                break;
+            }
+            case R.id.activity_bbslist_menu_bt_all:
+                // 所有投票
+                selectTag(BeanType.VOTELIST, VoteType.ALL);
+                break;
+            case R.id.activity_bbslist_menu_bt_new:
+                // 最新投票
+                selectTag(BeanType.VOTELIST, VoteType.NEW);
+                break;
+            case R.id.activity_bbslist_menu_bt_hot:
+                // 热门投票
+                selectTag(BeanType.VOTELIST, VoteType.HOT);
+                break;
+            case R.id.activity_bbslist_menu_bt_me:
+                // 我的投票
+                selectTag(BeanType.VOTELIST, VoteType.ME);
+                break;
+            case R.id.activity_bbslist_menu_bt_join:
+                // 我参与的投票
+                selectTag(BeanType.VOTELIST, VoteType.JOIN);
+                break;
+            case R.id.activity_bbslist_menu_iv_delete_collect: {
+                // 删除收藏
+                final CustomDialog dialog = new CustomDialog(this);
+                dialog.setMessage("确定清空收藏吗？")
+                        .setOKButton(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                showPopMenu(false);
+                                BBSManager.clearArticleCollect();
+                                startThread(false, 1, true);
+                            }
+                        }).setCancelButton(null).show();
+                return;
+            }
         }
         showPopMenu(false);
     }
 
     /**
      * 点击搜索
-     * 
+     *
      * @param view
      */
     public void onSearchClick(View view) {
@@ -963,7 +982,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 启动线程
-     * 
+     *
      * @param isUserQuery
      * @param page
      * @param showProgress 是否显示进度条
@@ -1014,13 +1033,12 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 启动操作线程
-     * 
+     *
      * @param index -1删除所有
-     * @param type 操作类型:delete——删除；setRead——标记为已读
+     * @param type  操作类型:delete——删除；setRead——标记为已读
      */
     private void startOperationThread(final int index, final String type) {
-        if (index > -1 && type.equals(ACTION_SET_READ)) {
-        } else {
+        if (index <= -1 || !type.equals(ACTION_SET_READ)) {
             showProgress(true);
         }
         threadOperation(index, type);
@@ -1028,7 +1046,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         Intent intent = null;
         switch (mMember.beanType) {
             case WIDGET:
@@ -1052,7 +1070,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                         tv.setTextColor(getResources().getColor(
                                 R.color.font_black_day));
                     }
-                    int count = 0;
+                    int count;
                     if (mMember.referType == ReferType.REPLY) {
                         count = mBBSMgr
                                 .getBBSNotificationRefer(ReferType.REPLY) - 1;
@@ -1103,10 +1121,8 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                 intent.putExtra(BBSMailActivity.KEY_MAIL, mail);
                 break;
         }
-        if (null != intent) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            ActivityFunc.startActivity(BBSListActivity.this, intent);
-        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        ActivityFunc.startActivity(BBSListActivity.this, intent);
     }
 
     @Override
@@ -1153,7 +1169,6 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                         mUser = userTmp;
                         // 左侧用户窗口
                         updateUserWindow(mUser);
-                    } else {
                     }
                 }
             } else if (requestCode == REQUESTCODE_SECTION) {
@@ -1167,7 +1182,6 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
     }
 
     /**
-     * 查询用户信息的线程,由 {@link #startThread(boolean, int)} 启动
      */
     private void threadUserQuery() {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -1189,12 +1203,10 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                 String strError = JsonHelper.checkError(strJson);
                 if (null != strError && mHandler != null) {
                     // 是 错误信息
-                    if (mHandler != null) {
-                        Message msg = mHandler.obtainMessage(MSG_ERROR);
-                        Bundle data = msg.getData();
-                        data.putString(KEY_DATA, strError);
-                        mHandler.sendMessage(msg);
-                    }
+                    Message msg = mHandler.obtainMessage(MSG_ERROR);
+                    Bundle data = msg.getData();
+                    data.putString(KEY_DATA, strError);
+                    mHandler.sendMessage(msg);
                     return;
                 }
                 // 将json数据解析为User元数据
@@ -1210,8 +1222,8 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
     }
 
     /**
-     * 查询信息的线程，由 {@link #startThread(boolean, int)} 启动
-     * 
+     * 查询信息的线程
+     *
      * @param page
      */
     private void threadGetList(final int page) {
@@ -1279,9 +1291,9 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 操作的线程，由 {@link #startOperationThread(int, String)} 启动
-     * 
+     *
      * @param index -1删除所有
-     * @param type 操作类型:ACTION_DELETE——删除；ACTION_SET_READ——标记为已读
+     * @param type  操作类型:ACTION_DELETE——删除；ACTION_SET_READ——标记为已读
      */
     private void threadOperation(final int index, final String type) {
         if (!NetWorkManager.getInstance(getBaseContext()).isNetAvailable()) {
@@ -1327,7 +1339,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
                     case MAILBOX:
                         if (-1 == index) {
                             // 删除list中所有邮件
-                            Mail mail = null;
+                            Mail mail;
                             for (AdapterInterface adapterInterface : mList) {
                                 mail = (Mail) adapterInterface;
                                 if (null != mail) {
@@ -1372,7 +1384,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 更新用户信息窗口
-     * 
+     *
      * @param user
      */
     private void updateUserWindow(User user) {
@@ -1391,7 +1403,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
             mVoteItem.setVisibility(View.VISIBLE);
 
             mMailBV.setText("新");
-            int count = 0;
+            int count;
             count = mBBSMgr.getBBSNotificationRefer(ReferType.REPLY);
             if (0 != count) {
                 mReplyBV.setText(count + "");
@@ -1452,8 +1464,6 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 关闭Activity
-     * 
-     * @param view
      */
     public void selfFinish() {
         if (Build.VERSION.SDK_INT >= 14) {
@@ -1525,7 +1535,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
     }
 
     /**
-     * 清空listview,由 {@link #startThread(boolean, int)} 调用
+     * 清空listview
      */
     private void clearListView() {
         mFlagLoadMore = false;
@@ -1535,7 +1545,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 设置是否显示lv_article的footer
-     * 
+     *
      * @param flag
      */
     @SuppressWarnings("deprecation")
@@ -1557,7 +1567,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 按左上角返回键调用的方法
-     * 
+     *
      * @param view
      */
     public void openLeftMenu(View view) {
@@ -1566,7 +1576,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 设置进度条可见
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -1654,7 +1664,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 播放吸入动画的方法
-     * 
+     *
      * @param bmp
      * @param location
      * @param viewHeight
@@ -1695,8 +1705,6 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 设置标题
-     * 
-     * @param title
      */
     private void updateTitle() {
         mTitleSTV.setText(mMember.title);
@@ -1709,8 +1717,8 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 显示/隐藏搜索栏
-     * 
-     * @param flag true：显示；false：隐藏
+     *
+     * @param flag          true：显示；false：隐藏
      * @param searchIsTitle 搜主题还是搜作者
      */
     private void showSearch(boolean flag, boolean searchIsTitle) {
@@ -1778,7 +1786,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 广播接收器
-     * 
+     *
      * @author user
      */
     private class MyReceiver extends BroadcastReceiver {
@@ -1788,7 +1796,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
             if (type == null) {
                 return;
             }
-            int count = 0;
+            int count;
             switch (type) {
                 case AT:
                     count = intent.getIntExtra(BBSService.KEY_NEW_COUNT, 0);
@@ -1817,7 +1825,7 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+                         int visibleItemCount, int totalItemCount) {
         if (firstVisibleItem <= 1) {
             mCurrentItem = 1;
             mTitleLLayout.clearAnimation();
@@ -1849,12 +1857,12 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 显示/隐藏Menu
-     * 
+     *
      * @param flag
      */
     @SuppressWarnings("deprecation")
     private void showPopMenu(boolean flag) {
-        Animation anim = null;
+        Animation anim;
         if (flag) {
             if (View.VISIBLE == mMenuFLayout.getVisibility()) {
                 return;
@@ -1913,12 +1921,12 @@ public class BBSListActivity extends BaseActivity implements OnClickListener,
 
     /**
      * 是否显示标题栏
-     * 
+     *
      * @param flag
      */
     private void showTitle(final boolean flag) {
-        Animation anim = null;
-        Animation anim2 = null;
+        Animation anim;
+        Animation anim2;
         mTitleLLayout.setTag("anim");
         if (flag) {
             anim = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_top);

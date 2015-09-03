@@ -25,30 +25,28 @@ import android.widget.Scroller;
 
 /**
  * 可缩放、旋转、平移的ImageView，可加载超大图片（请使用set方法设置图片来源），完美解决OOM问题
- * 
- * @author sollian
  *
+ * @author sollian
  */
 public class MagicImageView extends DarkImageView {
     public interface OnTransformListener {
-        public void onDrag(float deltaX, float deltaY);
+        void onDrag(float deltaX, float deltaY);
 
         /**
          * 当前缩放值
-         * 
+         *
          * @param scale
          */
-        public void onScale(float scale);
+        void onScale(float scale);
 
         /**
          * 当前图片旋转角度，顺时针为正，只能为0,90,180,270；
-         * 
-         * @param degree
-         *            单位为角度
+         *
+         * @param degree 单位为角度
          */
-        public void onRotate(float degree);
+        void onRotate(float degree);
 
-        public void onFling(float deltaX, float deltaY);
+        void onFling(float deltaX, float deltaY);
     }
 
     private OnTransformListener mListener = null;
@@ -76,7 +74,9 @@ public class MagicImageView extends DarkImageView {
 
     private static enum State {
         NONE, ONE_POINT, TWO_POINT,
-    };
+    }
+
+    ;
 
     private State mState = State.NONE;
     private boolean mIsTranslate = false;
@@ -160,7 +160,7 @@ public class MagicImageView extends DarkImageView {
 
     /**
      * 获取当前缩放值
-     * 
+     *
      * @return
      */
     public float getCurrentScale() {
@@ -255,7 +255,7 @@ public class MagicImageView extends DarkImageView {
 
     private byte[] is2Byte(InputStream inStream) throws Exception {
         byte[] buffer = new byte[1024];
-        int len = -1;
+        int len;
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         while ((len = inStream.read(buffer)) != -1) {
             outStream.write(buffer, 0, len);
@@ -330,7 +330,7 @@ public class MagicImageView extends DarkImageView {
 
     /**
      * 获取当前图片的宽高，考虑了图片的旋转角度
-     * 
+     *
      * @param scale
      * @return
      */
@@ -358,7 +358,7 @@ public class MagicImageView extends DarkImageView {
 
     /**
      * 移动图片，使适应屏幕
-     * 
+     *
      * @param deltaX
      * @param deltaY
      */
@@ -377,13 +377,13 @@ public class MagicImageView extends DarkImageView {
     }
 
     private float getFixTrans(float transSize, float contentSize,
-            float viewSize, boolean isWidth) {
+                              float viewSize, boolean isWidth) {
         return getFixTrans(transSize, contentSize, viewSize, isWidth, true);
     }
 
     /**
      * 得到合适的偏移量
-     * 
+     *
      * @param transSize
      * @param contentSize
      * @param viewSize
@@ -392,7 +392,7 @@ public class MagicImageView extends DarkImageView {
      * @return
      */
     private float getFixTrans(float transSize, float contentSize,
-            float viewSize, boolean isWidth, boolean fixed) {
+                              float viewSize, boolean isWidth, boolean fixed) {
         int degree = 90;
         if (!isWidth) {
             degree = 270;
@@ -432,7 +432,7 @@ public class MagicImageView extends DarkImageView {
 
     /**
      * 得到合适的旋转角度
-     * 
+     *
      * @param degree
      * @return
      */
@@ -441,13 +441,14 @@ public class MagicImageView extends DarkImageView {
             degree += 360;
         }
         degree %= 360;
-        if (degree <= 45 || degree > 315) {
-        } else if (degree > 45 && degree <= 135) {
-            mDegree += 90;
-        } else if (degree > 135 && degree <= 225) {
-            mDegree += 180;
-        } else {
-            mDegree += 270;
+        if (degree > 45 && degree <= 315) {
+            if (degree > 45 && degree <= 135) {
+                mDegree += 90;
+            } else if (degree > 135 && degree <= 225) {
+                mDegree += 180;
+            } else {
+                mDegree += 270;
+            }
         }
         mDegree %= 360;
         if (mListener != null) {
@@ -483,53 +484,53 @@ public class MagicImageView extends DarkImageView {
                 mScaleDetector.onTouchEvent(event);
                 mGestureDetector.onTouchEvent(event);
                 switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (mFling != null) {
-                        mFling.cancelFling();
-                    }
-                    mState = State.ONE_POINT;
-                    lastP1.set(event.getX(), event.getY());
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    switch (mState) {
-                    case ONE_POINT:
-                        // 拖动
-                        performDrag(event);
+                    case MotionEvent.ACTION_DOWN:
+                        if (mFling != null) {
+                            mFling.cancelFling();
+                        }
+                        mState = State.ONE_POINT;
+                        lastP1.set(event.getX(), event.getY());
                         break;
-                    case TWO_POINT:
-                        // 旋转
-                        if (mIsRotateEnabled) {
-                            performRotate(event);
+                    case MotionEvent.ACTION_MOVE:
+                        switch (mState) {
+                            case ONE_POINT:
+                                // 拖动
+                                performDrag(event);
+                                break;
+                            case TWO_POINT:
+                                // 旋转
+                                if (mIsRotateEnabled) {
+                                    performRotate(event);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if (((mReachRight && deltaX > 0) || (mReachLeft && deltaX < 0))
+                                && Math.abs(totalDeltaX) < 100) {
+                            getParent().requestDisallowInterceptTouchEvent(false);
                         }
                         break;
-                    default:
+                    case MotionEvent.ACTION_UP:
+                        mState = State.NONE;
+                        totalDeltaX = 0;
                         break;
-                    }
-                    if (((mReachRight && deltaX > 0) || (mReachLeft && deltaX < 0))
-                            && Math.abs(totalDeltaX) < 100) {
-                        getParent().requestDisallowInterceptTouchEvent(false);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    mState = State.NONE;
-                    totalDeltaX = 0;
-                     break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    if (mState == State.ONE_POINT) {
-                        mState = State.TWO_POINT;
-                        lastP2.set(event.getX(1), event.getY(1));
-                    }
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    mState = State.NONE;
-                    if (!mIsRotate) {
-                        // 自动旋转图片
-                        remainDegree = ModifyDegree(remainDegree);
-                        mRotate = new Rotate(remainDegree);
-                        mRotate.start();
-                        remainDegree = 0;
-                    }
-                    break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        if (mState == State.ONE_POINT) {
+                            mState = State.TWO_POINT;
+                            lastP2.set(event.getX(1), event.getY(1));
+                        }
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        mState = State.NONE;
+                        if (!mIsRotate) {
+                            // 自动旋转图片
+                            remainDegree = ModifyDegree(remainDegree);
+                            mRotate = new Rotate(remainDegree);
+                            mRotate.start();
+                            remainDegree = 0;
+                        }
+                        break;
                 }
                 setImageMatrix(mMatrix);
             }
@@ -538,7 +539,7 @@ public class MagicImageView extends DarkImageView {
 
         /**
          * 拖动图片
-         * 
+         *
          * @param event
          */
         private void performDrag(MotionEvent event) {
@@ -555,7 +556,7 @@ public class MagicImageView extends DarkImageView {
 
         /**
          * 旋转图片
-         * 
+         *
          * @param event
          */
         private void performRotate(MotionEvent event) {
@@ -570,7 +571,7 @@ public class MagicImageView extends DarkImageView {
 
         /**
          * 根据两对坐标点计算旋转角度
-         * 
+         *
          * @param a1
          * @param b1
          * @param a2
@@ -578,7 +579,7 @@ public class MagicImageView extends DarkImageView {
          * @return
          */
         private float calculateDegree(PointF a1, PointF b1, PointF a2, PointF b2) {
-            float degree = 0;
+            float degree;
             double d1, d2;
             d1 = Math.atan((b1.y - a1.y) / (b1.x - a1.x));
             d2 = Math.atan((b2.y - a2.y) / (b2.x - a2.x));
@@ -641,7 +642,7 @@ public class MagicImageView extends DarkImageView {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                float velocityY) {
+                               float velocityY) {
             if (mFling != null) {
                 mFling.cancelFling();
             }
@@ -653,7 +654,7 @@ public class MagicImageView extends DarkImageView {
 
     /**
      * 缩放图片
-     * 
+     *
      * @param deltaScale
      * @param focusX
      * @param focusY
@@ -678,7 +679,7 @@ public class MagicImageView extends DarkImageView {
             mListener.onScale(mNormalizedScale);
         }
 
-        mMatrix.postScale((float) deltaScale, (float) deltaScale, focusX,
+        mMatrix.postScale(deltaScale, deltaScale, focusX,
                 focusY);
         setImageMatrix(mMatrix);
     }
@@ -695,7 +696,7 @@ public class MagicImageView extends DarkImageView {
         private boolean fixTrans = false;
 
         public Scale(float targetScale, float focusX, float focusY,
-                boolean fixTrans) {
+                     boolean fixTrans) {
             startScale = mNormalizedScale;
             this.targetScale = targetScale;
             PointF bitmapPoint = transformCoordTouchToBitmap(focusX, focusY,
@@ -746,7 +747,7 @@ public class MagicImageView extends DarkImageView {
         }
 
         private PointF transformCoordTouchToBitmap(float x, float y,
-                boolean clipToBitmap) {
+                                                   boolean clipToBitmap) {
             float[] m = getMatrixValues(mMatrix);
             float origW = getDrawable().getIntrinsicWidth();
             float origH = getDrawable().getIntrinsicHeight();
@@ -963,7 +964,7 @@ public class MagicImageView extends DarkImageView {
                 minY = maxY = startY;
             }
 
-            scroller.fling(startX, startY, (int) velocityX, (int) velocityY,
+            scroller.fling(startX, startY, velocityX, velocityY,
                     minX, maxX, minY, maxY);
             lastX = startX;
             lastY = startY;

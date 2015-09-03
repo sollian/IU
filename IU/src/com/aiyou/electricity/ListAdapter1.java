@@ -38,7 +38,8 @@ class ListAdapter1 extends BaseAdapter {
         return position;
     }
 
-    @SuppressLint("InflateParams") @Override
+    @SuppressLint("InflateParams")
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -46,12 +47,12 @@ class ListAdapter1 extends BaseAdapter {
             holder = new ViewHolder();
             holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             holder.tv_remain = (TextView) convertView.findViewById(R.id.tv_remain);
-            holder.ll = (LinearLayout)convertView.findViewById(R.id.ll);
+            holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(position % 2 == 1) {
+        if (position % 2 == 1) {
             holder.ll.setBackgroundColor(0xffcccccc);
         } else {
             holder.ll.setBackgroundColor(0xffffffff);

@@ -6,11 +6,12 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.ViewGroup;
+
 import external.smartimageview.SmartImageView;
 
 public class ViewContainer {
     @SuppressLint("UseSparseArrays")
-    private Map<Long, SmartImageView> mSIVMap = new HashMap<Long, SmartImageView>();
+    private Map<Long, SmartImageView> mSIVMap = new HashMap<>();
 
     private Context mContext;
 
@@ -23,8 +24,8 @@ public class ViewContainer {
         for (Long l : mSIVMap.keySet()) {
             if (l < wrapTime) {
                 siv = mSIVMap.get(l);
-                if(siv.getParent() != null) {
-                    ((ViewGroup)siv.getParent()).removeView(siv);
+                if (siv.getParent() != null) {
+                    ((ViewGroup) siv.getParent()).removeView(siv);
                 }
                 mSIVMap.remove(l);
                 l = System.currentTimeMillis();

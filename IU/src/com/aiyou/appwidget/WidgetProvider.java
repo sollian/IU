@@ -22,8 +22,8 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
             int[] appWidgetIds) {
-        for (int i = 0; i < appWidgetIds.length; i++) {
-            updateWidget(context, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            updateWidget(context, appWidgetId);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
@@ -73,7 +73,6 @@ public class WidgetProvider extends AppWidgetProvider {
         intent.setClass(context, WidgetProvider.class);
         intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
         intent.setData(Uri.parse("custom:" + id));
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        return pi;
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 }

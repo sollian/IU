@@ -19,13 +19,13 @@ import com.umeng.analytics.MobclickAgent;
 
 public class IptvManager {
     private static final String SPNAME = "iptv";
-    
-    public static List<Chanel> mChanelList = new ArrayList<Chanel>();
-    
+
+    public static List<Chanel> mChanelList = new ArrayList<>();
+
     private SharedPreferences mSharedPref;
-    
+
     private static IptvManager mInstance;
-    
+
     private IptvManager(Context context) {
         mSharedPref = context.getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
     }
@@ -40,7 +40,7 @@ public class IptvManager {
         }
         return mInstance;
     }
-    
+
     public void saveChanelFrequency(Chanel chanel) {
         SharedPreferences.Editor editor = mSharedPref.edit();
         editor.putLong(chanel.name, chanel.frequency);
@@ -50,25 +50,25 @@ public class IptvManager {
     public long getChanelFrequency(Chanel chanel) {
         return mSharedPref.getLong(chanel.name, 0);
     }
-    
+
     public static List<Chanel> getChanelList() {
-        if(mChanelList == null) {
-            mChanelList = new ArrayList<Chanel>();
+        if (mChanelList == null) {
+            mChanelList = new ArrayList<>();
         }
-        if(!mChanelList.isEmpty()) {
+        if (!mChanelList.isEmpty()) {
             return mChanelList;
         }
         mChanelList.clear();
         String[] str = new String[7];
-        for(int i = 0; i < str.length; i++) {
+        for (int i = 0; i < str.length; i++) {
             str[i] = MobclickAgent.getConfigParams(AiYouApplication.getInstance(), "chanel" + (i + 1));
         }
         String strJson = "";
-        for(int i = 0; i < str.length; i++) {
-            if(TextUtils.isEmpty(str[i])) {
+        for (String aStr : str) {
+            if (TextUtils.isEmpty(aStr)) {
                 return mChanelList;
             }
-            strJson += str[i];
+            strJson += aStr;
         }
         IptvManager mgr = IptvManager.getInstance(AiYouApplication.getInstance());
         try {
@@ -76,7 +76,7 @@ public class IptvManager {
             JSONArray array = JsonHelper.getJSONArray(jsonObject, "chanels");
             if (null != array) {
                 int length = array.length();
-                Chanel chanel = null;
+                Chanel chanel;
                 for (int i = 0; i < length; i++) {
                     chanel = new Chanel(array.opt(i).toString());
                     chanel.frequency = mgr.getChanelFrequency(chanel);
@@ -84,6 +84,7 @@ public class IptvManager {
                 }
             }
         } catch (JSONException e) {
+            e.printStackTrace();
         }
         return mChanelList;
     }

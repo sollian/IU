@@ -60,7 +60,7 @@ public class HttpManager {
     private HttpRequestRetryHandler mRequestRetryHandler = null;
     private ResponseHandler<byte[]> mResponseHandler;
 
-    private ConcurrentHashSet<CustomHttp> mConnSet = new ConcurrentHashSet<CustomHttp>();
+    private ConcurrentHashSet<CustomHttp> mConnSet = new ConcurrentHashSet<>();
 
     private HttpManager(Context context) {
     }
@@ -85,24 +85,23 @@ public class HttpManager {
     }
 
     public byte[] getHttpByte(Context context, String netUrl) {
-        Map<String, String> header = new HashMap<String, String>();
+        Map<String, String> header = new HashMap<>();
         header.put("referer", BBSManager.BBS_URL);
         return getHttpByte(context, netUrl, header);
     }
 
     public byte[] getHttpByte(Context context, String netUrl,
-            Map<String, String> header) {
+                              Map<String, String> header) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
         }
         byte[] result = null;
 
-        HttpGet hg = null;
+        HttpGet hg;
         try {
             hg = new HttpGet(netUrl);
         } catch (IllegalArgumentException e) {
-            Logcat.e(TAG,
-                    "getHttpByte IllegalArgumentException:" + e.getMessage());
+            e.printStackTrace();
             return null;
         }
         if (header != null && !header.isEmpty()) {
@@ -131,23 +130,23 @@ public class HttpManager {
     }
 
     public String postHttp(Context context, String netUrl, HttpEntity entity) {
-        Map<String, String> header = new HashMap<String, String>();
+        Map<String, String> header = new HashMap<>();
         header.put("referer", BBSManager.BBS_URL);
         return postHttp(context, netUrl, entity, header);
     }
 
     public String postHttp(Context context, String netUrl, HttpEntity entity,
-            Map<String, String> header) {
+                           Map<String, String> header) {
         if (TextUtils.isEmpty(netUrl)) {
             return null;
         }
         String result = null;
 
-        HttpPost hp = null;
+        HttpPost hp;
         try {
             hp = new HttpPost(netUrl);
         } catch (IllegalArgumentException e) {
-            Logcat.e(TAG, "postHttp IllegalArgumentException:" + e.getMessage());
+            e.printStackTrace();
             return null;
         }
         if (header != null && !header.isEmpty()) {
@@ -204,7 +203,7 @@ public class HttpManager {
 
     /**
      * 中断某一个Context开启的所有网络连接
-     * 
+     *
      * @param context
      */
     public synchronized void disconnect(Context context) {
@@ -212,7 +211,7 @@ public class HttpManager {
             return;
         }
         String tag = context.getClass().getSimpleName();
-        Set<CustomHttp> temp = new HashSet<CustomHttp>();
+        Set<CustomHttp> temp = new HashSet<>();
         for (CustomHttp http : mConnSet) {
             if (tag.equals(http.getTag())) {
                 http.getHttp().abort();
@@ -273,7 +272,7 @@ public class HttpManager {
         mRequestRetryHandler = new HttpRequestRetryHandler() {
             // 自定义的恢复策略
             public synchronized boolean retryRequest(IOException exception,
-                    int executionCount, HttpContext context) {
+                                                     int executionCount, HttpContext context) {
                 // 设置恢复策略，在发生异常时候将自动重试3次
                 if (executionCount > 3) {
                     // 超过最大次数则不需要重试
@@ -290,11 +289,7 @@ public class HttpManager {
                 HttpRequest request = (HttpRequest) context
                         .getAttribute(ExecutionContext.HTTP_REQUEST);
                 boolean idempotent = (request instanceof HttpEntityEnclosingRequest);
-                if (!idempotent) {
-                    // 请求内容相同则重试
-                    return true;
-                }
-                return false;
+                return !idempotent;
             }
         };
         return mRequestRetryHandler;
@@ -306,7 +301,7 @@ public class HttpManager {
         }
         mResponseHandler = new ResponseHandler<byte[]>() {
             public byte[] handleResponse(HttpResponse response)
-                    throws ClientProtocolException, IOException {
+                    throws IOException {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     return EntityUtils.toByteArray(entity);
@@ -320,7 +315,7 @@ public class HttpManager {
 
     /**
      * 获取HttpClient对象
-     * 
+     *
      * @param context
      * @return
      */

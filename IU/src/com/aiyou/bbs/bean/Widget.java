@@ -10,9 +10,11 @@ import com.aiyou.bbs.utils.BBSManager;
 import com.aiyou.utils.JsonHelper;
 import com.aiyou.utils.http.HttpManager;
 
+import u.aly.ak;
+
 /**
  * widget元数据
- * 
+ *
  * @author sollian
  */
 public class Widget {
@@ -42,19 +44,20 @@ public class Widget {
                 int length = jsonArray.length();
                 articles = new Article[length];
 
-                JSONObject articleObj = null;
+                JSONObject articleObj;
                 for (int i = 0; i < length; i++) {
                     articleObj = (JSONObject) jsonArray.opt(i);
                     articles[i] = new Article(articleObj.toString());
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 获取十大热门话题的信息
-     * 
+     *
      * @return widget元数据
      */
     public static String getTopten(Context context) {

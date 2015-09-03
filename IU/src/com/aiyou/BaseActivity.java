@@ -121,6 +121,7 @@ public class BaseActivity extends SwipeBackActivity implements
         try {
             mSensorManager.unregisterListener(this);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -215,6 +216,7 @@ public class BaseActivity extends SwipeBackActivity implements
             bmp = Bitmap.createBitmap(bmp, 0, statusBarHeight, bmp.getWidth(),
                     bmp.getHeight() - statusBarHeight);
         } catch (OutOfMemoryError e) {
+            e.printStackTrace();
         }
         view.setDrawingCacheEnabled(false);
         return bmp;
@@ -240,7 +242,6 @@ public class BaseActivity extends SwipeBackActivity implements
             Toast.makeText(this, "保存截图失败", Toast.LENGTH_SHORT).show();
             return null;
         }
-        File file = new File(dir + "/" + fileName);
-        return file;
+        return new File(dir + "/" + fileName);
     }
 }

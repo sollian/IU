@@ -58,8 +58,8 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
     private String mId;
 
     private PullToRefreshListView mPTRLV1, mPTRLV2;
-    private List<ConsumeInfo> mList1 = new ArrayList<ConsumeInfo>();
-    private List<BuyEleInfo> mList2 = new ArrayList<BuyEleInfo>();
+    private List<ConsumeInfo> mList1 = new ArrayList<>();
+    private List<BuyEleInfo> mList2 = new ArrayList<>();
     private ListAdapter1 mAdapter1;
     private ListAdapter2 mAdapter2;
     private int mPage1 = 1, mPage2 = 1, mTotalPage1 = 1, mTotalPage2 = 1;
@@ -114,7 +114,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         mIdET.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 switch (actionId) {
                     case EditorInfo.IME_ACTION_DONE:
                         onQuery(null);
@@ -139,7 +139,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         mTag2TV = (TextView) findViewById(R.id.tv_tag2);
         mViewPager = (ViewPager) findViewById(R.id.vp);
 
-        List<View> viewList = new ArrayList<View>();
+        List<View> viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
         View view1 = inflater.inflate(R.layout.electricity_vp_list1, null);
         View view2 = inflater.inflate(R.layout.electricity_vp_list2, null);
@@ -281,7 +281,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
-                Map<String, String> data = new HashMap<String, String>();
+                Map<String, String> data = new HashMap<>();
                 data.put("__EVENTTARGET", "GridView" + target);
                 data.put("__EVENTARGUMENT", "Page$" + page);
                 data.put("__VIEWSTATE", mValue1);
@@ -310,10 +310,7 @@ public class ElectricityActivity extends BaseActivity implements OnRefreshListen
         Pattern p = Pattern
                 .compile("\\d{1,2}\\-\\d{3,4}");
         Matcher m = p.matcher(id);
-        while (m.find()) {
-            return true;
-        }
-        return false;
+        return m.find();
     }
 
     @Override

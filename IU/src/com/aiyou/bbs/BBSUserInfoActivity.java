@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 /**
  * 用户信息
- * 
+ *
  * @author sollian
  */
 public class BBSUserInfoActivity extends BaseActivity {
@@ -29,7 +29,6 @@ public class BBSUserInfoActivity extends BaseActivity {
      * 用户
      */
     private User mUser;
-    private UserInfoLayout mUserInfoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class BBSUserInfoActivity extends BaseActivity {
 
     /**
      * 返回按钮点击事件
-     * 
+     *
      * @param view
      */
     public void selfFinish(View view) {
@@ -67,7 +66,7 @@ public class BBSUserInfoActivity extends BaseActivity {
 
     /**
      * 发送邮件
-     * 
+     *
      * @param view
      */
     public void onSendMail(View view) {
@@ -90,19 +89,19 @@ public class BBSUserInfoActivity extends BaseActivity {
 
     @SuppressWarnings("deprecation")
     private void init() {
-        mUserInfoLayout = (UserInfoLayout) findViewById(R.id.userinfolayout);
+        UserInfoLayout mUserInfoLayout = (UserInfoLayout) findViewById(R.id.userinfolayout);
 
         FrameLayout root = (FrameLayout) findViewById(R.id.rootview);
         /**
          * 设置背景
          */
         Intent intent = getIntent();
-        Bitmap bmp = (Bitmap) intent.getParcelableExtra(ActivityFunc.KEY_BACKGROUND);
+        Bitmap bmp = intent.getParcelableExtra(ActivityFunc.KEY_BACKGROUND);
         if (null != bmp) {
             Drawable drawable = new BitmapDrawable(bmp);
             root.setBackgroundDrawable(drawable);
         } else {
-            int color = 0;
+            int color;
             if (SwitchManager.getInstance(getBaseContext()).isNightModeEnabled()) {
                 color = getResources().getColor(R.color.bbs_background_night);
             } else {

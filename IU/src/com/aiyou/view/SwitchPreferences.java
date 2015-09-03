@@ -4,6 +4,7 @@ package com.aiyou.view;
 import com.aiyou.R;
 
 import external.switchbutton.SwitchButton;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 public class SwitchPreferences extends LinearLayout implements OnCheckedChangeListener {
 
     public interface OnPrefChangeListener {
-        public void onPrefChanged(SwitchPreferences pref, boolean isChecked);
+        void onPrefChanged(SwitchPreferences pref, boolean isChecked);
     }
 
     private TextView mTitleTV;

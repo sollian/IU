@@ -23,7 +23,7 @@ public class ControlScrollViewPager extends ViewPager {
 
     /**
      * 设置是否可以滚动
-     * 
+     *
      * @param enable
      */
     public void setScrollable(boolean enable) {
@@ -32,7 +32,7 @@ public class ControlScrollViewPager extends ViewPager {
 
     /**
      * 查询是否可以滚动
-     * 
+     *
      * @return
      */
     public boolean getScrollable() {
@@ -41,10 +41,6 @@ public class ControlScrollViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (mScrollable) {
-            return super.onInterceptTouchEvent(event);
-        } else {
-            return false;
-        }
+        return mScrollable && super.onInterceptTouchEvent(event);
     }
 }

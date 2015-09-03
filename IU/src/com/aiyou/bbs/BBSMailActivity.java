@@ -20,6 +20,7 @@ import com.aiyou.viewLargeImage.ViewLargeImageActivity;
 import external.otherview.CircleImageView;
 import external.otherview.Win8ProgressBar;
 import external.smartimageview.SmartImageView;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -47,7 +48,7 @@ import android.widget.ImageView.ScaleType;
 
 /**
  * 显示Mail内容
- * 
+ *
  * @author sollian
  */
 public class BBSMailActivity extends BaseActivity {
@@ -61,7 +62,7 @@ public class BBSMailActivity extends BaseActivity {
     private SwitchManager mSwitchMgr;
     private AiYouManager mIUMgr;
 
-    private ArrayList<String> mImgUrlList = new ArrayList<String>();
+    private ArrayList<String> mImgUrlList = new ArrayList<>();
     private int mImgId = 0;
     /**
      * mail变量
@@ -70,7 +71,7 @@ public class BBSMailActivity extends BaseActivity {
     /**
      * 存放webview
      */
-    private ArrayList<WebView> mWebViewList = new ArrayList<WebView>();
+    private ArrayList<WebView> mWebViewList = new ArrayList<>();
 
     private ScrollTextView mTitleSTV;
     private CircleImageView mFaceCIV;
@@ -130,7 +131,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 启动线程的方法
-     * 
+     *
      * @param index
      * @param userId
      */
@@ -188,7 +189,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 显示内容
-     * 
+     *
      * @param ll
      * @param html
      */
@@ -198,9 +199,9 @@ public class BBSMailActivity extends BaseActivity {
 
         mImgUrlList.clear();
 
-        String str = null;
-        String strHtml = null;
-        int index = 0;
+        String str;
+        String strHtml;
+        int index;
         for (int i = 0; i < length; i++) {
             str = array[i].trim();
             if (i != 0 && str.startsWith("=")) {
@@ -223,7 +224,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 显示图片
-     * 
+     *
      * @param ll
      * @param url
      */
@@ -268,7 +269,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 显示webview
-     * 
+     *
      * @param ll
      * @param html
      */
@@ -277,8 +278,8 @@ public class BBSMailActivity extends BaseActivity {
     private void processWebView(LinearLayout ll, String html) {
         html = html.trim().replaceAll("\n", "<br/>");
         html = "<body "
-        // +
-        // "style=\"text-align:justify;text-justify:distribute-all-lines;"
+                // +
+                // "style=\"text-align:justify;text-justify:distribute-all-lines;"
                 + "\">" + html + "</body>";
         if (mSwitchMgr.isNightModeEnabled()) {
             html = "<style type=\"text/css\">body{color:#888888}a:link{color:#00aaaa}</style>"
@@ -319,7 +320,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 回复
-     * 
+     *
      * @param view
      */
     public void onReply(View view) {
@@ -331,7 +332,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 转寄
-     * 
+     *
      * @param view
      */
     public void onForward(View view) {
@@ -363,7 +364,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 获取邮件的线程 由 {@link #startThread(int, String)} 启动
-     * 
+     *
      * @param index
      */
     private void threadGetMail(final int index) {
@@ -407,7 +408,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 转寄邮件的线程 由 {@link #startThread(int, String)} 启动
-     * 
+     *
      * @param index
      * @param userId
      */
@@ -486,11 +487,11 @@ public class BBSMailActivity extends BaseActivity {
         mForwardET.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 switch (actionId) {
-                case EditorInfo.IME_ACTION_SEND:
-                    onForward(null);
-                    break;
+                    case EditorInfo.IME_ACTION_SEND:
+                        onForward(null);
+                        break;
                 }
                 return true;
             }
@@ -499,7 +500,7 @@ public class BBSMailActivity extends BaseActivity {
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {

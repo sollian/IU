@@ -34,6 +34,7 @@ import external.PullToRefresh.PullToRefreshListView;
 import external.PullToRefresh.PullToRefreshBase.OnRefreshListener2;
 import external.otherview.ActivitySplitAnimationUtil;
 import external.otherview.Win8ProgressBar;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,7 +63,7 @@ import android.widget.Toast;
 
 /**
  * 显示新闻列表的Activity
- * 
+ *
  * @author sollian
  */
 public class NewsListActivity extends BaseActivity implements
@@ -86,7 +87,7 @@ public class NewsListActivity extends BaseActivity implements
     private int mCurrentItem = 1;
     private boolean mFlagLoadMore = true;
     // 存储新闻列表
-    private List<News> mNewsList = new ArrayList<News>();
+    private List<News> mNewsList = new ArrayList<>();
     // 当前页数
     private int mCurPage = 1;
     // 总页数
@@ -110,7 +111,6 @@ public class NewsListActivity extends BaseActivity implements
     private Button mNewsBtn, mInformBtn, mHeadlineBtn;
     // 列表
     private PullToRefreshListView mPTRListView;
-    private ListView mListView;
     // 菜单按钮
     private FrameLayout mMenuFLayout;
     // 进度条
@@ -146,8 +146,7 @@ public class NewsListActivity extends BaseActivity implements
             } else if (msg.what == MSG_DOWNLOAD_ERROR) {
                 Toast.makeText(NewsListActivity.this, "文件下载失败",
                         Toast.LENGTH_SHORT).show();
-            }
-            else if (msg.what == MSG_ERROR) {
+            } else if (msg.what == MSG_ERROR) {
                 if (mMode == NewsType.headline) {
                     Toast.makeText(NewsListActivity.this, NetWorkManager.MSG_NONET,
                             Toast.LENGTH_SHORT).show();
@@ -217,7 +216,7 @@ public class NewsListActivity extends BaseActivity implements
         mPTRListView = (PullToRefreshListView) findViewById(R.id.activity_newslist_lv);
         mPTRListView.setOnRefreshListener(this);
         mPTRListView.setShowIndicator(false);
-        mListView = mPTRListView.getRefreshableView();
+        ListView mListView = mPTRListView.getRefreshableView();
         mListView.setOnItemClickListener(this);
         mListView.setOnScrollListener(this);
         mAdapter = new NewsListAdapter(NewsListActivity.this, mNewsList);
@@ -242,7 +241,7 @@ public class NewsListActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         News news = (News) parent.getItemAtPosition(position);
         if (!TextUtils.isEmpty(news.content)) {
             Message msg = mHandler.obtainMessage(MSG_VIEW_CONTENT);
@@ -349,7 +348,7 @@ public class NewsListActivity extends BaseActivity implements
                     }
                     return;
                 }
-                String content = null;
+                String content;
                 if (mMode == NewsType.headline) {
                     // 北邮要闻
                     content = NewsManager.getHeadlineContent(strInfo);
@@ -408,7 +407,7 @@ public class NewsListActivity extends BaseActivity implements
                     }
                     return;
                 }
-                News news = null;
+                News news;
                 getTotalPage(strInfo);
                 if (mMode == NewsType.headline) {
                     news = NewsManager.getHeadlineTitle(strInfo);
@@ -538,7 +537,7 @@ public class NewsListActivity extends BaseActivity implements
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+                         int visibleItemCount, int totalItemCount) {
         if (firstVisibleItem <= 1) {
             mCurrentItem = 1;
             mTitleLLayout.clearAnimation();
@@ -566,12 +565,12 @@ public class NewsListActivity extends BaseActivity implements
 
     /**
      * 显示/隐藏Menu
-     * 
+     *
      * @param flag
      */
     @SuppressWarnings("deprecation")
     private void showPopMenu(boolean flag) {
-        Animation anim = null;
+        Animation anim;
         if (flag) {
             if (View.VISIBLE == mMenuFLayout.getVisibility()) {
                 return;
@@ -630,7 +629,7 @@ public class NewsListActivity extends BaseActivity implements
 
     /**
      * 是否显示标题栏
-     * 
+     *
      * @param flag
      */
     private void showTitle(final boolean flag) {
@@ -769,7 +768,7 @@ public class NewsListActivity extends BaseActivity implements
 
     /**
      * 关闭Activity
-     * 
+     *
      * @param view
      */
     public void selfFinish(View view) {
@@ -782,7 +781,7 @@ public class NewsListActivity extends BaseActivity implements
 
     /**
      * 设置cpb_progress的状态和是否显示
-     * 
+     *
      * @param flag
      */
     private void showProgress(boolean flag) {
@@ -797,25 +796,22 @@ public class NewsListActivity extends BaseActivity implements
 
     /**
      * 判断url地址是否为pdf/doc/xls/ppt/txt文件地址
-     * 
+     *
      * @param urlPath
      * @return
      */
     @SuppressLint("DefaultLocale")
     private boolean isHtmlFile(String urlPath) {
         String url = urlPath.toLowerCase();
-        if (url.contains(".pdf") || url.contains(".doc")
+        return url.contains(".pdf") || url.contains(".doc")
                 || url.contains(".docx") || url.contains(".xls")
                 || url.contains(".xlsx") || url.contains(".ppt")
-                || url.contains(".pptx") || url.contains(".txt")) {
-            return true;
-        }
-        return false;
+                || url.contains(".pptx") || url.contains(".txt");
     }
 
     /**
      * 将下载的文件交给其他应用来显示
-     * 
+     *
      * @param fileURL 文件的网络地址
      */
     @SuppressLint("DefaultLocale")
@@ -834,7 +830,7 @@ public class NewsListActivity extends BaseActivity implements
         }
         String[] arr = fileURL.split("\\.");
         String type = arr[arr.length - 1].toLowerCase();
-        if (type == "pdf") {
+        if ("pdf".equals(type)) {
             type = "application/pdf";
         } else if (type.contains("doc")) {
             type = "application/msword";
