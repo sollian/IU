@@ -314,7 +314,7 @@ public class JsonHelper {
         }
         // 表情
         if (strResult.contains("[em")) {
-            p = Pattern.compile("\\[(em[a|b|c]?\\d+)\\]");
+            p = Pattern.compile("\\[(em[abc]?\\d+)\\]");
             m = p.matcher(strResult);
             String name;
             while (m.find()) {
