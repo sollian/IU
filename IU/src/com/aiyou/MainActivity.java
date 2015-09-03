@@ -172,9 +172,7 @@ public class MainActivity extends BaseActivity {
                     mIUDetailTV.setText(mIUContent);
                 } else {
                     String arr[] = mIUUrl.split("<url>");
-                    if (3 != arr.length) {
-                        return;
-                    } else {
+                    if (3 == arr.length) {
                         Intent intent = null;
                         // 链接到bbs
                         Article article = new Article();
