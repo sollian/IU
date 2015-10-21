@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.umeng.fb.v5.1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/com.umeng.fb.v5.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
