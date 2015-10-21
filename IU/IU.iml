@@ -84,16 +84,17 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="jsoup-1.7.3" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="httpmime-4.1.1" level="project" />
+    <orderEntry type="library" exported="" name="nineoldandroids-library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="com.umeng.message.lib" level="project" />
     <orderEntry type="library" exported="" name="disklrucache-2.0.2" level="project" />
     <orderEntry type="library" exported="" name="com.umeng.fb.v5.1.0" level="project" />
-    <orderEntry type="library" exported="" name="jsoup-1.7.3" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="umeng-analytics-v5.2.4" level="project" />
     <orderEntry type="library" exported="" name="umeng-update-v2.4.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
-    <orderEntry type="library" exported="" name="nineoldandroids-library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="fluffy-commons-1.0.9" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
   </component>
