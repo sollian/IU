@@ -98,7 +98,6 @@ public class BBSLoginActivity extends BaseActivity implements OnClickListener {
                 // 出错
                 Bundle data = msg.getData();
                 String error = data.getString(KEY_ERROR);
-                msg.recycle();
                 if (error == null) {
                     error = NetWorkManager.MSG_NONET;
                 }

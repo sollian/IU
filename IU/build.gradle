@@ -17,10 +17,6 @@ dependencies {
 android {
     signingConfigs {
         config {
-            keyAlias 'sollian'
-            keyPassword '123456'
-            storeFile file('D:/android sdk/aiyou.keystore')
-            storePassword '123456'
         }
     }
     compileSdkVersion 21

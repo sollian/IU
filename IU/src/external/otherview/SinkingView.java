@@ -1,11 +1,5 @@
 package external.otherview;
 
-import java.lang.ref.WeakReference;
-
-import com.aiyou.AiYouApplication;
-import com.aiyou.R;
-import com.aiyou.utils.AiYouManager;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+
+import com.aiyou.AiYouApplication;
+import com.aiyou.R;
+import com.aiyou.utils.AiYouManager;
+
+import java.lang.ref.WeakReference;
 
 public class SinkingView extends FrameLayout {
 
@@ -22,7 +22,7 @@ public class SinkingView extends FrameLayout {
 
     private static final int DEFAULT_TEXTCOLOT = 0xff0074a2;
     private static final int DEFAULT_TEXTSIZE = AiYouManager.getInstance(
-            AiYouApplication.getInstance()).sp2px(20);
+        AiYouApplication.getInstance()).sp2px(20);
 
     private static WeakReference<Bitmap> mScaledBitmap;
     private static int mRepeatCount = 0;
@@ -78,43 +78,46 @@ public class SinkingView extends FrameLayout {
         super.dispatchDraw(canvas);
 
         if (mFlag == Status.RUNNING) {
-            if (mScaledBitmap == null || mScaledBitmap.get() == null
-                    || mScaledBitmap.get().isRecycled()) {
-                initScaledBmp();
-            }
-
             for (int idx = 0; idx < mRepeatCount; idx++) {
-                canvas.drawBitmap(mScaledBitmap.get(), mLeft + (idx - 1)
-                        * mScaledBitmap.get().getWidth(), -mPercent
-                        * getHeight(), null);
+                canvas.drawBitmap(getScaledBmp(), mLeft + (idx - 1)
+                    * getScaledBmp().getWidth(), -mPercent
+                    * getHeight(), null);
             }
             String str = (int) (mPercent * 100) + "%";
             mPaint.setColor(mTextColot);
             mPaint.setTextSize(mTextSize);
             canvas.drawText(str, (getWidth() - mPaint.measureText(str)) / 2,
-                    getHeight() / 2 + mTextSize / 2, mPaint);
+                getHeight() / 2 + mTextSize / 2, mPaint);
             mLeft += mSpeed;
-            if (mLeft >= mScaledBitmap.get().getWidth())
+            if (mLeft >= getScaledBmp().getWidth())
                 mLeft = 0;
             postInvalidateDelayed(20);
         }
     }
 
+    private Bitmap getScaledBmp() {
+        if (mScaledBitmap == null || mScaledBitmap.get() == null
+            || mScaledBitmap.get().isRecycled()) {
+            initScaledBmp();
+        }
+        return mScaledBitmap.get();
+    }
+
     private synchronized void initScaledBmp() {
         if (mScaledBitmap != null && mScaledBitmap.get() != null
-                && !mScaledBitmap.get().isRecycled()) {
+            && !mScaledBitmap.get().isRecycled()) {
             return;
         }
         Bitmap bmp = null;
         try {
             bmp = BitmapFactory.decodeResource(getContext().getResources(),
-                    R.drawable.wave);
+                R.drawable.wave);
             bmp = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), getHeight(),
-                    false);
+                false);
             mRepeatCount = (int) Math.ceil(getWidth() / bmp.getWidth() + 0.5) + 1;
         } catch (OutOfMemoryError e) {
             bmp = BitmapFactory.decodeResource(getContext().getResources(),
-                    R.drawable.touch_image_view);
+                R.drawable.touch_image_view);
         }
         mScaledBitmap = new WeakReference<Bitmap>(bmp);
     }
