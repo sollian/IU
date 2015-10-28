@@ -7,9 +7,7 @@ import com.aiyou.BaseActivity;
 import com.aiyou.R;
 import com.aiyou.utils.filecache.FileManager;
 
-import java.io.InputStream;
-
-import external.largeimage.LargeImageView;
+import external.largeimage.LongImageView;
 
 /**
  * Created by sollian on 2015/10/28.
@@ -17,7 +15,7 @@ import external.largeimage.LargeImageView;
 public class ViewLongImageActivity extends BaseActivity {
     public static final String KEY_URL = "url";
 
-    private LargeImageView vLarge;
+    private LongImageView vLarge;
     private byte[] inputStream;
 
     @Override
@@ -47,7 +45,7 @@ public class ViewLongImageActivity extends BaseActivity {
     }
 
     private void init() {
-        vLarge = (LargeImageView) findViewById(R.id.long_img);
-        vLarge.setByte(inputStream);
+        vLarge = (LongImageView) findViewById(R.id.long_img);
+        vLarge.setImage(inputStream);
     }
 }

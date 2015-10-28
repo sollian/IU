@@ -1,181 +1,281 @@
+/*
+Copyright 2015 shizhefei（LuckyJayce）
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+   http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
 package external.largeimage;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
+import android.util.Log;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-/**
- * Created by zhy on 15/5/16.
- */
-public class LargeImageView extends View {
-    private BitmapRegionDecoder mDecoder;
-    /**
-     * 图片的宽度和高度
-     */
-    private int mImageWidth, mImageHeight;
-    /**
-     * 绘制的区域
-     */
-    private volatile Rect mRect = new Rect();
+import external.largeimage.ImageManager.DrawData;
 
-    private MoveGestureDetector mDetector;
+public class LargeImageView extends UpdateView implements IPhotoView,
+    ImageManager.OnImageLoadListenner {
 
-
-    private static final BitmapFactory.Options options = new BitmapFactory.Options();
-
-    static {
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
+    public LargeImageView(Context context) {
+        super(context);
+        imageManager = new ImageManager(context);
     }
-
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-    public void setInputStream(InputStream is) {
-        try {
-            mDecoder = BitmapRegionDecoder.newInstance(is, false);
-            BitmapFactory.Options tmpOptions = new BitmapFactory.Options();
-            // Grab the bounds for the scene dimensions
-            tmpOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(is, null, tmpOptions);
-            mImageWidth = tmpOptions.outWidth;
-            mImageHeight = tmpOptions.outHeight;
-
-            requestLayout();
-            invalidate();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-
-            try {
-                if (is != null) is.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void setByte(byte[] data) {
-        try {
-            mDecoder = BitmapRegionDecoder.newInstance(data, 0, data.length, false);
-            BitmapFactory.Options tmpOptions = new BitmapFactory.Options();
-            // Grab the bounds for the scene dimensions
-            tmpOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeByteArray(data, 0, data.length, tmpOptions);
-            mImageWidth = tmpOptions.outWidth;
-            mImageHeight = tmpOptions.outHeight;
-
-            requestLayout();
-            invalidate();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void init() {
-        mDetector = new MoveGestureDetector(getContext(), new MoveGestureDetector.SimpleMoveGestureDetector() {
-            @Override
-            public boolean onMove(MoveGestureDetector detector) {
-                int moveX = (int) detector.getMoveX();
-                int moveY = (int) detector.getMoveY();
-
-                if (mImageWidth > getWidth()) {
-                    mRect.offset(-moveX, 0);
-                    checkWidth();
-                    invalidate();
-                }
-                if (mImageHeight > getHeight()) {
-                    mRect.offset(0, -moveY);
-                    checkHeight();
-                    invalidate();
-                }
-
-                return true;
-            }
-        });
-    }
-
-
-    private void checkWidth() {
-
-
-        Rect rect = mRect;
-        int imageWidth = mImageWidth;
-        int imageHeight = mImageHeight;
-
-        if (rect.right > imageWidth) {
-            rect.right = imageWidth;
-            rect.left = imageWidth - getWidth();
-        }
-
-        if (rect.left < 0) {
-            rect.left = 0;
-            rect.right = getWidth();
-        }
-    }
-
-
-    private void checkHeight() {
-
-        Rect rect = mRect;
-        int imageWidth = mImageWidth;
-        int imageHeight = mImageHeight;
-
-        if (rect.bottom > imageHeight) {
-            rect.bottom = imageHeight;
-            rect.top = imageHeight - getHeight();
-        }
-
-        if (rect.top < 0) {
-            rect.top = 0;
-            rect.bottom = getHeight();
-        }
-    }
-
 
     public LargeImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        imageManager = new ImageManager(context);
+    }
+
+    public LargeImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        imageManager = new ImageManager(context);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public LargeImageView(Context context, AttributeSet attrs,
+                          int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        imageManager = new ImageManager(context);
+    }
+
+    public void setScale(float scale, float offsetX, float offsetY) {
+        mScale.setScale(scale);
+        mScale.setFromX((int) offsetX);
+        mScale.setFromY((int) offsetY);
+        notifyInvalidate();
+    }
+
+    public int getImageWidth() {
+        if (imageManager != null) {
+            return imageManager.getWidth();
+        }
+        return 0;
+    }
+
+    public int getImageHeight() {
+        if (imageManager != null) {
+            return imageManager.getHeight();
+        }
+        return 0;
+    }
+
+    public Scale getScale() {
+        return mScale;
+    }
+
+    private Scale mScale = new Scale(1, 0, 0);
+    private ImageManager imageManager;
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        imageManager.start(this);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mDetector.onToucEvent(event);
-        return true;
+    protected void onDetachedFromWindow() {
+        imageManager.destroy();
+        super.onDetachedFromWindow();
     }
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
+    private Drawable drawable;
+
+    public void setDefaulImage(Drawable drawable) {
+        this.drawable = drawable;
+    }
+
+    public void setImage(String filePath) {
+        mScale.setScale(1);
+        mScale.fromX = 0;
+        mScale.fromY = 0;
+        imageManager.load(filePath);
+    }
+
+    public void setImage(InputStream inputStream) {
+        mScale.setScale(1);
+        mScale.fromX = 0;
+        mScale.fromY = 0;
+        imageManager.load(inputStream);
+    }
+
+    public void setImage(byte[] data) {
+        mScale.setScale(1);
+        mScale.fromX = 0;
+        mScale.fromY = 0;
+        imageManager.load(data);
+    }
+
+    @Override
+    protected void onUpdateWindow(Rect visiableRect) {
+        preInvalidateTime = SystemClock.uptimeMillis();
+        runnable = null;
+        invalidate(getCacheVisiableRect());
+    }
+
+    private volatile long preInvalidateTime;
+    private volatile Runnable runnable;
+
+    // 1000毫秒/60帧 = 16.6666秒 一帧 = 17秒 一帧
+    private static final int LOOP_TIME = 17;
+
+    private void notifyInvalidate() {
+        // 避免更新太过频繁，设置最小LOOP_TIME毫秒的更新间隔
+
+        // 和上次的间隔时间
+        long deltaTime = SystemClock.uptimeMillis() - preInvalidateTime;
+        if (runnable != null) {
+            return;
+        }
+        if (deltaTime < LOOP_TIME) {
+            LargeImageView.this.postDelayed(runnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    preInvalidateTime = SystemClock.uptimeMillis();
+                    runnable = null;
+                    Log.d("eeee", "preInvalidateTime:" + preInvalidateTime);
+                    invalidate(getCacheVisiableRect());
+                }
+            }, LOOP_TIME - deltaTime);
+        } else {
+            // 处于主线程执行invalidate操作，否则post到主线程上执行ui操作
+            if (Looper.getMainLooper() == Looper.myLooper()) {
+                preInvalidateTime = SystemClock.uptimeMillis();
+                runnable = null;
+                Log.d("eeee", "preInvalidateTime:" + preInvalidateTime);
+                invalidate(getCacheVisiableRect());
+            } else {
+                LargeImageView.this.post(runnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        preInvalidateTime = SystemClock.uptimeMillis();
+                        runnable = null;
+                        Log.d("eeee", "preInvalidateTime:" + preInvalidateTime);
+                        invalidate(getCacheVisiableRect());
+                    }
+                });
+            }
+        }
+    }
+
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
-        Bitmap bm = mDecoder.decodeRegion(mRect, options);
-        canvas.drawBitmap(bm, 0, 0, null);
+        if (getWidth() == 0) {
+            return;
+        }
+
+        Log.d("countTime", "----------------- mScale.scale" + mScale.scale);
+
+        long startTime = SystemClock.uptimeMillis();
+
+        Rect visiableRect = getCacheVisiableRect();
+
+        Log.d("countTime", "getVisiableRect "
+            + (SystemClock.uptimeMillis() - startTime));
+        startTime = SystemClock.uptimeMillis();
+
+        Log.d("cccc", "onDraw onUpdateWindow " + visiableRect);
+        if (!imageManager.hasLoad()) {
+            if (drawable != null) {
+                int saveCount = canvas.save();
+                drawable.draw(canvas);
+                canvas.restoreToCount(saveCount);
+            }
+            return;
+        }
+
+        int saveCount = canvas.save();
+        canvas.clipRect(visiableRect);
+
+        Log.d("countTime", "clipRect "
+            + (SystemClock.uptimeMillis() - startTime));
+        startTime = SystemClock.uptimeMillis();
+
+        float width = mScale.scale * getWidth();
+        int imgWidth = imageManager.getWidth();
+
+        Log.d("countTime", "getWidth "
+            + (SystemClock.uptimeMillis() - startTime));
+
+        float imageScale = imgWidth / width;
+
+        // 需要显示的图片的实际宽度。
+        Rect imageRect = new Rect();
+        imageRect.left = (int) Math.ceil((visiableRect.left + mScale.fromX)
+            * imageScale);
+        imageRect.top = (int) Math.ceil((visiableRect.top + mScale.fromY)
+            * imageScale);
+        imageRect.right = (int) Math.ceil((visiableRect.right + mScale.fromX)
+            * imageScale);
+        imageRect.bottom = (int) Math.ceil((visiableRect.bottom + mScale.fromY)
+            * imageScale);
+
+        Log.d("countTime", "imageScale "
+            + (SystemClock.uptimeMillis() - startTime));
+        startTime = SystemClock.uptimeMillis();
+
+        List<DrawData> drawData = imageManager.getDrawData(imageScale,
+            imageRect);
+
+        Log.d("countTime", "getDrawData "
+            + (SystemClock.uptimeMillis() - startTime));
+        startTime = SystemClock.uptimeMillis();
+
+        for (DrawData data : drawData) {
+            Rect drawRect = data.imageRect;
+            drawRect.left = (int) (drawRect.left / imageScale - mScale.fromX);
+            drawRect.top = (int) (drawRect.top / imageScale - mScale.fromY);
+            drawRect.right = (int) (Math.ceil(drawRect.right / imageScale) - mScale.fromX);
+            drawRect.bottom = (int) (Math.ceil(drawRect.bottom / imageScale) - mScale.fromY);
+            canvas.drawBitmap(data.bitmap, data.srcRect, drawRect, null);
+        }
+
+        Log.d("countTime", "draw " + (SystemClock.uptimeMillis() - startTime));
+        startTime = SystemClock.uptimeMillis();
+
+        canvas.restoreToCount(saveCount);
+    }
+
+    private Rect getCacheVisiableRect() {
+        Rect visiableRect = getVisiableRect();
+        int cache = dip2px(getContext(), 100);
+        visiableRect.right += cache;
+        visiableRect.top -= cache;
+        visiableRect.left -= cache;
+        visiableRect.bottom += cache;
+        return visiableRect;
+    }
+
+    public static int dip2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-
-        int imageWidth = mImageWidth;
-        int imageHeight = mImageHeight;
-
-        mRect.left = imageWidth / 2 - width / 2;
-        mRect.top = 0;//imageHeight / 2 - height / 2;
-        mRect.right = mRect.left + width;
-        mRect.bottom = mRect.top + height;
-
+    public void onBlockImageLoadFinished() {
+        notifyInvalidate();
     }
 
-
+    @Override
+    public void onImageLoadFinished(int imageWidth, int imageHeight) {
+        notifyInvalidate();
+    }
 }
