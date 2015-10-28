@@ -1,18 +1,6 @@
 
 package com.aiyou.utils.filecache;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-
-import com.aiyou.utils.logcat.Logcat;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -22,6 +10,19 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Base64;
+
+import com.aiyou.utils.logcat.Logcat;
+
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 public class FileManager {
     private static final String TAG = FileManager.class.getSimpleName();
@@ -91,6 +92,23 @@ public class FileManager {
                 updateFileTime(path);
             }
             return data;
+        }
+        return null;
+    }
+
+    public InputStream getFileStream(final String url) {
+        String dir = mDirPath;
+        if (dir == null) {
+            return null;
+        }
+        final String path = dir + "/" + convertUrlToFileName(url);
+        File file = new File(path);
+        if (file.exists()) {
+            try {
+                return new FileInputStream(path);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -302,14 +320,13 @@ public class FileManager {
         String dir = null;
         if (isSDMounted() && dirName != null) {
             dir = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + dirName;// 获取根目录
+                .getAbsolutePath() + dirName;// 获取根目录
         }
         return dir;
     }
 
     /**
      * 检查SD卡是否可用，该函数需启动时调用
-     *
      */
     public static boolean checkSDCard() {
         return !(!isSDMounted() || !isSDSpaceEnough());
@@ -323,7 +340,7 @@ public class FileManager {
     private static boolean isSDMounted() {
         if (!mSDMounted) {
             mSDMounted = Environment.getExternalStorageState().equals(
-                    android.os.Environment.MEDIA_MOUNTED);
+                android.os.Environment.MEDIA_MOUNTED);
         }
         return mSDMounted;
     }
@@ -333,24 +350,14 @@ public class FileManager {
      */
     private static boolean isSDSpaceEnough() {
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-                .getPath());
+            .getPath());
         @SuppressWarnings("deprecation")
         double sdFreeMB = ((double) stat.getAvailableBlocks() * (double) stat
-                .getBlockSize()) / 1024 / 1024;
+            .getBlockSize()) / 1024 / 1024;
         return sdFreeMB > FREE_SD_SPACE_NEEDED_TO_CACHE;
     }
 
-    public static void close(OutputStream stream) {
-        if (stream != null) {
-            try {
-                stream.close();
-            } catch (IOException e) {
-                Logcat.e(TAG, "close IOException");
-            }
-        }
-    }
-
-    public static void close(InputStream stream) {
+    public static void close(Closeable stream) {
         if (stream != null) {
             try {
                 stream.close();
@@ -370,8 +377,8 @@ public class FileManager {
     public static boolean isImage(String fileName) {
         fileName = fileName.toLowerCase();
         return fileName.endsWith("jpg") || fileName.endsWith("jpeg")
-                || fileName.endsWith("png") || fileName.endsWith("gif")
-                || fileName.endsWith("bmp");
+            || fileName.endsWith("png") || fileName.endsWith("gif")
+            || fileName.endsWith("bmp");
     }
 
     /**
@@ -396,7 +403,7 @@ public class FileManager {
         String bmpName = null;
         if (url != null) {
             bmpName = Base64.encodeToString(url.getBytes(), Base64.NO_PADDING | Base64.NO_WRAP)
-                    + BMP_SUFFIX;
+                + BMP_SUFFIX;
         }
         return bmpName;
     }

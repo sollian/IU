@@ -68,6 +68,20 @@
             android:text="@string/dynamic_bmp"
             android:textColor="?font_white" />
 
+        <Button
+            android:id="@+id/bt_long_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?background_directory"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/long_bmp"
+            android:textColor="?font_white"
+            android:visibility="gone"
+            />
+
     </LinearLayout>
 
     <FrameLayout

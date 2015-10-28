@@ -22,6 +22,7 @@
     <string name="night_day">日间|夜间</string>
     <string name="register">注册通道</string>
     <string name="dynamic_bmp">动图</string>
+    <string name="long_bmp">长图</string>
     <string name="share">分享网页</string>
     <string name="copy">复制地址</string>
     <string name="login">登录</string>

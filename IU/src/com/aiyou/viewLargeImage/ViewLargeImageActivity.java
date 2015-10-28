@@ -1,20 +1,9 @@
 package com.aiyou.viewLargeImage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.aiyou.BaseActivity;
-import com.aiyou.R;
-import com.aiyou.utils.SwitchManager;
-import com.aiyou.utils.share.ShareTask;
-import com.aiyou.utils.share.ShareTask.ShareListener;
-
-import external.otherview.Win8ProgressBar;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
@@ -23,13 +12,26 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.aiyou.BaseActivity;
+import com.aiyou.R;
+import com.aiyou.utils.ActivityFunc;
+import com.aiyou.utils.SwitchManager;
+import com.aiyou.utils.share.ShareTask;
+import com.aiyou.utils.share.ShareTask.ShareListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import external.otherview.Win8ProgressBar;
+
 /**
  * 查看大图
  *
  * @author sollian
  */
 public class ViewLargeImageActivity extends BaseActivity implements
-        ViewPager.OnPageChangeListener {
+    ViewPager.OnPageChangeListener {
     public static final String KEY_NEWS = "news";
     public static final String KEY_CUR_SEL = "current_selected";
     public static final String KEY_URL_LIST = "url_list";
@@ -71,7 +73,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
             Intent intent = getIntent();
             @SuppressWarnings("unchecked")
             List<String> tempList = (ArrayList<String>) intent
-                    .getSerializableExtra(KEY_URL_LIST);
+                .getSerializableExtra(KEY_URL_LIST);
             if (tempList == null || tempList.isEmpty()) {
                 selfFinish(null);
                 return;
@@ -92,7 +94,7 @@ public class ViewLargeImageActivity extends BaseActivity implements
             mUrlList.clear();
             mUrlList.addAll(Arrays.asList(arr));
             curSel = Integer
-                    .parseInt(savedInstanceState.getString(KEY_CUR_SEL));
+                .parseInt(savedInstanceState.getString(KEY_CUR_SEL));
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 mTitleFL.setVisibility(View.GONE);
                 ((FrameLayout.LayoutParams) mViewPager.getLayoutParams()).topMargin = 0;
@@ -119,16 +121,31 @@ public class ViewLargeImageActivity extends BaseActivity implements
         mProgressBar = (Win8ProgressBar) findViewById(R.id.progress_bar);
         mTitleTV = (TextView) findViewById(R.id.activity_view_large_image_tv_title);
         mDynamicBtn = (Button) findViewById(R.id.activity_view_large_image_bt);
+        View vLongImg = findViewById(R.id.bt_long_img);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+            vLongImg.setVisibility(View.VISIBLE);
+            vLongImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = mUrlList.get(mViewPager.getCurrentItem());
+                    Intent intent = new Intent(ViewLargeImageActivity.this, ViewLongImageActivity.class);
+                    intent.putExtra(ViewLongImageActivity.KEY_URL, url);
+                    ActivityFunc.startActivity(ViewLargeImageActivity.this, intent);
+                }
+            });
+        } else {
+            vLongImg.setVisibility(View.GONE);
+        }
 
         mViewPager = (ViewPager) findViewById(R.id.activity_view_large_image_vp);
         mViewPager.setOnPageChangeListener(this);
 
         if (flag
-                && !SwitchManager.getInstance(getBaseContext())
-                .isNightModeEnabled()) {
+            && !SwitchManager.getInstance(getBaseContext())
+            .isNightModeEnabled()) {
             mTitleTV.setBackgroundColor(Color.parseColor("#aae46600"));
             mDynamicBtn
-                    .setBackgroundResource(R.drawable.background_large_image_orange);
+                .setBackgroundResource(R.drawable.background_large_image_orange);
         }
     }
 
@@ -136,8 +153,8 @@ public class ViewLargeImageActivity extends BaseActivity implements
         if (view == mDynamicBtn) {
             // 查看大图->动图|静图切换
             if (mDynamicBtn.getText().equals(
-                    getBaseContext().getResources().getString(
-                            R.string.dynamic_bmp))) {
+                getBaseContext().getResources().getString(
+                    R.string.dynamic_bmp))) {
                 mDynamicBtn.setText("返回");
                 mAdapter.showDynamic();
             } else {
@@ -155,17 +172,17 @@ public class ViewLargeImageActivity extends BaseActivity implements
             urlImg = urlImg.substring(index);
         }
         ShareTask task = new ShareTask(ViewLargeImageActivity.this, urlImg,
-                new ShareListener() {
-                    @Override
-                    public void onShareStart() {
-                        showProgress(true);
-                    }
+            new ShareListener() {
+                @Override
+                public void onShareStart() {
+                    showProgress(true);
+                }
 
-                    @Override
-                    public void onShareFinish(Boolean success) {
-                        showProgress(false);
-                    }
-                });
+                @Override
+                public void onShareFinish(Boolean success) {
+                    showProgress(false);
+                }
+            });
         task.execute();
     }
 
