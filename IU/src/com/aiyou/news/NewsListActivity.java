@@ -439,13 +439,13 @@ public class NewsListActivity extends BaseActivity implements
             showPopMenu(false);
         } else if (R.id.activity_newslist_bt_inform == nId) {
             // 校园通告
-            selectTag(NewsType.inform);
+//            selectTag(NewsType.inform);
         } else if (R.id.activity_newslist_bt_news == nId) {
             // 校园新闻
-            selectTag(NewsType.news);
+//            selectTag(NewsType.news);
         } else if (R.id.activity_newslist_bt_headline == nId) {
             // 北邮要闻
-            selectTag(NewsType.headline);
+//            selectTag(NewsType.headline);
         } else if (R.id.activity_newslist_menu_bt_night == nId) {
             // 日间|夜间模式切换
             if (mSwitchMgr.isNightModeEnabled()) {
@@ -717,53 +717,53 @@ public class NewsListActivity extends BaseActivity implements
         mHttpMgr.disconnect(getBaseContext());
         mMode = type;
         refresh();
-        switch (type) {
-            case headline:
-                if (!mSwitchMgr.isNightModeEnabled()) {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_day);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_day);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_pressed_day);
-                } else {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_night);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_night);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_pressed_night);
-                }
-                break;
-            case inform:
-                if (!mSwitchMgr.isNightModeEnabled()) {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_pressed_day);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_day);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_day);
-                } else {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_pressed_night);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_night);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_night);
-                }
-                break;
-            case news:
-                if (!mSwitchMgr.isNightModeEnabled()) {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_day);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_pressed_day);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_day);
-                } else {
-                    mInformBtn
-                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_night);
-                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_pressed_night);
-                    mHeadlineBtn
-                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_night);
-                }
-                break;
-        }
+//        switch (type) {
+//            case headline:
+//                if (!mSwitchMgr.isNightModeEnabled()) {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_day);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_day);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_pressed_day);
+//                } else {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_night);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_night);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_pressed_night);
+//                }
+//                break;
+//            case inform:
+//                if (!mSwitchMgr.isNightModeEnabled()) {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_pressed_day);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_day);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_day);
+//                } else {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_pressed_night);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_unpressed_night);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_night);
+//                }
+//                break;
+//            case news:
+//                if (!mSwitchMgr.isNightModeEnabled()) {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_day);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_pressed_day);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_day);
+//                } else {
+//                    mInformBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_left_unpressed_night);
+//                    mNewsBtn.setBackgroundResource(R.drawable.background_news_title_middle_pressed_night);
+//                    mHeadlineBtn
+//                            .setBackgroundResource(R.drawable.background_news_title_right_unpressed_night);
+//                }
+//                break;
+//        }
     }
 
     /**

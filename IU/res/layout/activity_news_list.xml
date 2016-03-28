@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- NewsListActivity布局 -->
+<?xml version="1.0" encoding="utf-8"?><!-- NewsListActivity布局 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/activity_newlist_fl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?background_newslist"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <external.PullToRefresh.PullToRefreshListView
-            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        <external.PullToRefresh.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/activity_newslist_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?background_newslist_title"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="50dp"
@@ -53,7 +51,7 @@
                 android:layout_weight="100"
                 android:background="#00000000"
                 android:gravity="center"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/activity_newslist_bt_inform"
@@ -63,7 +61,8 @@
                     android:onClick="onClick"
                     android:padding="5dp"
                     android:text="@string/inform"
-                    android:textColor="?font_white" />
+                    android:textColor="?font_white"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/activity_newslist_bt_news"
@@ -75,17 +74,19 @@
                     android:onClick="onClick"
                     android:padding="5dp"
                     android:text="@string/news"
-                    android:textColor="?font_white" />
+                    android:textColor="?font_white"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/activity_newslist_bt_headline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?background_news_title_right_pressed"
+                    android:background="@null"
                     android:onClick="onClick"
                     android:padding="5dp"
                     android:text="@string/headline"
                     android:textColor="?font_white" />
+                <!--android:background="?background_news_title_right_pressed"-->
             </LinearLayout>
 
             <ImageView
@@ -103,7 +104,7 @@
     <FrameLayout
         android:id="@+id/activity_newslist_fr_progress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <external.otherview.Win8ProgressBar
             android:id="@+id/progress_bar"
@@ -120,7 +121,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:onClick="onClick"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/activity_newslist_menu_iv_back"
@@ -136,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/activity_newslist_menu_bt_night"

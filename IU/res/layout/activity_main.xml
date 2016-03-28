@@ -1,6 +1,6 @@
 <!-- MainActivity布局 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.aiyou" >
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <ImageView
         android:id="@+id/bg"

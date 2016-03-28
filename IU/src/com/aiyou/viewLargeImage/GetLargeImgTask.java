@@ -105,11 +105,11 @@ public class GetLargeImgTask extends AsyncTask<Void, Integer, byte[]> {
                 return false;
             }
             publishProgress(i);
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                return false;
-            }
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
         }
         return true;
     }
